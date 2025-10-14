@@ -1,0 +1,36 @@
+{
+  "name": "be-pharmacy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osomeansbear/BE-Pharmacy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osomeansbear/BE-Pharmacy/issues"
+  },
+  "homepage": "https://github.com/osomeansbear/BE-Pharmacy#readme",
+  "dependencies": {
+    "@casl/ability": "^6.7.3",
+    "@casl/prisma": "^1.5.2",
+    "@prisma/client": "^6.17.1",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.17.1"
+  }
+}

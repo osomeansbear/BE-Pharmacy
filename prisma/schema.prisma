@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model addresses {
+  id           BigInt    @id @default(autoincrement())
+  user_id      BigInt?
+  full_name    String?   @db.VarChar(100)
+  phone        String?   @db.VarChar(20)
+  address_line String?
+  city         String?   @db.VarChar(100)
+  province     String?   @db.VarChar(100)
+  postal_code  String?   @db.VarChar(20)
+  is_default   Boolean?  @default(false)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  users        users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model brands {
+  id          BigInt     @id @default(autoincrement())
+  name        String     @unique @db.VarChar(100)
+  description String?
+  created_at  DateTime?  @default(now()) @db.Timestamp(6)
+  products    products[]
+}
+
+model cart_items {
+  id         BigInt    @id @default(autoincrement())
+  cart_id    BigInt?
+  product_id BigInt?
+  quantity   Int?      @default(1)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  carts      carts?    @relation(fields: [cart_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  products   products? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model carts {
+  id         BigInt       @id @default(autoincrement())
+  user_id    BigInt?
+  created_at DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at DateTime?    @default(now()) @db.Timestamp(6)
+  cart_items cart_items[]
+  users      users?       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model categories {
+  id          BigInt     @id @default(autoincrement())
+  name        String     @unique @db.VarChar(100)
+  description String?
+  created_at  DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?  @default(now()) @db.Timestamp(6)
+  products    products[]
+}
+
+model order_items {
+  id         BigInt    @id @default(autoincrement())
+  order_id   BigInt?
+  product_id BigInt?
+  quantity   Int?
+  price      Decimal?  @db.Decimal(10, 2)
+  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  products   products? @relation(fields: [product_id], references: [id], onUpdate: NoAction)
+}
+
+model orders {
+  id                    BigInt          @id @default(autoincrement())
+  user_id               BigInt?
+  total_amount          Decimal?        @db.Decimal(10, 2)
+  status                order_status?   @default(pending)
+  payment_method        payment_method? @default(cod)
+  prescription_required Boolean?        @default(false)
+  created_at            DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?       @default(now()) @db.Timestamp(6)
+  order_items           order_items[]
+  users                 users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  prescriptions         prescriptions[]
+
+  @@index([status])
+  @@index([user_id])
+}
+
+model pharmacists {
+  id            BigInt          @id @default(autoincrement())
+  user_id       BigInt?
+  license_no    String?         @db.VarChar(100)
+  approved      Boolean?        @default(false)
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  users         users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  prescriptions prescriptions[]
+}
+
+model prescriptions {
+  id            BigInt               @id @default(autoincrement())
+  order_id      BigInt?
+  pharmacist_id BigInt?
+  image_url     String?              @db.VarChar(255)
+  status        prescription_status? @default(pending)
+  remarks       String?
+  created_at    DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?            @default(now()) @db.Timestamp(6)
+  orders        orders?              @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  pharmacists   pharmacists?         @relation(fields: [pharmacist_id], references: [id], onUpdate: NoAction)
+}
+
+model products {
+  id            BigInt          @id @default(autoincrement())
+  name          String          @db.VarChar(150)
+  description   String?
+  price         Decimal?        @db.Decimal(10, 2)
+  stock         Int?            @default(0)
+  expiry_date   DateTime?       @db.Date
+  category_id   BigInt?
+  brand_id      BigInt?
+  dosage_info   String?
+  is_active     Boolean?        @default(true)
+  created_at    DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
+  cart_items    cart_items[]
+  order_items   order_items[]
+  brands        brands?         @relation(fields: [brand_id], references: [id], onUpdate: NoAction)
+  categories    categories?     @relation(fields: [category_id], references: [id], onUpdate: NoAction)
+  subscriptions subscriptions[]
+
+  @@index([brand_id])
+  @@index([category_id])
+  @@index([name])
+}
+
+model promotions {
+  id               BigInt    @id @default(autoincrement())
+  title            String?   @db.VarChar(150)
+  description      String?
+  discount_percent Int?
+  start_date       DateTime? @db.Timestamp(6)
+  end_date         DateTime? @db.Timestamp(6)
+  is_active        Boolean?  @default(true)
+}
+
+model subscriptions {
+  id                   BigInt    @id @default(autoincrement())
+  user_id              BigInt?
+  product_id           BigInt?
+  refill_interval_days Int?
+  next_refill_date     DateTime? @db.Timestamp(6)
+  created_at           DateTime? @default(now()) @db.Timestamp(6)
+  products             products? @relation(fields: [product_id], references: [id], onUpdate: NoAction)
+  users                users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model users {
+  id             BigInt          @id @default(autoincrement())
+  name           String?         @db.VarChar(100)
+  email          String          @unique @db.VarChar(150)
+  password       String          @db.VarChar(255)
+  phone          String?         @db.VarChar(20)
+  role           user_role?      @default(customer)
+  loyalty_points Int?            @default(0)
+  is_active      Boolean?        @default(true)
+  created_at     DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?       @default(now()) @db.Timestamp(6)
+  addresses      addresses[]
+  carts          carts[]
+  orders         orders[]
+  pharmacists    pharmacists[]
+  subscriptions  subscriptions[]
+
+  @@index([email])
+  @@index([role])
+}
+
+enum order_status {
+  pending
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+enum payment_method {
+  cod
+  credit_card
+  e_wallet
+}
+
+enum prescription_status {
+  pending
+  approved
+  rejected
+}
+
+enum user_role {
+  guest
+  customer
+  pharmacist
+  admin
+}
