@@ -7,7 +7,8 @@ class UserRepository extends BaseRepository {
   }
 
   async findByEmail(email) {
-    return prisma.users.findUnique({ where: { email } });
+    const user = await this.findByField("email", email);
+    return user ? { ...user, id: Number(user.id) } : null;
   }
 
   async findByRole(role) {

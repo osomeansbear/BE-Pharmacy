@@ -13,7 +13,14 @@ class BaseRepository {
   }
 
   async findById(id, include = {}) {
-    return this.model.findUnique({ where: { id }, include });
+    return this.model.findUnique({
+      where: { id: BigInt(id) },
+      include,
+    });
+  }
+
+  async findByField(field, value, include = {}) {
+    return this.model.findUnique({ where: { [field]: value }, include });
   }
 
   async create(data) {
