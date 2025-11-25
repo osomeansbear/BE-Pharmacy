@@ -40,6 +40,7 @@ const userService = {
       token,
     };
   },
+
   async deleteUser(id) {
     const user = await UserRepository.findById(id);
     if (!user) {

@@ -20,7 +20,10 @@ class BaseRepository {
   }
 
   async findByField(field, value, include = {}) {
-    return this.model.findUnique({ where: { [field]: value }, include });
+    return this.model.findUnique({
+      where: { [field]: value },
+      include,
+    });
   }
 
   async create(data) {
