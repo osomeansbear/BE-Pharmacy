@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.delete("/delete/:id", userController.deleteUser);
 router.patch("/update/:id", userController.updateUser);
-router.get("/", userController.getAllUsers);
 router.get("/detail/:id", userController.getUserById);
+router.get("/", userController.getAllUsers);
 module.exports = router;
