@@ -23,21 +23,14 @@ const userService = {
       phone,
     });
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: Number(newUser.id), email: newUser.email, role: newUser.role },
-      process.env.JWT_SECRET || "secretkey",
-      { expiresIn: "7d" }
-    );
     return {
       message: "User registered successfully",
       user: {
-        id: Number(newUser.id),
+        id: newUser.id,
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
       },
-      token,
     };
   },
 

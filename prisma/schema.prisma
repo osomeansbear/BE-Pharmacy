@@ -74,7 +74,7 @@ model orders {
   user_id        Int?
   address_id     Int?
   total_amount   Decimal?      @db.Decimal
-  status         String?       @db.VarChar
+  status         OrderStatus?  @default(Pending)
   payment_method String?       @db.VarChar
   created_at     DateTime?     @db.Timestamp(6)
   updated_at     DateTime?     @db.Timestamp(6)
@@ -98,7 +98,7 @@ model prescriptions {
   user_id       Int?
   pharmacist_id Int?
   image_url     String?             @db.VarChar
-  status        PrescriptionStatus?
+  status        PrescriptionStatus? @default(Pending)
   refills_total Int?                @default(0)
   refills_used  Int?                @default(0)
   expiry_date   DateTime?           @db.Date
@@ -126,8 +126,8 @@ model products {
   updated_at                                                 DateTime?           @db.Timestamp(6)
   ai_consultations                                           ai_consultations[]
   cart_items                                                 cart_items[]
-  drug_interactions_drug_interactions_product_id_aToproducts drug_interactions[] @relation("drug_interactions_product_id_aToproducts")
-  drug_interactions_drug_interactions_product_id_bToproducts drug_interactions[] @relation("drug_interactions_product_id_bToproducts")
+  interactionsAsA                                            drug_interactions[] @relation("RelationA")
+  interactionsAsB                                            drug_interactions[] @relation("RelationB")
   order_items                                                order_items[]
   brands                                                     brands?             @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   categories                                                 categories?         @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -139,7 +139,7 @@ model users {
   email                String?               @unique @db.VarChar
   password             String?               @db.VarChar
   phone                String?               @db.VarChar
-  role                 Role?
+  role                 Role?                 @default(patient)
   loyalty_points       Int?                  @default(0)
   is_active            Boolean?              @default(true)
   created_at           DateTime?             @default(now()) @db.Timestamp(6)
@@ -172,8 +172,8 @@ model drug_interactions {
   product_id_b                                      Int?
   severity                                          Severity?
   description                                       String?
-  products_drug_interactions_product_id_aToproducts products? @relation("drug_interactions_product_id_aToproducts", fields: [product_id_a], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  products_drug_interactions_product_id_bToproducts products? @relation("drug_interactions_product_id_bToproducts", fields: [product_id_b], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productA                                          products? @relation("RelationA", fields: [product_id_a], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productB                                          products? @relation("RelationB", fields: [product_id_b], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -202,4 +202,12 @@ enum Severity {
   Low
   Moderate
   Severe
+}
+
+enum OrderStatus {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
 }

@@ -8,7 +8,7 @@ class UserRepository extends BaseRepository {
 
   async findByEmail(email) {
     const user = await this.findByField("email", email);
-    return user ? { ...user, id: Number(user.id) } : null;
+    return user ? { ...user } : null;
   }
 
   async findByRole(role) {
