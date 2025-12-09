@@ -1,5 +1,6 @@
 const express = require("express");
 const userController = require("../controllers/user.controller.js");
+const addressController = require("../controllers/address.controller.js");
 
 const router = express.Router();
 
@@ -8,5 +9,6 @@ const router = express.Router();
 router.delete("/delete/:id", userController.deleteUser);
 router.patch("/update/:id", userController.updateUser);
 router.get("/detail/:id", userController.getUserById);
+router.post("/detail/address", addressController.createAddress);
 router.get("/", userController.getAllUsers);
 module.exports = router;

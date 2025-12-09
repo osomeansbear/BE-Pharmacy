@@ -8,195 +8,198 @@ datasource db {
 }
 
 model addresses {
-  id           BigInt    @id @default(autoincrement())
-  user_id      BigInt?
-  full_name    String?   @db.VarChar(100)
-  phone        String?   @db.VarChar(20)
-  address_line String?
-  city         String?   @db.VarChar(100)
-  province     String?   @db.VarChar(100)
-  postal_code  String?   @db.VarChar(20)
+  id           Int       @id @default(autoincrement())
+  user_id      Int?
+  full_name    String?   @db.VarChar
+  phone        String?   @db.VarChar
+  address_line String?   @db.VarChar
+  city         String?   @db.VarChar
+  province     String?   @db.VarChar
+  postal_code  String?   @db.VarChar
   is_default   Boolean?  @default(false)
-  created_at   DateTime? @default(now()) @db.Timestamp(6)
-  users        users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  created_at   DateTime? @db.Timestamp(6)
+  users        users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders       orders[]
 }
 
 model brands {
-  id          BigInt     @id @default(autoincrement())
-  name        String     @unique @db.VarChar(100)
+  id          Int        @id @default(autoincrement())
+  name        String?    @db.VarChar
   description String?
-  created_at  DateTime?  @default(now()) @db.Timestamp(6)
+  created_at  DateTime?  @db.Timestamp(6)
   products    products[]
 }
 
 model cart_items {
-  id         BigInt    @id @default(autoincrement())
-  cart_id    BigInt?
-  product_id BigInt?
-  quantity   Int?      @default(1)
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  carts      carts?    @relation(fields: [cart_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  products   products? @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id         Int       @id @default(autoincrement())
+  cart_id    Int?
+  product_id Int?
+  quantity   Int?
+  created_at DateTime? @db.Timestamp(6)
+  carts      carts?    @relation(fields: [cart_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products   products? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model carts {
-  id         BigInt       @id @default(autoincrement())
-  user_id    BigInt?
-  created_at DateTime?    @default(now()) @db.Timestamp(6)
-  updated_at DateTime?    @default(now()) @db.Timestamp(6)
+  id         Int          @id @default(autoincrement())
+  user_id    Int?
+  created_at DateTime?    @db.Timestamp(6)
+  updated_at DateTime?    @db.Timestamp(6)
   cart_items cart_items[]
-  users      users?       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model categories {
-  id          BigInt     @id @default(autoincrement())
-  name        String     @unique @db.VarChar(100)
+  id          Int        @id @default(autoincrement())
+  name        String?    @db.VarChar
   description String?
-  created_at  DateTime?  @default(now()) @db.Timestamp(6)
-  updated_at  DateTime?  @default(now()) @db.Timestamp(6)
+  created_at  DateTime?  @db.Timestamp(6)
   products    products[]
 }
 
 model order_items {
-  id         BigInt    @id @default(autoincrement())
-  order_id   BigInt?
-  product_id BigInt?
-  quantity   Int?
-  price      Decimal?  @db.Decimal(10, 2)
-  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  products   products? @relation(fields: [product_id], references: [id], onUpdate: NoAction)
+  id              Int            @id @default(autoincrement())
+  order_id        Int?
+  product_id      Int?
+  prescription_id Int?
+  quantity        Int?
+  price           Decimal?       @db.Decimal
+  orders          orders?        @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  prescriptions   prescriptions? @relation(fields: [prescription_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products        products?      @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model orders {
-  id                    BigInt          @id @default(autoincrement())
-  user_id               BigInt?
-  total_amount          Decimal?        @db.Decimal(10, 2)
-  status                order_status?   @default(pending)
-  payment_method        payment_method? @default(cod)
-  prescription_required Boolean?        @default(false)
-  created_at            DateTime?       @default(now()) @db.Timestamp(6)
-  updated_at            DateTime?       @default(now()) @db.Timestamp(6)
-  order_items           order_items[]
-  users                 users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  prescriptions         prescriptions[]
-
-  @@index([status])
-  @@index([user_id])
+  id             Int           @id @default(autoincrement())
+  user_id        Int?
+  address_id     Int?
+  total_amount   Decimal?      @db.Decimal
+  status         String?       @db.VarChar
+  payment_method String?       @db.VarChar
+  created_at     DateTime?     @db.Timestamp(6)
+  updated_at     DateTime?     @db.Timestamp(6)
+  order_items    order_items[]
+  addresses      addresses?    @relation(fields: [address_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users          users?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model pharmacists {
-  id            BigInt          @id @default(autoincrement())
-  user_id       BigInt?
-  license_no    String?         @db.VarChar(100)
+  id            Int             @id @default(autoincrement())
+  user_id       Int?
+  license_no    String?         @unique @db.VarChar
   approved      Boolean?        @default(false)
-  created_at    DateTime?       @default(now()) @db.Timestamp(6)
-  users         users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  created_at    DateTime?       @db.Timestamp(6)
+  users         users?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   prescriptions prescriptions[]
 }
 
 model prescriptions {
-  id            BigInt               @id @default(autoincrement())
-  order_id      BigInt?
-  pharmacist_id BigInt?
-  image_url     String?              @db.VarChar(255)
-  status        prescription_status? @default(pending)
+  id            Int                 @id @default(autoincrement())
+  user_id       Int?
+  pharmacist_id Int?
+  image_url     String?             @db.VarChar
+  status        PrescriptionStatus?
+  refills_total Int?                @default(0)
+  refills_used  Int?                @default(0)
+  expiry_date   DateTime?           @db.Date
   remarks       String?
-  created_at    DateTime?            @default(now()) @db.Timestamp(6)
-  updated_at    DateTime?            @default(now()) @db.Timestamp(6)
-  orders        orders?              @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  pharmacists   pharmacists?         @relation(fields: [pharmacist_id], references: [id], onUpdate: NoAction)
+  created_at    DateTime?           @db.Timestamp(6)
+  updated_at    DateTime?           @db.Timestamp(6)
+  order_items   order_items[]
+  pharmacists   pharmacists?        @relation(fields: [pharmacist_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users         users?              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model products {
-  id            BigInt          @id @default(autoincrement())
-  name          String          @db.VarChar(150)
-  description   String?
-  price         Decimal?        @db.Decimal(10, 2)
-  stock         Int?            @default(0)
-  expiry_date   DateTime?       @db.Date
-  category_id   BigInt?
-  brand_id      BigInt?
-  dosage_info   String?
-  is_active     Boolean?        @default(true)
-  created_at    DateTime?       @default(now()) @db.Timestamp(6)
-  updated_at    DateTime?       @default(now()) @db.Timestamp(6)
-  cart_items    cart_items[]
-  order_items   order_items[]
-  brands        brands?         @relation(fields: [brand_id], references: [id], onUpdate: NoAction)
-  categories    categories?     @relation(fields: [category_id], references: [id], onUpdate: NoAction)
-  subscriptions subscriptions[]
-
-  @@index([brand_id])
-  @@index([category_id])
-  @@index([name])
-}
-
-model promotions {
-  id               BigInt    @id @default(autoincrement())
-  title            String?   @db.VarChar(150)
-  description      String?
-  discount_percent Int?
-  start_date       DateTime? @db.Timestamp(6)
-  end_date         DateTime? @db.Timestamp(6)
-  is_active        Boolean?  @default(true)
-}
-
-model subscriptions {
-  id                   BigInt    @id @default(autoincrement())
-  user_id              BigInt?
-  product_id           BigInt?
-  refill_interval_days Int?
-  next_refill_date     DateTime? @db.Timestamp(6)
-  created_at           DateTime? @default(now()) @db.Timestamp(6)
-  products             products? @relation(fields: [product_id], references: [id], onUpdate: NoAction)
-  users                users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                                                         Int                 @id @default(autoincrement())
+  category_id                                                Int?
+  brand_id                                                   Int?
+  name                                                       String?             @db.VarChar
+  description                                                String?
+  price                                                      Decimal?            @db.Decimal
+  dosage_info                                                String?             @db.VarChar
+  requires_prescription                                      Boolean?            @default(false)
+  stock                                                      Int?
+  expiry_date                                                DateTime?           @db.Date
+  is_active                                                  Boolean?            @default(true)
+  created_at                                                 DateTime?           @db.Timestamp(6)
+  updated_at                                                 DateTime?           @db.Timestamp(6)
+  ai_consultations                                           ai_consultations[]
+  cart_items                                                 cart_items[]
+  drug_interactions_drug_interactions_product_id_aToproducts drug_interactions[] @relation("drug_interactions_product_id_aToproducts")
+  drug_interactions_drug_interactions_product_id_bToproducts drug_interactions[] @relation("drug_interactions_product_id_bToproducts")
+  order_items                                                order_items[]
+  brands                                                     brands?             @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  categories                                                 categories?         @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
-  id             BigInt          @id @default(autoincrement())
-  name           String?         @db.VarChar(100)
-  email          String          @unique @db.VarChar(150)
-  password       String          @db.VarChar(255)
-  phone          String?         @db.VarChar(20)
-  role           user_role?      @default(customer)
-  loyalty_points Int?            @default(0)
-  is_active      Boolean?        @default(true)
-  created_at     DateTime?       @default(now()) @db.Timestamp(6)
-  updated_at     DateTime?       @default(now()) @db.Timestamp(6)
-  addresses      addresses[]
-  carts          carts[]
-  orders         orders[]
-  pharmacists    pharmacists[]
-  subscriptions  subscriptions[]
-
-  @@index([email])
-  @@index([role])
+  id                   Int                   @id @default(autoincrement())
+  name                 String?               @db.VarChar
+  email                String?               @unique @db.VarChar
+  password             String?               @db.VarChar
+  phone                String?               @db.VarChar
+  role                 Role?
+  loyalty_points       Int?                  @default(0)
+  is_active            Boolean?              @default(true)
+  created_at           DateTime?             @default(now()) @db.Timestamp(6)
+  updated_at           DateTime?             @db.Timestamp(6)
+  addresses            addresses[]
+  ai_consultations     ai_consultations[]
+  carts                carts[]
+  orders               orders[]
+  pharmacists          pharmacists[]
+  prescriptions        prescriptions[]
+  user_health_profiles user_health_profiles?
 }
 
-enum order_status {
-  pending
-  processing
-  shipped
-  delivered
-  cancelled
-  refunded
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model ai_consultations {
+  id                   Int       @id @default(autoincrement())
+  user_id              Int?
+  symptoms_input       String?
+  ai_analysis          String?
+  suggested_product_id Int?
+  created_at           DateTime? @default(now()) @db.Timestamp(6)
+  products             products? @relation(fields: [suggested_product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users                users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum payment_method {
-  cod
-  credit_card
-  e_wallet
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model drug_interactions {
+  id                                                Int       @id @default(autoincrement())
+  product_id_a                                      Int?
+  product_id_b                                      Int?
+  severity                                          Severity?
+  description                                       String?
+  products_drug_interactions_product_id_aToproducts products? @relation("drug_interactions_product_id_aToproducts", fields: [product_id_a], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products_drug_interactions_product_id_bToproducts products? @relation("drug_interactions_product_id_bToproducts", fields: [product_id_b], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum prescription_status {
-  pending
-  approved
-  rejected
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user_health_profiles {
+  user_id             Int       @id
+  allergies           String?
+  chronic_conditions  String?
+  current_medications String?
+  updated_at          DateTime? @db.Timestamp(6)
+  users               users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-enum user_role {
-  guest
-  customer
+enum PrescriptionStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+enum Role {
+  patient
   pharmacist
   admin
+}
+
+enum Severity {
+  Low
+  Moderate
+  Severe
 }
