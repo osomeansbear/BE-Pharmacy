@@ -3,6 +3,7 @@ const userRoutes = require("./user.route.js");
 const authRoutes = require("./auth.route.js");
 const brandRoutes = require("./brand.route.js");
 const categoryRoutes = require("./category.route.js");
+const productRoutes = require("./product.route.js");
 const { verifyUser } = require("../middlewares/authenticaton.js");
 const router = express.Router();
 
@@ -17,5 +18,8 @@ router.use("/brands", brandRoutes);
 
 // Category routes
 router.use("/categories", categoryRoutes);
+
+// Product routes
+router.use("/products", productRoutes);
 
 module.exports = router;

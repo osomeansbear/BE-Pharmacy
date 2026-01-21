@@ -1,5 +1,4 @@
 const BaseRepository = require("./base.repository.js");
-const prisma = require("../config/db.js");
 
 class BrandRepository extends BaseRepository {
   constructor() {

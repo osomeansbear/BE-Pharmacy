@@ -1,5 +1,4 @@
 const BaseRepository = require("./base.repository.js");
-const prisma = require("../config/db.js");
 
 class UserRepository extends BaseRepository {
   constructor() {
@@ -12,28 +11,32 @@ class UserRepository extends BaseRepository {
   }
 
   async findByRole(role) {
-    return prisma.users.findMany({ where: { role } });
+    const user = await this.findMany({ where: { role } });
+    return user ? { ...user } : null;
   }
 
   async activateUser(id) {
-    return prisma.users.update({
+    const user = await this.update({
       where: { id },
       data: { is_active: true },
     });
+    return user ? { ...user } : null;
   }
 
   async deactivateUser(id) {
-    return prisma.users.update({
+    const user = await this.update({
       where: { id },
       data: { is_active: false },
     });
+    return user ? { ...user } : null;
   }
 
   async addLoyaltyPoints(id, points) {
-    return prisma.users.update({
+    const user = await this.update({
       where: { id },
       data: { loyalty_points: { increment: points } },
     });
+    return user ? { ...user } : null;
   }
 }
 

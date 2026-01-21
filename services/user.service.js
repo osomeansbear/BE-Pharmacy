@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const UserRepository = require("../repositories/user.repository.js");
 const { generateToken } = require("../utils/jwt.js");
-
+const UserMapper = require("../mappers/user.mapper.js");
 const userService = {
   async register(data) {
     const { name, email, password, phone } = data;
@@ -94,11 +94,11 @@ const userService = {
       throw new Error("Invalid credentials");
     }
     const token = generateToken(user);
-    return {
-      user: { ...user, id: Number(user.id) },
-      token,
-      message: "Login Successful",
-    };
+
+    const loginuser = UserMapper.mapToLogin(user, token);
+    // loginuser (user,token)
+
+    return loginuser;
   },
 };
 

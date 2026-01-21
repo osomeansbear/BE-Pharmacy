@@ -3,13 +3,18 @@ const dotenv = require("dotenv");
 const routes = require("./routes/index.js");
 const prisma = require("./config/db.js");
 const app = express();
+const cors = require("cors");
+const morgan = require("morgan");
+const corsOptions = require("./config/cors.js");
 
+// Logger
+app.use(morgan("dev"));
 // Basic route
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
-app.use("/api/v1", routes);
+app.use("/api/v1", cors(corsOptions), routes);
 
 async function startServer() {
   try {

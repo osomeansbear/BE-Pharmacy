@@ -1,77 +1,74 @@
-const userService = require("../services/user.service.js");
+// controllers/user.controller.js
+const BaseController = require("./base.controller");
+const userService = require("../services/user.service");
 
-const userController = {
-  async register(req, res) {
+class UserController extends BaseController {
+  // Dùng arrow function để bind 'this' tự động, tránh lỗi mất context
+  register = async (req, res) => {
     try {
+      // Giả sử userService.register đã trả về { User: ... } qua Mapper
       const result = await userService.register(req.body);
-      res.status(201).json(result);
+
+      this.success(res, result, "Register successful", 201);
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      this.error(res, err);
     }
-  },
-  async deleteUser(req, res) {
+  };
+
+  deleteUser = async (req, res) => {
     try {
       const result = await userService.deleteUser(req.params.id);
-      res.status(200).json({ message: result.message, userId: result.userId });
+      // result có thể là { userId: 123 }
+      this.success(res, result, result.message || "User deleted successfully");
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      this.error(res, err);
     }
-  },
+  };
 
-  async updateUser(req, res) {
+  updateUser = async (req, res) => {
     try {
       const result = await userService.updateUser(req.params.id, req.body);
-      result.User.id = Number(result.User.id);
-      res
-        .status(200)
-        .json({ updatedUser: result.User, message: result.message });
+      // result: { User: updatedUser }
+      this.success(res, { updatedUser: result.User }, result.message);
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      this.error(res, err);
     }
-  },
+  };
 
-  async getUserById(req, res) {
+  getUserById = async (req, res) => {
     try {
       const result = await userService.getUserById(req.params.id);
-      result.User.id = Number(result.User.id);
-      res.status(200).json({ User: result.User, message: result.message });
+      this.success(res, { User: result.User }, result.message);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      // BaseController sẽ tự xử lý status code
+      this.error(res, err);
     }
-  },
-  async getAllUsers(req, res) {
+  };
+
+  getAllUsers = async (req, res) => {
     try {
       const result = await userService.getAllUsers();
-      console.log(result);
-      for (i = 0; i < result.Users.length; i++) {
-        result.Users[i].id = Number(result.Users[i].id);
-        delete result.Users[i].password;
-      }
-      res.status(200).json({ Users: result.Users, message: result.message });
+      // Không cần vòng lặp for để convert ID hay xóa password ở đây nữa
+      // Mapper trong Service đã làm việc đó rồi.
+      this.success(res, { Users: result.Users }, result.message);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      this.error(res, err);
     }
-  },
+  };
 
-  async loginUser(req, res) {
+  loginUser = async (req, res) => {
     try {
-      const result = await userService.loginUser(
-        req.body.email,
-        req.body.password
-      );
+      const { email, password } = req.body;
+      const result = await userService.loginUser(email, password);
 
-      console.log(result);
-      res
-        .status(200)
-        .json({
-          User: result.user,
-          message: result.message,
-          token: result.token,
-        });
+      // result từ service Login (đã qua Mapper) thường có dạng:
+      // { message: "...", data: { user: ..., token: ... } }
+      // Ta lấy data để trả về
+      this.success(res, result, "Login successful");
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      this.error(res, err);
     }
-  },
-};
+  };
+}
 
-module.exports = userController;
+module.exports = new UserController();

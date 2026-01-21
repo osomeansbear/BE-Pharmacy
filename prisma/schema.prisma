@@ -7,183 +7,327 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model addresses {
-  id           Int       @id @default(autoincrement())
-  user_id      Int?
-  full_name    String?   @db.VarChar
-  phone        String?   @db.VarChar
-  address_line String?   @db.VarChar
-  city         String?   @db.VarChar
-  province     String?   @db.VarChar
-  postal_code  String?   @db.VarChar
-  is_default   Boolean?  @default(false)
-  created_at   DateTime? @db.Timestamp(6)
-  users        users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  orders       orders[]
+// ==========================================
+// 1. NHÓM QUẢN LÝ SẢN PHẨM & ĐƠN VỊ TÍNH (CORE)
+// ==========================================
+
+model products {
+  id          Int  @id @default(autoincrement())
+  category_id Int?
+  brand_id    Int?
+
+  name        String  @db.VarChar
+  description String? @db.Text
+  image_url   String? @db.VarChar
+
+  // 🔥 AI SUPPORT FIELDS (Downscope AI)
+  // AI sẽ đọc các trường này để tư vấn thay vì query database phức tạp
+  indications        String? @db.Text // Chỉ định (Chữa bệnh gì?)
+  active_ingredients String? @db.Text // Hoạt chất (VD: "Paracetamol 500mg") -> Check dị ứng
+  contraindications  String? @db.Text // Chống chỉ định/Cảnh báo
+  usage_instructions String? @db.Text // Liều dùng
+
+  // Cờ quản lý
+  requires_prescription Boolean @default(false)
+  is_active             Boolean @default(true)
+
+  // Cache tồn kho tổng (Tính theo Đơn vị cơ bản - Base Unit)
+  total_stock Int @default(0)
+
+  created_at DateTime  @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @updatedAt @db.Timestamp(6)
+
+  // RELATIONS
+  brands     brands?     @relation(fields: [brand_id], references: [id])
+  categories categories? @relation(fields: [category_id], references: [id])
+
+  // ✅ 1. Quản lý Đóng gói (Hộp/Vỉ/Viên)
+  units product_units[]
+
+  // ✅ 2. Kho & Nhập hàng
+  product_batches      product_batches[]
+  purchase_order_items purchase_order_items[]
+
+  // ✅ 3. Bán hàng & Tư vấn
+  ai_consultations ai_consultations[]
+  cart_items       cart_items[]
+  order_items      order_items[]
+}
+
+// ✅ MODEL MỚI: QUẢN LÝ ĐƠN VỊ TÍNH (PACKAGING)
+// Xử lý việc: Hộp (chứa vỉ), Lọ (chứa viên), Vỉ (chứa viên), Ống, Gói...
+model product_units {
+  id         Int @id @default(autoincrement())
+  product_id Int
+
+  unit_name String @db.VarChar // VD: "Hộp", "Vỉ", "Viên", "Lọ", "Gói", "Ống"
+
+  // Tỷ lệ quy đổi ra đơn vị nhỏ nhất (Base Unit)
+  // Ví dụ: Thuốc A quản lý kho theo Viên.
+  // - Unit "Viên": factor = 1
+  // - Unit "Vỉ" (10 viên): factor = 10
+  // - Unit "Hộp" (10 vỉ): factor = 100
+  conversion_factor Int @default(1)
+
+  price Decimal @db.Decimal // Giá bán riêng cho đơn vị này
+
+  is_base_unit Boolean @default(false) // Đánh dấu đây là đơn vị gốc để tính tồn kho
+  is_default   Boolean @default(false) // Đơn vị hiển thị mặc định khi khách xem
+
+  // Relations
+  product     products      @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  cart_items  cart_items[]
+  order_items order_items[]
+}
+
+model product_batches {
+  id           Int    @id @default(autoincrement())
+  product_id   Int
+  batch_number String @db.VarChar // Mã lô
+
+  // Tồn kho thực tế (Lưu theo Base Unit - Đơn vị nhỏ nhất)
+  stock Int @default(0)
+
+  expiry_date        DateTime  @db.Date
+  manufacturing_date DateTime? @db.Date
+  created_at         DateTime  @default(now()) @db.Timestamp(6)
+
+  products    products      @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  order_items order_items[]
 }
 
 model brands {
   id          Int        @id @default(autoincrement())
-  name        String?    @db.VarChar
+  name        String     @db.VarChar
   description String?
-  created_at  DateTime?  @db.Timestamp(6)
   products    products[]
-}
-
-model cart_items {
-  id         Int       @id @default(autoincrement())
-  cart_id    Int?
-  product_id Int?
-  quantity   Int?
-  created_at DateTime? @db.Timestamp(6)
-  carts      carts?    @relation(fields: [cart_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  products   products? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model carts {
-  id         Int          @id @default(autoincrement())
-  user_id    Int?
-  created_at DateTime?    @db.Timestamp(6)
-  updated_at DateTime?    @db.Timestamp(6)
-  cart_items cart_items[]
-  users      users?       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model categories {
   id          Int        @id @default(autoincrement())
-  name        String?    @db.VarChar
+  name        String     @db.VarChar
   description String?
-  created_at  DateTime?  @db.Timestamp(6)
   products    products[]
 }
 
-model order_items {
-  id              Int            @id @default(autoincrement())
-  order_id        Int?
-  product_id      Int?
-  prescription_id Int?
-  quantity        Int?
-  price           Decimal?       @db.Decimal
-  orders          orders?        @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  prescriptions   prescriptions? @relation(fields: [prescription_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  products        products?      @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+// ==========================================
+// 2. NHÓM NHẬP KHO (PURCHASE ORDERS)
+// ==========================================
+
+model suppliers {
+  id             Int     @id @default(autoincrement())
+  name           String  @db.VarChar
+  contact_person String? @db.VarChar
+  phone          String? @db.VarChar
+  email          String? @db.VarChar
+  is_active      Boolean @default(true)
+
+  purchase_orders purchase_orders[]
+}
+
+model purchase_orders {
+  id            Int                 @id @default(autoincrement())
+  supplier_id   Int?
+  total_amount  Decimal?            @db.Decimal
+  status        PurchaseOrderStatus @default(Pending)
+  notes         String?
+  received_date DateTime?           @db.Timestamp(6)
+  created_at    DateTime            @default(now()) @db.Timestamp(6)
+
+  suppliers suppliers?             @relation(fields: [supplier_id], references: [id])
+  items     purchase_order_items[]
+}
+
+model purchase_order_items {
+  id                Int @id @default(autoincrement())
+  purchase_order_id Int
+  product_id        Int
+
+  quantity  Int // Số lượng nhập (Thường nhập theo đơn vị lớn nhất, nhưng quy đổi ra base unit khi lưu kho)
+  unit_cost Decimal @db.Decimal
+
+  // Thông tin lô hàng tạo mới
+  batch_number       String    @db.VarChar
+  expiry_date        DateTime  @db.Date
+  manufacturing_date DateTime? @db.Date
+
+  purchase_orders purchase_orders @relation(fields: [purchase_order_id], references: [id], onDelete: Cascade)
+  products        products        @relation(fields: [product_id], references: [id])
+}
+
+// ==========================================
+// 3. NHÓM BÁN HÀNG (ECOMMERCE CART & ORDER)
+// ==========================================
+
+model carts {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?     @unique // 1 User 1 Cart
+  updated_at DateTime @updatedAt
+
+  cart_items cart_items[]
+  users      users?       @relation(fields: [user_id], references: [id])
+}
+
+model cart_items {
+  id         Int @id @default(autoincrement())
+  cart_id    Int
+  product_id Int
+
+  // ✅ Khách chọn mua theo đơn vị nào? (Hộp hay Vỉ)
+  product_unit_id Int
+
+  quantity Int @default(1)
+
+  carts    carts         @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  products products      @relation(fields: [product_id], references: [id])
+  unit     product_units @relation(fields: [product_unit_id], references: [id])
 }
 
 model orders {
-  id             Int           @id @default(autoincrement())
-  user_id        Int?
-  address_id     Int?
-  total_amount   Decimal?      @db.Decimal
-  status         OrderStatus?  @default(Pending)
-  payment_method String?       @db.VarChar
-  created_at     DateTime?     @db.Timestamp(6)
-  updated_at     DateTime?     @db.Timestamp(6)
-  order_items    order_items[]
-  addresses      addresses?    @relation(fields: [address_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users          users?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id         Int  @id @default(autoincrement())
+  user_id    Int?
+  address_id Int?
+
+  total_amount   Decimal     @db.Decimal
+  status         OrderStatus @default(Pending)
+  payment_method String?     @db.VarChar
+
+  created_at DateTime  @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @updatedAt @db.Timestamp(6)
+
+  order_items order_items[]
+  addresses   addresses?    @relation(fields: [address_id], references: [id])
+  users       users?        @relation(fields: [user_id], references: [id])
+}
+
+model order_items {
+  id              Int  @id @default(autoincrement())
+  order_id        Int
+  product_id      Int
+  prescription_id Int?
+
+  // ✅ Lưu đơn vị đã mua để tính giá và hiển thị lại lịch sử
+  product_unit_id Int
+
+  quantity Int
+  price    Decimal @db.Decimal // Giá tại thời điểm mua (của Unit đó)
+
+  // Khóa ngoại lô hàng (để biết xuất từ lô nào - FEFO)
+  batch_id Int?
+
+  orders          orders           @relation(fields: [order_id], references: [id])
+  products        products         @relation(fields: [product_id], references: [id])
+  product_batches product_batches? @relation(fields: [batch_id], references: [id])
+  unit            product_units    @relation(fields: [product_unit_id], references: [id])
+  prescriptions   prescriptions?   @relation(fields: [prescription_id], references: [id])
+}
+
+// ==========================================
+// 4. NHÓM NGƯỜI DÙNG & Y TẾ (USERS & HEALTH)
+// ==========================================
+
+model users {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique @db.VarChar
+  password       String?  @db.VarChar
+  name           String?  @db.VarChar
+  phone          String?  @db.VarChar
+  role           Role     @default(patient)
+  loyalty_points Int      @default(0)
+  is_active      Boolean  @default(true)
+  created_at     DateTime @default(now()) @db.Timestamp(6)
+
+  addresses        addresses[]
+  ai_consultations ai_consultations[]
+  carts            carts[]
+  orders           orders[]
+  prescriptions    prescriptions[]
+  pharmacists      pharmacists[]
+
+  // Thông tin sức khỏe (Dị ứng...)
+  user_health_profiles user_health_profiles?
+}
+
+model user_health_profiles {
+  user_id Int @id
+
+  // 🔥 AI DATA: Lưu dị ứng dạng text để AI đọc
+  // VD: "Dị ứng Penicillin, mẫn cảm với Aspirin"
+  allergies           String? @db.Text
+  chronic_conditions  String? @db.Text
+  current_medications String? @db.Text
+
+  updated_at DateTime? @updatedAt
+  users      users     @relation(fields: [user_id], references: [id])
+}
+
+model addresses {
+  id           Int     @id @default(autoincrement())
+  user_id      Int?
+  full_name    String? @db.VarChar
+  phone        String? @db.VarChar
+  address_line String? @db.VarChar
+  city         String? @db.VarChar
+  province     String? @db.VarChar
+  is_default   Boolean @default(false)
+
+  users  users?   @relation(fields: [user_id], references: [id])
+  orders orders[]
 }
 
 model pharmacists {
-  id            Int             @id @default(autoincrement())
-  user_id       Int?
-  license_no    String?         @unique @db.VarChar
-  approved      Boolean?        @default(false)
-  created_at    DateTime?       @db.Timestamp(6)
-  users         users?          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id         Int     @id @default(autoincrement())
+  user_id    Int     @unique
+  license_no String  @unique @db.VarChar
+  approved   Boolean @default(false)
+
+  users         users           @relation(fields: [user_id], references: [id])
   prescriptions prescriptions[]
 }
 
 model prescriptions {
-  id            Int                 @id @default(autoincrement())
-  user_id       Int?
-  pharmacist_id Int?
-  image_url     String?             @db.VarChar
-  status        PrescriptionStatus? @default(Pending)
-  refills_total Int?                @default(0)
-  refills_used  Int?                @default(0)
-  expiry_date   DateTime?           @db.Date
-  remarks       String?
-  created_at    DateTime?           @db.Timestamp(6)
-  updated_at    DateTime?           @db.Timestamp(6)
-  order_items   order_items[]
-  pharmacists   pharmacists?        @relation(fields: [pharmacist_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users         users?              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id            Int  @id @default(autoincrement())
+  user_id       Int
+  pharmacist_id Int? // Người duyệt đơn
+
+  image_url  String             @db.VarChar
+  status     PrescriptionStatus @default(Pending)
+  admin_note String? // Ghi chú của dược sĩ (VD: "Từ chối vì ảnh mờ")
+
+  created_at DateTime  @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @updatedAt
+
+  order_items order_items[]
+  pharmacists pharmacists?  @relation(fields: [pharmacist_id], references: [id])
+  users       users         @relation(fields: [user_id], references: [id])
 }
 
-model products {
-  id                                                         Int                 @id @default(autoincrement())
-  category_id                                                Int?
-  brand_id                                                   Int?
-  name                                                       String?             @db.VarChar
-  description                                                String?
-  price                                                      Decimal?            @db.Decimal
-  dosage_info                                                String?             @db.VarChar
-  requires_prescription                                      Boolean?            @default(false)
-  stock                                                      Int?
-  expiry_date                                                DateTime?           @db.Date
-  is_active                                                  Boolean?            @default(true)
-  created_at                                                 DateTime?           @db.Timestamp(6)
-  updated_at                                                 DateTime?           @db.Timestamp(6)
-  ai_consultations                                           ai_consultations[]
-  cart_items                                                 cart_items[]
-  interactionsAsA                                            drug_interactions[] @relation("RelationA")
-  interactionsAsB                                            drug_interactions[] @relation("RelationB")
-  order_items                                                order_items[]
-  brands                                                     brands?             @relation(fields: [brand_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  categories                                                 categories?         @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model users {
-  id                   Int                   @id @default(autoincrement())
-  name                 String?               @db.VarChar
-  email                String?               @unique @db.VarChar
-  password             String?               @db.VarChar
-  phone                String?               @db.VarChar
-  role                 Role?                 @default(patient)
-  loyalty_points       Int?                  @default(0)
-  is_active            Boolean?              @default(true)
-  created_at           DateTime?             @default(now()) @db.Timestamp(6)
-  updated_at           DateTime?             @db.Timestamp(6)
-  addresses            addresses[]
-  ai_consultations     ai_consultations[]
-  carts                carts[]
-  orders               orders[]
-  pharmacists          pharmacists[]
-  prescriptions        prescriptions[]
-  user_health_profiles user_health_profiles?
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+// 🔥 AI CONSULTATION (Downscoped)
+// Chỉ lưu input/output dạng text. Logic xử lý dị ứng nằm ở Backend/AI Service.
 model ai_consultations {
-  id                   Int       @id @default(autoincrement())
-  user_id              Int?
-  symptoms_input       String?
-  ai_analysis          String?
+  id      Int  @id @default(autoincrement())
+  user_id Int?
+
+  symptoms_input String @db.Text // User: "Đau bụng, buồn nôn"
+  ai_analysis    String @db.Text // AI: "Có thể là rối loạn tiêu hóa. Gợi ý thuốc..."
+
+  // Nếu AI gợi ý sản phẩm cụ thể, lưu ID để tracking (Optional)
   suggested_product_id Int?
-  created_at           DateTime? @default(now()) @db.Timestamp(6)
-  products             products? @relation(fields: [suggested_product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users                users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+
+  products products? @relation(fields: [suggested_product_id], references: [id])
+  users    users?    @relation(fields: [user_id], references: [id])
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model drug_interactions {
-  id                                                Int       @id @default(autoincrement())
-  product_id_a                                      Int?
-  product_id_b                                      Int?
-  severity                                          Severity?
-  description                                       String?
-  productA                                          products? @relation("RelationA", fields: [product_id_a], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  productB                                          products? @relation("RelationB", fields: [product_id_b], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
+// ==========================================
+// 5. ENUMS
+// ==========================================
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model user_health_profiles {
-  user_id             Int       @id
-  allergies           String?
-  chronic_conditions  String?
-  current_medications String?
-  updated_at          DateTime? @db.Timestamp(6)
-  users               users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+enum PurchaseOrderStatus {
+  Pending
+  Received
+  Cancelled
 }
 
 enum PrescriptionStatus {
@@ -196,12 +340,6 @@ enum Role {
   patient
   pharmacist
   admin
-}
-
-enum Severity {
-  Low
-  Moderate
-  Severe
 }
 
 enum OrderStatus {

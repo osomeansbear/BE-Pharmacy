@@ -18,7 +18,7 @@ const createUserSchema = z.object({
   phone: z
     .string()
     .regex(/^[0-9]+$/, "Phone number must contain only digits")
-    .min(8, "Phone number is too short")
+    .min(10, "Phone number is too short")
     .optional(),
 
   role: z.enum(["patient", "pharmacist", "admin"]).default("patient"),
