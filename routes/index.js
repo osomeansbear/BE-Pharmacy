@@ -1,25 +1,17 @@
 const express = require("express");
-const userRoutes = require("./user.route.js");
-const authRoutes = require("./auth.route.js");
-const brandRoutes = require("./brand.route.js");
-const categoryRoutes = require("./category.route.js");
-const productRoutes = require("./product.route.js");
-const { verifyUser } = require("../middlewares/authenticaton.js");
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
 
-// All routes here
-router.use("/auth", authRoutes);
+const routesPath = __dirname;
 
-// router.use(verifyUser);
-router.use("/users", userRoutes);
-
-// Brand routes
-router.use("/brands", brandRoutes);
-
-// Category routes
-router.use("/categories", categoryRoutes);
-
-// Product routes
-router.use("/products", productRoutes);
+fs.readdirSync(routesPath).forEach((file) => {
+  if (file === "index.js") return;
+  if (file.endsWith(".js")) {
+    const route = require(path.join(routesPath, file));
+    const routeName = file.replace(".route.js", "");
+    router.use(`/${routeName}`, route);
+  }
+});
 
 module.exports = router;

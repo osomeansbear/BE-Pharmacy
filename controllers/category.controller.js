@@ -1,53 +1,71 @@
 const categoryService = require("../services/category.service.js");
-
-const categoryController = {
-  async createCategory(req, res) {
+const BaseController = require("./base.controller.js");
+const CategoryMapper = require("../mappers/category.mapper.js");
+const UserMapper = require("../mappers/user.mapper.js");
+class CategoryController extends BaseController {
+  createCategory = async (req, res) => {
     try {
       const result = await categoryService.createCategory(req.body);
-      res.status(201).json(result);
-    } catch (err) {
-      res.status(400).json({ error: err.message });
-    }
-  },
+      // Data format: { Category: result }
 
-  async getAllCategories(req, res) {
+      return this.success(res, result, "Created successfully", 201);
+    } catch (err) {
+      return this.error(res, err);
+    }
+  };
+
+  getAllCategories = async (req, res) => {
     try {
       const result = await categoryService.getAllCategories();
-      res.status(200).json(result);
-    } catch (err) {
-      res.status(400).json({ error: err.message });
-    }
-  },
+      // const t = CategoryMapper
 
-  async getCategoryById(req, res) {
+      return this.success(
+        res,
+        { data: CategoryMapper.mapToList(result) },
+        "Get all categories successfully",
+      );
+    } catch (err) {
+      return this.error(res, err);
+    }
+  };
+
+  getCategoryById = async (req, res) => {
     try {
       const result = await categoryService.getCategoryById(req.params.id);
-      res.status(200).json(result);
+      if (!result) {
+        return this.error(res, {
+          message: "Category not found",
+          statusCode: 404,
+        });
+      }
+      return this.success(res, result);
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async updateCategory(req, res) {
+  updateCategory = async (req, res) => {
     try {
       const result = await categoryService.updateCategory(
         req.params.id,
-        req.body
+        req.body,
       );
-      res.status(200).json(result);
+      return this.success(res, result, "Updated successfully");
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async deleteCategory(req, res) {
+  deleteCategory = async (req, res) => {
     try {
       await categoryService.deleteCategory(req.params.id);
-      res.status(204).end();
+      // HTTP 204 No Content thường không trả về body
+      return res.status(204).send();
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
-};
+  };
+}
 
-module.exports = categoryController;
+// Export một instance của class
+module.exports = new CategoryController();

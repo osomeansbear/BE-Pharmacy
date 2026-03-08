@@ -1,10 +1,13 @@
 const bcrypt = require("bcrypt");
 const UserRepository = require("../repositories/user.repository.js");
+const accountService = require("./account.service.js");
+
 const { generateToken } = require("../utils/jwt.js");
 const UserMapper = require("../mappers/user.mapper.js");
 const userService = {
   async register(data) {
-    const { name, email, password, phone } = data;
+    const { fullName, email, password, phone, role } = data;
+    console.log(data);
 
     // Check if email already exists
     const existingUser = await UserRepository.findByEmail(email);
@@ -12,25 +15,17 @@ const userService = {
       throw new Error("Email already registered");
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create new user
     const newUser = await UserRepository.create({
-      name,
+      fullName,
       email,
-      password: hashedPassword,
       phone,
+      role,
     });
+    await accountService.createAccount(newUser.id, password);
 
     return {
-      message: "User registered successfully",
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
-      },
+      user: newUser,
     };
   },
 
@@ -89,13 +84,16 @@ const userService = {
       throw new Error("No user found");
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await accountService.compareEntityPassword(
+      user.id,
+      password,
+    );
+
     if (!isMatch) {
-      throw new Error("Invalid credentials");
+      throw new Error("Password incorrect");
     }
     const token = generateToken(user);
-
-    const loginuser = UserMapper.mapToLogin(user, token);
+    const loginuser = { user, token };
     // loginuser (user,token)
 
     return loginuser;

@@ -1,7 +1,7 @@
 const { z } = require("zod");
 
 const createUserSchema = z.object({
-  name: z
+  fullName: z
     .string({ required_error: "Name is required" })
     .min(2, "Name must be at least 2 characters long")
     .max(50, "Name cannot exceed 50 characters"),
@@ -21,7 +21,7 @@ const createUserSchema = z.object({
     .min(10, "Phone number is too short")
     .optional(),
 
-  role: z.enum(["patient", "pharmacist", "admin"]).default("patient"),
+  role: z.enum(["PATIENT", "PHARMACIST", "ADMIN", "INVENTORY_MANAGER"]),
 });
 
 module.exports = { createUserSchema };

@@ -2,7 +2,7 @@ const BaseRepository = require("./base.repository.js");
 
 class UserRepository extends BaseRepository {
   constructor() {
-    super("users");
+    super("User");
   }
 
   async findByEmail(email) {

@@ -9,6 +9,7 @@ function verifyUser(req, res, next) {
   try {
     const vToken = verifyToken(token);
     if (vToken) {
+      // req.user = vToken;
       next();
     }
   } catch (error) {

@@ -1,23 +1,49 @@
 const productService = require("../services/product.service.js");
+const BaseController = require("./base.controller.js");
 
-const productController = {
-  async createProduct(req, res) {
+class ProductController extends BaseController {
+  // Đổi sang arrow function ở đây
+  createProduct = async (req, res) => {
     try {
       const result = await productService.createProduct(req.body);
-      res.status(201).json(result);
+      return this.success(
+        res,
+        { data: result },
+        "Create product successfully",
+        201,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async getAllProducts(req, res) {
+  getAllProducts = async (req, res) => {
     try {
       const result = await productService.getAllProducts();
-      res.status(200).json(result);
+      return this.success(
+        res,
+        { data: result },
+        "Get all products successfully",
+        200,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
-};
+  };
 
-module.exports = productController;
+  getProductDetail = async (req, res) => {
+    try {
+      const result = await productService.getProductDetail();
+      return this.success(
+        res,
+        { data: result },
+        "Get product detail successfully",
+        200,
+      );
+    } catch (err) {
+      return this.error(res, err);
+    }
+  };
+}
+
+module.exports = new ProductController();

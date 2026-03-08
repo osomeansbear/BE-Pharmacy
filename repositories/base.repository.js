@@ -14,7 +14,7 @@ class BaseRepository {
 
   async findById(id, include = {}) {
     return this.model.findUnique({
-      where: { id: BigInt(id) },
+      where: { id: id },
       include,
     });
   }

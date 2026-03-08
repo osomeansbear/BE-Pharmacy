@@ -2,7 +2,7 @@ const BaseRepository = require("./base.repository.js");
 
 class BrandRepository extends BaseRepository {
   constructor() {
-    super("brands");
+    super("Brand");
   }
 
   async findByName(name) {

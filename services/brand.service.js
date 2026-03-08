@@ -2,12 +2,12 @@ const BrandRepository = require("../repositories/brand.repository.js");
 
 const brandService = {
   async createBrand(data) {
-    const { name, description } = data;
+    const { name, description, slug } = data;
     const existingBrand = await BrandRepository.findByName(name);
     if (existingBrand) {
       throw new Error("Brand with this name already exists");
     }
-    const newBrand = await BrandRepository.create({ name, description });
+    const newBrand = await BrandRepository.create({ name, slug, description });
     return {
       ...newBrand,
       id: Number(newBrand.id),

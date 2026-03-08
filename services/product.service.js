@@ -1,28 +1,37 @@
+const { brand } = require("../config/db.js");
+const ProductDetailRepository = require("../repositories/detail.repository.js");
 const ProductRepository = require("../repositories/product.repository.js");
+const { convertToSlug } = require("../utils/convertToSlug.js");
 
-const productService = {
+class productService {
   async createProduct(data) {
-    const { category_id, name, description, price, stock } = data;
+    const { name } = data;
+
+    const slug = convertToSlug(data.slug) || convertToSlug(name);
+
     const newProduct = await ProductRepository.create({
-      category_id,
       name,
-      description,
-      price,
-      stock,
+      slug,
     });
     return {
-      ...newProduct,
-      id: Number(newProduct.id),
+      newProduct,
     };
-  },
+  }
+
+  async getProductBySlug(slug) {
+    const product = await ProductRepository.findBySlug(slug);
+    return product;
+  }
 
   async getAllProducts() {
     const products = await ProductRepository.findAll();
-    return products.map((product) => ({
-      ...product,
-      id: product.id,
-    }));
-  },
-};
+    return products;
+  }
 
-module.exports = productService;
+  async getProductDetail() {
+    const detail = await ProductDetailRepository.getDetailBySlug();
+    return detail;
+  }
+}
+
+module.exports = new productService();

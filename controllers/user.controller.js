@@ -59,11 +59,9 @@ class UserController extends BaseController {
   loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
+
       const result = await userService.loginUser(email, password);
 
-      // result từ service Login (đã qua Mapper) thường có dạng:
-      // { message: "...", data: { user: ..., token: ... } }
-      // Ta lấy data để trả về
       this.success(res, result, "Login successful");
     } catch (err) {
       this.error(res, err);
