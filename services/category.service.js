@@ -2,25 +2,22 @@ const CategoryRepository = require("../repositories/category.repository.js");
 const { convertToSlug } = require("../utils/convertToSlug.js");
 const CategoryMapper = require("../mappers/category.mapper.js");
 class CategoryService {
-  /**
-   * Format Private Function: Tạo Slug từ Name
-   * Dấu # đảm bảo hàm này chỉ có thể gọi nội bộ trong class này.
-   */
-
   async createCategory(data) {
-    const { name } = data;
-
-    // Sử dụng private function
+    const { name, parentId } = data;
     const slug = convertToSlug(data.slug) || convertToSlug(name);
 
     const existingCategory = await CategoryRepository.findByName(name);
     if (existingCategory) {
       const error = new Error("Category with this name already exists");
-      error.statusCode = 400; // Để BaseController bắt được status code
+      error.statusCode = 400;
       throw error;
     }
 
-    const newCategory = await CategoryRepository.create({ name, slug });
+    const newCategory = await CategoryRepository.create({
+      name,
+      slug,
+      parentId,
+    });
 
     return CategoryMapper.mapToItem({
       ...newCategory,
@@ -47,7 +44,6 @@ class CategoryService {
     const category = await CategoryRepository.findById(id);
     if (!category) throw new Error("Category not found");
 
-    // Nếu cập nhật tên mà không gửi slug, tự động tạo slug mới
     if (data.name && !data.slug) {
       data.slug = convertToSlug(data.name);
     }
@@ -66,5 +62,4 @@ class CategoryService {
   }
 }
 
-// Export một instance duy nhất (Singleton Pattern)
 module.exports = new CategoryService();
