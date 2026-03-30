@@ -61,7 +61,7 @@ const brandService = {
       err.statusCode = 404;
       throw err;
     }
-    await BrandRepository.delete(id);
+    await BrandRepository.softDelete(id);
   },
 };
 

@@ -62,7 +62,7 @@ class CategoryService {
   async deleteCategory(id) {
     const category = await CategoryRepository.findById(id);
     if (!category) throw new Error("Category not found");
-    await CategoryRepository.delete(id);
+    await CategoryRepository.softDelete(id);
   }
 }
 

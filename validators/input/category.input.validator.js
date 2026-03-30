@@ -13,7 +13,7 @@ const createCategorySchema = z.object({
     .min(1, "Category name is required")
     .max(255, "Category name is too long"),
   slug: z.string().min(1).max(255).optional(),
-  parentId: z.number().int().positive().optional().nullable(),
+  parentId: z.number().int().positive().optional().nullish(),
 });
 
 const updateCategorySchema = createCategorySchema.partial();

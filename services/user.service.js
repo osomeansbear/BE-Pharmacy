@@ -36,8 +36,12 @@ const userService = {
     if (!user) {
       throw new Error("User not found");
     }
-    await UserRepository.delete(id);
-    return { message: "User deleted successfully", userId: id };
+    // Soft delete: deactivate user instead of hard delete
+    const deactivatedUser = await UserRepository.deactivateUser(id);
+    return {
+      message: "User deactivated successfully",
+      user: UserMapper.mapToDetail(deactivatedUser),
+    };
   },
 
   async updateUser(id, data) {
