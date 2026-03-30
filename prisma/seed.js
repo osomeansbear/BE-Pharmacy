@@ -5,69 +5,58 @@ const path = require("path");
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. KIỂM TRA ĐƯỜNG DẪN FILE
   const filePath = path.join(__dirname, "./products_seeding1.json");
-  console.log(`📂 Đang đọc file dữ liệu từ: ${filePath}`);
+  console.log(`📂 Reading data from: ${filePath}`);
 
   if (!fs.existsSync(filePath)) {
-    console.error(
-      "❌ LỖI NGHIÊM TRỌNG: Không tìm thấy file products_seeding.json!",
-    );
-    console.error(
-      "👉 Hãy đổi tên file 'products_seeding1.json' thành 'products_seeding.json' và để ở thư mục gốc.",
-    );
+    console.error("❌ File products_seeding1.json not found!");
     return;
   }
 
-  // 2. ĐỌC DỮ LIỆU
   let data;
   try {
     const rawContent = fs.readFileSync(filePath, "utf-8");
     data = JSON.parse(rawContent);
-    console.log(`✅ Đã đọc file thành công. Tìm thấy ${data.length} sản phẩm.`);
+    console.log(`✅ Loaded ${data.length} products from JSON.`);
   } catch (err) {
-    console.error(
-      "❌ Lỗi khi phân tích file JSON. File có bị lỗi cú pháp không?",
-      err.message,
-    );
+    console.error("❌ JSON parse error:", err.message);
     return;
   }
 
-  // 3. XÓA DỮ LIỆU CŨ
-  console.log("🧹 Bắt đầu dọn dẹp dữ liệu cũ...");
+  // Clean existing product data
+  console.log("🧹 Cleaning old product data...");
   try {
+    await prisma.productAI.deleteMany({});
+    await prisma.productUnit.deleteMany({});
     await prisma.productCategory.deleteMany({});
     await prisma.productDetail.deleteMany({});
     await prisma.product.deleteMany({});
-    console.log("✅ Đã xóa sạch dữ liệu cũ.");
+    console.log("✅ Old data cleared.");
   } catch (e) {
-    console.warn("⚠️ Cảnh báo xóa dữ liệu (có thể bỏ qua):", e.message);
+    console.warn("⚠️  Cleanup warning (can ignore):", e.message);
   }
 
-  // 4. BẮT ĐẦU SEED TỪNG SẢN PHẨM
-  console.log("🚀 Bắt đầu thêm sản phẩm vào Database...");
+  console.log("🚀 Seeding products...");
   let successCount = 0;
   let errorCount = 0;
 
   for (const [index, item] of data.entries()) {
     try {
-      // --- A. BRAND ---
+      // --- BRAND ---
       const brand = await prisma.brand.upsert({
         where: { slug: item.brand.slug },
         update: { name: item.brand.name },
         create: item.brand,
       });
 
-      // --- B. CATEGORY ---
+      // --- CATEGORIES ---
       const { parent, child } = item.category_structure;
-      // Parent
       const parentSlug = parent.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const parentCat = await prisma.category.upsert({
         where: { slug: parentSlug },
         update: {},
         create: { name: parent, slug: parentSlug, parentId: null },
       });
-      // Child
       const childSlug = child.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       const childCat = await prisma.category.upsert({
         where: { slug: childSlug },
@@ -75,8 +64,8 @@ async function main() {
         create: { name: child, slug: childSlug, parentId: parentCat.id },
       });
 
-      // --- C. PRODUCT ---
-      await prisma.product.upsert({
+      // --- PRODUCT ---
+      const product = await prisma.product.upsert({
         where: { slug: item.product.slug },
         update: {
           name: item.product.name,
@@ -95,34 +84,78 @@ async function main() {
           brandId: brand.id,
           detail: { create: item.detail },
           categories: {
-            create: {
-              category: { connect: { id: childCat.id } },
-            },
+            create: { category: { connect: { id: childCat.id } } },
           },
         },
       });
 
-      process.stdout.write("."); // Dấu chấm thể hiện tiến độ
+      // --- PRODUCT UNITS ---
+      await prisma.productUnit.upsert({
+        where: { productId_unitType: { productId: product.id, unitType: "BOX" } },
+        update: { price: "120000", isDefault: true },
+        create: {
+          productId: product.id,
+          unitType: "BOX",
+          price: "120000",
+          conversionFactor: "1",
+          isDefault: true,
+        },
+      });
+      await prisma.productUnit.upsert({
+        where: { productId_unitType: { productId: product.id, unitType: "TABLET" } },
+        update: { price: "15000", isDefault: false },
+        create: {
+          productId: product.id,
+          unitType: "TABLET",
+          price: "15000",
+          conversionFactor: "1",
+          isDefault: false,
+        },
+      });
+
+      // --- PRODUCT AI CONTEXT ---
+      // Build keyword-rich context from product data for chatbot matching
+      const contextParts = [
+        item.product.name,
+        item.product.shortDesc || "",
+        item.detail?.indications || "",
+        item.detail?.activeIngredients || "",
+        item.detail?.description || "",
+        child, // category name (e.g. "Pain Reliever", "Antihistamine")
+      ]
+        .filter(Boolean)
+        .join(". ");
+
+      // Delete old AI entry for this product and recreate
+      await prisma.productAI.deleteMany({ where: { productId: product.id } });
+      await prisma.productAI.create({
+        data: {
+          productId: product.id,
+          context: contextParts,
+        },
+      });
+
+      process.stdout.write(".");
       successCount++;
     } catch (err) {
       console.error(
-        `\n❌ Lỗi tại sản phẩm #${index + 1} (${item.product.name}):`,
+        `\n❌ Error at product #${index + 1} (${item.product?.name}):`,
+        err.message,
       );
-      console.error(`   -> Nguyên nhân: ${err.message}`);
       errorCount++;
     }
   }
 
   console.log("\n========================================");
-  console.log(`🎉 KẾT QUẢ SEEDING:`);
-  console.log(`✅ Thành công: ${successCount}`);
-  console.log(`❌ Thất bại:   ${errorCount}`);
+  console.log("🎉 SEEDING RESULTS:");
+  console.log(`✅ Success: ${successCount}`);
+  console.log(`❌ Failed:  ${errorCount}`);
   console.log("========================================");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Lỗi không xác định:", e);
+    console.error("❌ Fatal error:", e);
     process.exit(1);
   })
   .finally(async () => {

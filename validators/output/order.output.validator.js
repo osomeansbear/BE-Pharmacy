@@ -22,7 +22,6 @@ const OrderOutput = z.object({
   }),
   status: z.string(),
   paymentMethod: z.string(),
-  paymentStatus: z.string(),
   totalAmount: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),

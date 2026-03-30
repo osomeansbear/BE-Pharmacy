@@ -14,87 +14,38 @@ datasource db {
  */
 
 enum Role {
-  PATIENT //bnh nhan 
-  PHARMACIST //nha thuoc
-  INVENTORY_MANAGER //kiem kho
-  ADMIN //admin manager 
+  PATIENT
+  ADMIN
 }
 
 enum OrderStatus {
-  DRAFT
   PENDING
   CONFIRMED
-  
   PROCESSING
-
-  FULFILLED
-
+  DELIVERED
   CANCELLED
   RETURNED
 }
 
 enum PaymentMethod {
   CASH
-  CARD
   ONLINE
-  INSURANCE
-}
-
-enum PaymentStatus {
-  PENDING
-  PAID
-  FAILED
-  REFUNDED
-}
-
-enum PurchaseStatus {
-  DRAFT
-  PLACED
-  PARTIALLY_RECEIVED
-  RECEIVED
-  CANCELLED
-}
-
-enum UnitGroup {
-  PACKAGING
-  DOSAGE
-  VOLUME
-  WEIGHT
+  CARD
 }
 
 enum UnitType {
   TABLET
-  CAPSULE
-  BLISTER
-  STRIP
-  BOTTLE
-  ML
-  GRAM
   BOX
-  VIAL
-  AMPOULE
 }
-
-enum InventoryTxnType {
-  IN
-  OUT
-  ADJUST
-}
-
-/**
- * --------------------------------------------------------
- * USERS & AUDIT
- * --------------------------------------------------------
- */
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   email    String
   fullName String
-  phone    String  @db.VarChar(16)
-  isActive Boolean @default(true)
-  // dob      DateTime
-  // gender   Boolean? 
+  phone    String   @db.VarChar(16)
+  isActive Boolean  @default(true)
+  dob      DateTime
+  gender   Boolean?
 
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -111,8 +62,6 @@ model User {
  * PRODUCTS
  * --------------------------------------------------------
  */
-
- 
 
 model Brand {
   id          Int     @id @default(autoincrement())
@@ -138,63 +87,58 @@ model Category {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  slug        String   @unique
-  brandId     Int?
-  stock       Int      @default(0)
-  requiresRx  Boolean  @default(false) 
-  isActive    Boolean  @default(true)  
-  shortDesc   String?  @db.Text
-  image       String[] 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt 
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  brandId    Int?
+  stock      Int      @default(0)
+  requiresRx Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  shortDesc  String?  @db.Text
+  image      String[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   brand Brand? @relation(fields: [brandId], references: [id], onDelete: SetNull)
 
-  categories    ProductCategory[]
-  detail        ProductDetail?
-  inboundItems  InboundItem[]
-  cartItems     CartItem[]
-  outboundItems OutboundItem[]
-  unit          ProductUnit[]
-  productAIs    ProductAI[]
-  orderItems    OrderItem[]
+  categories ProductCategory[]
+  detail     ProductDetail?
+  cartItems  CartItem[]
+  unit       ProductUnit[]
+  productAIs ProductAI[]
+  orderItems OrderItem[]
 }
 
-
 model ProductDetail {
-  productId        Int     @id
-  
-  description      String? @db.Text 
-  ingredients      String? @db.Text 
-  usage            String? @db.Text 
-  storageCondition String? @db.Text  
-  warnings         String? @db.Text 
+  productId Int @id
+
+  description      String? @db.Text
+  ingredients      String? @db.Text
+  usage            String? @db.Text
+  storageCondition String? @db.Text
+  warnings         String? @db.Text
   seoTitle         String?
   seoDescription   String?
 
-  registrationNumber String? 
-  manufacturer       String? 
-  origin             String? @default("USA") 
-  dosageForm         String? 
-  packaging          String? 
-  
-  activeIngredients  String? @db.Text
-  composition        Json?   
-  
-  indications        String? @db.Text 
-  contraindications  String? @db.Text 
-  sideEffects        String? @db.Text 
-  interactions       String? @db.Text 
-  overdose           String? @db.Text 
-  pharmacology       String? @db.Text 
-  pregnancyLactation String? @db.Text 
+  registrationNumber String?
+  manufacturer       String?
+  origin             String? @default("USA")
+  dosageForm         String?
+  packaging          String?
+
+  activeIngredients String? @db.Text
+  composition       Json?
+
+  indications        String? @db.Text
+  contraindications  String? @db.Text
+  sideEffects        String? @db.Text
+  interactions       String? @db.Text
+  overdose           String? @db.Text
+  pharmacology       String? @db.Text
+  pregnancyLactation String? @db.Text
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
-
-
 
 model ProductCategory {
   productId  Int
@@ -207,106 +151,16 @@ model ProductCategory {
 }
 
 model ProductUnit {
-  id               Int         @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   productId        Int
   unitType         UnitType
-  unitGroup        UnitGroup[]
-  price            Decimal     @db.Decimal(12, 2)
-  conversionFactor Decimal     @db.Decimal(10, 4)
-  isDefault        Boolean     @default(false)
+  price            Decimal  @db.Decimal(12, 2)
+  conversionFactor Decimal  @db.Decimal(10, 4)
+  isDefault        Boolean  @default(false)
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([productId, unitType])
-}
-
-/**
- * --------------------------------------------------------
- * INVENTORY BATCH & TRANSACTIONS
- * --------------------------------------------------------
- */
-
-model OutboundItem {
-  id             Int      @id @default(autoincrement())
-  productId      Int
-  transactionId  Int
-  batchNumber    String //snap from Inbound
-  expiryDate     DateTime
-  receivedAt     DateTime @default(now())
-  lastAdjustedAt DateTime @updatedAt
-
-  unitType UnitType
-  unitQty  Int
-  baseQty  Decimal  @db.Decimal(12, 2)
-  unitCost Decimal  @db.Decimal(12, 2)
-
-  transactions OutboundTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-
-  orderItems OrderItem[]
-  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@index([productId, receivedAt])
-}
-
-model OutboundTransaction {
-  id            Int              @id @default(autoincrement())
-  batchId       Int
-  type          InventoryTxnType
-  referenceType String? // snap. ex: order,...   
-  referenceId   Int? // snap. ex: orderId,...
-  createdAt     DateTime         @default(now())
-
-  items OutboundItem[]
-
-  @@index([batchId, createdAt])
-}
-
-/**
- * --------------------------------------------------------
- * SUPPLIERS & PURCHASE ORDERS
- * --------------------------------------------------------
- */
-
-model Supplier {
-  id          Int     @id @default(autoincrement())
-  name        String
-  contactName String?
-  phone       String?
-  email       String?
-  isActive    Boolean @default(true)
-
-  purchases Inbound[]
-}
-
-model Inbound {
-  id          Int            @id @default(autoincrement())
-  supplierId  Int
-  status      PurchaseStatus @default(DRAFT)
-  purchasedAt DateTime       @default(now())
-  receivedAt  DateTime?
-  totalCost   Decimal?       @db.Decimal(14, 2)
-  notes       String?
-
-  supplier Supplier      @relation(fields: [supplierId], references: [id], onDelete: Restrict)
-  items    InboundItem[]
-}
-
-model InboundItem {
-  id              Int       @id @default(autoincrement())
-  inboundId       Int
-  productId       Int
-  unitType        UnitType
-  unitQty         Int
-  baseQty         Decimal   @db.Decimal(12, 2)
-  unitCost        Decimal   @db.Decimal(12, 2)
-  batchNumber     String //auto gen 
-  expiryDate      DateTime
-  manufactureDate DateTime?
-
-  inbound Inbound @relation(fields: [inboundId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
-
-  @@index([productId])
 }
 
 /**
@@ -335,18 +189,16 @@ model Order {
   id              Int           @id @default(autoincrement())
   userId          Int?
   userEmail       String //snap
-  shippingAddress Json //snap
+  shippingAddress Json
   status          OrderStatus   @default(PENDING)
   paymentMethod   PaymentMethod
-  paymentStatus   PaymentStatus @default(PENDING)
-  totalAmount     Decimal       @db.Decimal(14, 2) //snap
+  totalAmount     Decimal       @db.Decimal(14, 2)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //only for change status
 
-  items   OrderItem[]
-  payment Payment?
-  user    User?       @relation(fields: [userId], references: [id], onDelete: NoAction)
+  items OrderItem[]
+  user  User?       @relation(fields: [userId], references: [id], onDelete: NoAction)
 
   @@index([createdAt])
   @@index([userId, createdAt])
@@ -361,27 +213,12 @@ model OrderItem {
   quantity       Decimal  @db.Decimal(12, 2)
   baseQty        Decimal  @db.Decimal(12, 2)
   unitPrice      Decimal  @db.Decimal(12, 2)
-  outboundItemId Int?
 
-  order Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  batch OutboundItem? @relation(fields: [outboundItemId], references: [id])
-  product Product     @relation(fields: [productId], references: [id], onDelete: Restrict)
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
 
   @@index([orderId])
   @@index([productId])
-}
-
-model Payment { //## EXTEN
-  id      Int           @id @default(autoincrement())
-  orderId Int           @unique
-  method  PaymentMethod
-  status  PaymentStatus
-  amount  Decimal       @db.Decimal(14, 2)
-  paidAt  DateTime?
-
-  order Order @relation(fields: [orderId], references: [id])
-
-  @@index([orderId])
 }
 
 model Account {
@@ -391,27 +228,29 @@ model Account {
   password String
 }
 
-model Address{
-  id       Int    @id @default(autoincrement())
-  userId   Int    
-  user     User   @relation(fields: [userId], references: [id])
+model Address {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 
   province String
   district String
-  ward String
-  detail String
+  ward     String
+  detail   String
 
   isDefault Boolean @default(false)
 }
 
-model PatientProfile { //## EXTEN
-  id      Int    @id @default(autoincrement())
-  userId  Int    @unique
-  user    User   @relation(fields: [userId], references: [id])
-  context String
+model PatientProfile {
+  id              Int     @id @default(autoincrement())
+  userId          Int     @unique
+  user            User    @relation(fields: [userId], references: [id])
+  context         String  @db.Text
+  allergies       String? @db.Text
+  chronicDiseases String? @db.Text
 }
 
-model ProductAI { //## EXTEN
+model ProductAI {
   id        Int     @id @default(autoincrement())
   productId Int
   product   Product @relation(fields: [productId], references: [id])

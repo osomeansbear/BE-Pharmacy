@@ -9,12 +9,28 @@ function verifyUser(req, res, next) {
   try {
     const vToken = verifyToken(token);
     if (vToken) {
-      // req.user = vToken;
-      next();
+      req.user = vToken;
+      return next();
     }
+
+    return res.status(401).json({ message: "Invalid or Expired token" });
   } catch (error) {
     return res.status(401).json({ message: "Invalid or Expired token" });
   }
 }
 
-module.exports = { verifyUser };
+function verifyRoles(allowedRoles = []) {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    return next();
+  };
+}
+
+module.exports = { verifyUser, verifyRoles };

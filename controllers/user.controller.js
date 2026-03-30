@@ -28,8 +28,25 @@ class UserController extends BaseController {
   updateUser = async (req, res) => {
     try {
       const result = await userService.updateUser(req.params.id, req.body);
-      // result: { User: updatedUser }
-      this.success(res, { updatedUser: result.User }, result.message);
+      this.success(res, { user: result.user }, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  getMe = async (req, res) => {
+    try {
+      const result = await userService.getMe(req.user.id);
+      this.success(res, { user: result.user }, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  updateMe = async (req, res) => {
+    try {
+      const result = await userService.updateMe(req.user.id, req.body);
+      this.success(res, { user: result.user }, result.message);
     } catch (err) {
       this.error(res, err);
     }
@@ -38,7 +55,7 @@ class UserController extends BaseController {
   getUserById = async (req, res) => {
     try {
       const result = await userService.getUserById(req.params.id);
-      this.success(res, { User: result.User }, result.message);
+      this.success(res, { user: result.user }, result.message);
     } catch (err) {
       // BaseController sẽ tự xử lý status code
       this.error(res, err);
@@ -48,9 +65,52 @@ class UserController extends BaseController {
   getAllUsers = async (req, res) => {
     try {
       const result = await userService.getAllUsers();
-      // Không cần vòng lặp for để convert ID hay xóa password ở đây nữa
-      // Mapper trong Service đã làm việc đó rồi.
-      this.success(res, { Users: result.Users }, result.message);
+      this.success(res, { users: result.users }, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  updateStatus = async (req, res) => {
+    try {
+      const result = await userService.setUserStatus(
+        req.params.id,
+        req.body.isActive,
+      );
+      this.success(res, { user: result.user }, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  updateRole = async (req, res) => {
+    try {
+      const result = await userService.setUserRole(
+        req.params.id,
+        req.body.role,
+      );
+      this.success(res, { user: result.user }, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  getHealthProfile = async (req, res) => {
+    try {
+      const result = await userService.getHealthProfile(req.user.id);
+      this.success(res, result, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
+  upsertHealthProfile = async (req, res) => {
+    try {
+      const result = await userService.upsertHealthProfile(
+        req.user.id,
+        req.body,
+      );
+      this.success(res, result, result.message);
     } catch (err) {
       this.error(res, err);
     }

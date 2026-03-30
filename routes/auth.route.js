@@ -3,11 +3,16 @@ const userController = require("../controllers/user.controller.js");
 const validateData = require("../middlewares/validator.js");
 const {
   createUserSchema,
+  loginUserSchema,
 } = require("../validators/input/user.input.validator.js");
 const router = express.Router();
 
 // Register user
-router.post("/login", userController.loginUser);
+router.post(
+  "/login",
+  validateData({ body: loginUserSchema }),
+  userController.loginUser,
+);
 router.post(
   "/register",
   validateData({ body: createUserSchema }),

@@ -1,50 +1,71 @@
+const BaseController = require("./base.controller.js");
 const brandService = require("../services/brand.service.js");
 
-const brandController = {
-  async createBrand(req, res) {
+class BrandController extends BaseController {
+  createBrand = async (req, res) => {
     try {
       const result = await brandService.createBrand(req.body);
-      res.status(201).json(result);
+      return this.success(
+        res,
+        { brand: result },
+        "Create brand successfully",
+        201,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async getAllBrands(req, res) {
+  getAllBrands = async (req, res) => {
     try {
       const result = await brandService.getAllBrands();
-      res.status(200).json(result);
+      return this.success(
+        res,
+        { brands: result },
+        "Get all brands successfully",
+        200,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async getBrandById(req, res) {
+  getBrandById = async (req, res) => {
     try {
       const result = await brandService.getBrandById(req.params.id);
-      res.status(200).json(result);
+      return this.success(
+        res,
+        { brand: result },
+        "Get brand successfully",
+        200,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async updateBrand(req, res) {
+  updateBrand = async (req, res) => {
     try {
       const result = await brandService.updateBrand(req.params.id, req.body);
-      res.status(200).json(result);
+      return this.success(
+        res,
+        { brand: result },
+        "Update brand successfully",
+        200,
+      );
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
+  };
 
-  async deleteBrand(req, res) {
+  deleteBrand = async (req, res) => {
     try {
       await brandService.deleteBrand(req.params.id);
-      res.status(204).end();
+      return res.status(204).send();
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      return this.error(res, err);
     }
-  },
-};
+  };
+}
 
-module.exports = brandController;
+module.exports = new BrandController();

@@ -1,7 +1,5 @@
 const categoryService = require("../services/category.service.js");
 const BaseController = require("./base.controller.js");
-const CategoryMapper = require("../mappers/category.mapper.js");
-const UserMapper = require("../mappers/user.mapper.js");
 class CategoryController extends BaseController {
   createCategory = async (req, res) => {
     try {
@@ -17,11 +15,9 @@ class CategoryController extends BaseController {
   getAllCategories = async (req, res) => {
     try {
       const result = await categoryService.getAllCategories();
-      // const t = CategoryMapper
-
       return this.success(
         res,
-        { data: CategoryMapper.mapToList(result) },
+        { categories: result },
         "Get all categories successfully",
       );
     } catch (err) {
@@ -38,7 +34,11 @@ class CategoryController extends BaseController {
           statusCode: 404,
         });
       }
-      return this.success(res, result);
+      return this.success(
+        res,
+        { category: result },
+        "Get category successfully",
+      );
     } catch (err) {
       return this.error(res, err);
     }
@@ -50,7 +50,7 @@ class CategoryController extends BaseController {
         req.params.id,
         req.body,
       );
-      return this.success(res, result, "Updated successfully");
+      return this.success(res, { category: result }, "Updated successfully");
     } catch (err) {
       return this.error(res, err);
     }

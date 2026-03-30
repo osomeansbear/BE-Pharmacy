@@ -40,4 +40,11 @@ const createOrderSchema = z.object({
   items: z.array(orderItemSchema).min(1, "Order must have at least one item"),
 });
 
-module.exports = { createOrderSchema, orderItemSchema };
+const orderIdParamsSchema = z.object({
+  id: z
+    .string()
+    .regex(/^\d+$/, "Order ID must be a positive integer")
+    .transform(Number),
+});
+
+module.exports = { createOrderSchema, orderItemSchema, orderIdParamsSchema };

@@ -1,13 +1,12 @@
-const bcrypt = require("bcrypt");
 const UserRepository = require("../repositories/user.repository.js");
 const accountService = require("./account.service.js");
+const PatientProfileRepository = require("../repositories/patient-profile.repository.js");
 
 const { generateToken } = require("../utils/jwt.js");
 const UserMapper = require("../mappers/user.mapper.js");
 const userService = {
   async register(data) {
-    const { fullName, email, password, phone, role } = data;
-    console.log(data);
+    const { fullName, email, password, phone, dob } = data;
 
     // Check if email already exists
     const existingUser = await UserRepository.findByEmail(email);
@@ -20,12 +19,15 @@ const userService = {
       fullName,
       email,
       phone,
-      role,
+      dob: new Date(dob),
+      role: "PATIENT",
     });
     await accountService.createAccount(newUser.id, password);
 
+    const createdUser = await UserRepository.findByIdWithProfile(newUser.id);
+
     return {
-      user: newUser,
+      user: UserMapper.mapToDetail(createdUser),
     };
   },
 
@@ -43,35 +45,135 @@ const userService = {
     if (!user) {
       throw new Error("User not found");
     }
-    const updatedUser = await UserRepository.update(id, data);
-    return { User: updatedUser, message: "User updated successfully" };
+    await UserRepository.update(Number(id), data);
+    const updatedUser = await UserRepository.findByIdWithProfile(id);
+    return {
+      user: UserMapper.mapToDetail(updatedUser),
+      message: "User updated successfully",
+    };
+  },
+
+  async getMe(userId) {
+    if (!userId) {
+      const err = new Error("Unauthorized");
+      err.statusCode = 401;
+      throw err;
+    }
+
+    const user = await UserRepository.findByIdWithProfile(userId);
+    if (!user) {
+      const err = new Error("User not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    return {
+      user: UserMapper.mapToDetail(user),
+      message: "Profile retrieved successfully",
+    };
+  },
+
+  async updateMe(userId, data) {
+    if (!userId) {
+      const err = new Error("Unauthorized");
+      err.statusCode = 401;
+      throw err;
+    }
+
+    const user = await UserRepository.findById(userId);
+    if (!user) {
+      const err = new Error("User not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    await UserRepository.update(Number(userId), data);
+    const updatedUser = await UserRepository.findByIdWithProfile(userId);
+
+    return {
+      user: UserMapper.mapToDetail(updatedUser),
+      message: "Profile updated successfully",
+    };
   },
 
   async getUserById(id) {
-    const user = await UserRepository.findById(id);
+    const user = await UserRepository.findByIdWithProfile(id);
     if (!user) {
       throw new Error("User not found");
     }
-    delete user.password;
-    // user = {
-    //   id: Number(user.id),
-    //   name: user.name,
-    //   email: user.email,
-    //   role: user.role,
-    // };
-    return { User: user, message: "User found" };
+    return { user: UserMapper.mapToDetail(user), message: "User found" };
   },
 
   async getAllUsers() {
-    const users = await UserRepository.findAll();
-    if (!users) {
+    const users = await UserRepository.findAllWithProfile();
+    if (!users || users.length === 0) {
       throw new Error("No user");
     }
-    for (i = 0; i < users.length; i++) {
-      users[i].id = Number(users[i].id);
-      delete users[i].password;
+
+    return { users: UserMapper.mapToList(users), message: "All users" };
+  },
+
+  async setUserStatus(id, isActive) {
+    const user = await UserRepository.findById(Number(id));
+    if (!user) {
+      const err = new Error("User not found");
+      err.statusCode = 404;
+      throw err;
     }
-    return { Users: users, message: "All users" };
+
+    const updatedUser = isActive
+      ? await UserRepository.activateUser(id)
+      : await UserRepository.deactivateUser(id);
+
+    return {
+      user: UserMapper.mapToDetail(updatedUser),
+      message: `User ${isActive ? "activated" : "deactivated"} successfully`,
+    };
+  },
+
+  async setUserRole(id, role) {
+    const user = await UserRepository.findById(Number(id));
+    if (!user) {
+      const err = new Error("User not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    await UserRepository.update(Number(id), { role });
+    const updatedUser = await UserRepository.findByIdWithProfile(id);
+
+    return {
+      user: UserMapper.mapToDetail(updatedUser),
+      message: "User role updated successfully",
+    };
+  },
+
+  async getHealthProfile(userId) {
+    const profile = await PatientProfileRepository.findByUserId(userId);
+
+    return {
+      healthProfile: profile
+        ? {
+            allergies: profile.allergies || "",
+            chronicDiseases: profile.chronicDiseases || "",
+            context: profile.context || "",
+          }
+        : { allergies: "", chronicDiseases: "", context: "" },
+      message: "Health profile retrieved",
+    };
+  },
+
+  async upsertHealthProfile(userId, data) {
+    const profile = await PatientProfileRepository.upsertByUserId(userId, data);
+
+    return {
+      healthProfile: {
+        allergies: profile.allergies || "",
+        chronicDiseases: profile.chronicDiseases || "",
+        context: profile.context || "",
+      },
+      message: "Health profile updated",
+    };
   },
 
   async loginUser(email, password) {
@@ -79,9 +181,15 @@ const userService = {
       throw new Error("Email and password cannot be empty");
     }
 
-    const user = await UserRepository.findByEmail(email);
+    const user = await UserRepository.findByEmailWithProfile(email);
     if (!user) {
       throw new Error("No user found");
+    }
+
+    if (!user.isActive) {
+      const err = new Error("User account is inactive");
+      err.statusCode = 403;
+      throw err;
     }
 
     const isMatch = await accountService.compareEntityPassword(
@@ -92,11 +200,14 @@ const userService = {
     if (!isMatch) {
       throw new Error("Password incorrect");
     }
-    const token = generateToken(user);
-    const loginuser = { user, token };
-    // loginuser (user,token)
+    const token = generateToken({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      fullName: user.fullName,
+    });
 
-    return loginuser;
+    return UserMapper.mapToLogin(user, token);
   },
 };
 

@@ -4,7 +4,7 @@ const {
 } = require("../validators/output/category.output.validator");
 
 class CategoryMapper {
-  static mapToListItem(model) {
+  static mapToItem(model) {
     return BaseCategorySchema.parse({
       id: model.id,
       name: model.name,
@@ -14,10 +14,10 @@ class CategoryMapper {
   }
 
   static mapToList(models) {
-    return models.map((m) => this.mapToListN(m));
+    return models.map((m) => this.mapToItem(m));
   }
 
-  static mapToListN(model) {
+  static mapToDetail(model) {
     return CategoryDetailSchema.parse({
       id: model.id,
       name: model.name,

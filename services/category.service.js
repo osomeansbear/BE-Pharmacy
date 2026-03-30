@@ -1,5 +1,6 @@
 const CategoryRepository = require("../repositories/category.repository.js");
 const { convertToSlug } = require("../utils/convertToSlug.js");
+const CategoryMapper = require("../mappers/category.mapper.js");
 class CategoryService {
   /**
    * Format Private Function: Tạo Slug từ Name
@@ -21,16 +22,15 @@ class CategoryService {
 
     const newCategory = await CategoryRepository.create({ name, slug });
 
-    return {
+    return CategoryMapper.mapToItem({
       ...newCategory,
       id: Number(newCategory.id),
-    };
+    });
   }
 
   async getAllCategories() {
     const categories = await CategoryRepository.findAll();
-    // Đảm bảo tất cả ID đều là Number nếu DB trả về String/BigInt
-    return categories.map((cat) => ({ ...cat }));
+    return CategoryMapper.mapToList(categories);
   }
 
   async getCategoryById(id) {
@@ -40,7 +40,7 @@ class CategoryService {
       error.statusCode = 404;
       throw error;
     }
-    return { ...category, id: Number(category.id) };
+    return CategoryMapper.mapToDetail({ ...category, id: Number(category.id) });
   }
 
   async updateCategory(id, data) {
@@ -53,7 +53,10 @@ class CategoryService {
     }
 
     const updatedCategory = await CategoryRepository.update(id, data);
-    return { ...updatedCategory, id: Number(updatedCategory.id) };
+    return CategoryMapper.mapToItem({
+      ...updatedCategory,
+      id: Number(updatedCategory.id),
+    });
   }
 
   async deleteCategory(id) {

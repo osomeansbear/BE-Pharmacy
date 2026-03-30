@@ -6,7 +6,7 @@ class AddressRepository extends BaseRepository {
   }
 
   async findByUserId(userId) {
-    return this.findAll({ user_id: BigInt(userId) });
+    return this.findAll({ userId: Number(userId) });
   }
 }
 

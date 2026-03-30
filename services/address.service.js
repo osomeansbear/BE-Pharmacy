@@ -1,36 +1,94 @@
 const AddressRepository = require("../repositories/address.repository.js");
+const {
+  AddressOutputSchema,
+} = require("../validators/output/address.output.validator.js");
+
+function assertAuthenticated(userId) {
+  if (!userId) {
+    const err = new Error("Unauthorized");
+    err.statusCode = 401;
+    throw err;
+  }
+}
+
+function mapAddress(address) {
+  return AddressOutputSchema.parse({
+    ...address,
+    id: Number(address.id),
+    userId: Number(address.userId),
+  });
+}
 
 const addressService = {
-  async createAddress(data) {
-    // check if user already has an address
-    const existingAddresses = await AddressRepository.findByUserId(
-      data.user_id
-    );
+  async createAddress(userId, data) {
+    assertAuthenticated(userId);
+
+    const existingAddresses = await AddressRepository.findByUserId(userId);
+
+    const addressData = {
+      userId: Number(userId),
+      province: data.province,
+      district: data.district,
+      ward: data.ward,
+      detail: data.detail,
+    };
+
     if (existingAddresses.length > 0) {
       const newAddress = await AddressRepository.create({
-        ...data,
-        is_default: false,
-        full_name: data.full_name,
+        ...addressData,
+        isDefault: false,
       });
-      return {
-        ...newAddress,
-        id: Number(newAddress.id),
-        user_id: Number(newAddress.user_id),
-      };
-    } else {
-      // user has no existing addresses
-      const newAddress = await AddressRepository.create({
-        ...data,
-        is_default: true,
-      });
-      return {
-        ...newAddress,
-        id: Number(newAddress.id),
-        user_id: Number(newAddress.user_id),
-      };
+      return mapAddress(newAddress);
     }
-    // yes: create new address, set default to false
-    // no: create new address, set default to true
+
+    const newAddress = await AddressRepository.create({
+      ...addressData,
+      isDefault: true,
+    });
+    return mapAddress(newAddress);
+  },
+
+  async getAddresses(userId) {
+    assertAuthenticated(userId);
+
+    const addresses = await AddressRepository.findByUserId(userId);
+    return addresses.map((address) => mapAddress(address));
+  },
+
+  async updateAddress(userId, id, data) {
+    assertAuthenticated(userId);
+
+    const addresses = await AddressRepository.findByUserId(userId);
+    const existingAddress = addresses.find(
+      (address) => Number(address.id) === Number(id),
+    );
+
+    if (!existingAddress) {
+      const err = new Error("Address not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const updatedAddress = await AddressRepository.update(Number(id), data);
+    return mapAddress(updatedAddress);
+  },
+
+  async deleteAddress(userId, id) {
+    assertAuthenticated(userId);
+
+    const addresses = await AddressRepository.findByUserId(userId);
+    const existingAddress = addresses.find(
+      (address) => Number(address.id) === Number(id),
+    );
+
+    if (!existingAddress) {
+      const err = new Error("Address not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    await AddressRepository.delete(Number(id));
+    return { id: Number(id) };
   },
 };
 

@@ -1,6 +1,5 @@
 const BaseRepository = require("./base.repository");
-const brandRepository = require("./brand.repository");
-const productRepository = require("./product.repository");
+const prisma = require("../config/db.js");
 
 class ProductDetailRepository extends BaseRepository {
   constructor() {
@@ -8,11 +7,85 @@ class ProductDetailRepository extends BaseRepository {
   }
 
   async getDetailBySlug(slug) {
-    const product = await productRepository.findBySlug(slug);
-    const brand = await brandRepository.findById(product.brandId);
-    console.log(brand);
-    const detail = await this.findByField(product.id);
-    return { ...product, ...detail, brand: brand };
+    if (!slug) {
+      const err = new Error("Product slug is required");
+      err.statusCode = 400;
+      throw err;
+    }
+
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        brand: true,
+        detail: true,
+        unit: {
+          orderBy: [{ isDefault: "desc" }, { id: "asc" }],
+        },
+      },
+    });
+    if (!product) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const detail = product.detail;
+
+    if (!detail) {
+      const err = new Error("Product detail not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    return {
+      ...product,
+      ...detail,
+      brand: product.brand,
+      units: product.unit,
+    };
+  }
+
+  async getDetailByProductId(productId) {
+    const product = await prisma.product.findUnique({
+      where: { id: Number(productId) },
+      include: {
+        brand: true,
+        detail: true,
+        unit: {
+          orderBy: [{ isDefault: "desc" }, { id: "asc" }],
+        },
+      },
+    });
+
+    if (!product) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    if (!product.detail) {
+      const err = new Error("Product detail not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    return {
+      ...product,
+      ...product.detail,
+      brand: product.brand,
+      units: product.unit,
+    };
+  }
+
+  async upsertByProductId(productId, data) {
+    return prisma.productDetail.upsert({
+      where: { productId: Number(productId) },
+      create: {
+        productId: Number(productId),
+        ...data,
+      },
+      update: data,
+    });
   }
 }
 module.exports = new ProductDetailRepository();
