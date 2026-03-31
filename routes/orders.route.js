@@ -4,6 +4,7 @@ const validateData = require("../middlewares/validator.js");
 const { verifyUser, verifyRoles } = require("../middlewares/authenticaton.js");
 const {
   createOrderSchema,
+  adminCreateOrderSchema,
   orderIdParamsSchema,
 } = require("../validators/input/order.input.validator.js");
 const {
@@ -34,6 +35,14 @@ router.patch(
   verifyUser,
   validateData({ params: orderStatusParamsSchema }),
   orderController.cancelOrder,
+);
+
+router.post(
+  "/admin-create",
+  verifyUser,
+  verifyRoles(["ADMIN"]),
+  validateData({ body: adminCreateOrderSchema }),
+  orderController.adminCreateOrder,
 );
 
 router.post(

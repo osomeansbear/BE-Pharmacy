@@ -145,6 +145,84 @@ class OrderService {
     return OrderMapper.mapOrder(createdOrder);
   }
 
+  async adminCreateOrder(data) {
+    const { userId, shippingAddress, paymentMethod, items } = data;
+
+    const user = await UserRepository.findById(userId);
+    if (!user) {
+      const err = new Error("User not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const productIds = [...new Set(items.map((item) => item.productId))];
+    const products = await ProductRepository.findActiveByIds(productIds, {
+      id: true, name: true, stock: true, isActive: true,
+    });
+    const productMap = new Map(products.map((p) => [p.id, p]));
+
+    const orderItems = [];
+    let totalAmount = 0;
+
+    for (const item of items) {
+      const unit = await ProductRepository.findUnitByProductAndType(
+        item.productId,
+        item.unitType,
+        { conversionFactor: true, price: true },
+      );
+
+      const product = productMap.get(item.productId);
+      if (!product || !unit) {
+        const err = new Error(
+          `Product/unit not found for productId=${item.productId}, unitType=${item.unitType}`,
+        );
+        err.statusCode = 400;
+        throw err;
+      }
+
+      const quantity = Number(item.quantity);
+      const conversionFactor = Number(unit.conversionFactor);
+      const unitPrice = Number(unit.price);
+      const baseQty = quantity * conversionFactor;
+
+      if (Number.isNaN(baseQty) || baseQty <= 0) {
+        const err = new Error(`Invalid quantity for product ${item.productId}`);
+        err.statusCode = 400;
+        throw err;
+      }
+
+      if (product.stock < baseQty) {
+        const err = new Error(
+          `Insufficient stock for product "${product.name}". Required: ${baseQty}, Available: ${product.stock}`,
+        );
+        err.statusCode = 400;
+        throw err;
+      }
+
+      orderItems.push({
+        productId: item.productId,
+        productName: product.name,
+        unitType: item.unitType,
+        quantity: quantity.toString(),
+        baseQty: baseQty.toString(),
+        unitPrice: unitPrice.toString(),
+      });
+
+      totalAmount += quantity * unitPrice;
+    }
+
+    const orderData = {
+      userId: Number(userId),
+      userEmail: user.email,
+      shippingAddress,
+      paymentMethod,
+      totalAmount: totalAmount.toString(),
+    };
+
+    const createdOrder = await OrderRepository.createWithItems(orderData, orderItems);
+    return OrderMapper.mapOrder(createdOrder);
+  }
+
   async updateOrderStatus(orderId, nextStatus, actor = null) {
     const id = Number(orderId);
     if (!id) {

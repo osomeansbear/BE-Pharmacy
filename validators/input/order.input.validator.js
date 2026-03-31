@@ -40,6 +40,20 @@ const createOrderSchema = z.object({
   items: z.array(orderItemSchema).min(1, "Order must have at least one item"),
 });
 
+const adminCreateOrderSchema = z.object({
+  userId: z.number({ required_error: "User ID is required" }).int().positive(),
+  shippingAddress: z.object({
+    province: z.string().min(1, "Province is required"),
+    district: z.string().min(1, "District is required"),
+    ward: z.string().min(1, "Ward is required"),
+    detail: z.string().min(1, "Detail address is required"),
+  }),
+  paymentMethod: z.enum(["CASH", "CARD", "ONLINE", "INSURANCE"], {
+    required_error: "Payment method is required",
+  }),
+  items: z.array(orderItemSchema).min(1, "Order must have at least one item"),
+});
+
 const orderIdParamsSchema = z.object({
   id: z
     .string()
@@ -47,4 +61,4 @@ const orderIdParamsSchema = z.object({
     .transform(Number),
 });
 
-module.exports = { createOrderSchema, orderItemSchema, orderIdParamsSchema };
+module.exports = { createOrderSchema, adminCreateOrderSchema, orderItemSchema, orderIdParamsSchema };

@@ -116,6 +116,16 @@ class UserController extends BaseController {
     }
   };
 
+  changePassword = async (req, res) => {
+    try {
+      const { currentPassword, newPassword } = req.body;
+      const result = await userService.changePassword(req.user.id, currentPassword, newPassword);
+      this.success(res, {}, result.message);
+    } catch (err) {
+      this.error(res, err);
+    }
+  };
+
   loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;

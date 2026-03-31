@@ -180,6 +180,23 @@ const userService = {
     };
   },
 
+  async changePassword(userId, currentPassword, newPassword) {
+    const isMatch = await accountService.compareEntityPassword(userId, currentPassword);
+    if (!isMatch) {
+      const err = new Error("Current password is incorrect");
+      err.statusCode = 400;
+      throw err;
+    }
+
+    const bcrypt = require("bcrypt");
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const AccountRepository = require("../repositories/account.repository.js");
+    const account = await AccountRepository.findByUserId(userId);
+    await AccountRepository.update(account.id, { password: hashedPassword });
+
+    return { message: "Password changed successfully" };
+  },
+
   async loginUser(email, password) {
     if (!email || !password) {
       throw new Error("Email and password cannot be empty");

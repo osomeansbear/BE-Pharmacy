@@ -89,6 +89,16 @@ const loginUserSchema = z.object({
     .max(100, "Password is too long"),
 });
 
+const changePasswordSchema = z.object({
+  currentPassword: z
+    .string({ required_error: "Current password is required" })
+    .min(1, "Current password is required"),
+  newPassword: z
+    .string({ required_error: "New password is required" })
+    .min(5, "New password must be at least 5 characters")
+    .max(100, "New password is too long"),
+});
+
 module.exports = {
   createUserSchema,
   loginUserSchema,
@@ -97,4 +107,5 @@ module.exports = {
   updateUserStatusSchema,
   updateUserSchema,
   userIdParamsSchema,
+  changePasswordSchema,
 };

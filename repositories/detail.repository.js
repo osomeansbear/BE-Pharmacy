@@ -18,12 +18,39 @@ class ProductDetailRepository extends BaseRepository {
       include: {
         brand: true,
         detail: true,
+        categories: {
+          include: {
+            category: true,
+          },
+        },
         unit: {
           orderBy: [{ isDefault: "desc" }, { id: "asc" }],
         },
       },
     });
     if (!product) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    // Check if product is active
+    if (!product.isActive) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    // Check if brand is active (if exists)
+    if (product.brand && !product.brand.isActive) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    // Check if product has at least one active category
+    const hasActiveCategory = product.categories.some((pc) => pc.category.isActive);
+    if (!hasActiveCategory) {
       const err = new Error("Product not found");
       err.statusCode = 404;
       throw err;

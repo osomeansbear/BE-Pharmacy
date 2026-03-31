@@ -14,6 +14,7 @@ const {
   updateUserStatusSchema,
   updateUserSchema,
   userIdParamsSchema,
+  changePasswordSchema,
 } = require("../validators/input/user.input.validator.js");
 const {
   healthProfileSchema,
@@ -44,6 +45,12 @@ router.patch(
   verifyUser,
   validateData({ body: updateMeSchema }),
   userController.updateMe,
+);
+router.patch(
+  "/profile/password",
+  verifyUser,
+  validateData({ body: changePasswordSchema }),
+  userController.changePassword,
 );
 router.get("/profile/health", verifyUser, userController.getHealthProfile);
 router.put(

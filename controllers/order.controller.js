@@ -62,6 +62,15 @@ class OrderController extends BaseController {
     }
   };
 
+  adminCreateOrder = async (req, res) => {
+    try {
+      const result = await orderService.adminCreateOrder(req.body);
+      return this.success(res, { order: result }, "Create order successfully", 201);
+    } catch (err) {
+      return this.error(res, err);
+    }
+  };
+
   updateOrderStatus = async (req, res) => {
     try {
       const result = await orderService.updateOrderStatus(

@@ -20,6 +20,22 @@ class ProductRepository extends BaseRepository {
     const normalizedBrand = brand?.trim();
     const normalizedSearch = search?.trim();
     const where = {
+      isActive: true,
+      AND: [
+        {
+          OR: [
+            { brandId: null },
+            { brand: { isActive: true } },
+          ],
+        },
+        {
+          categories: {
+            some: {
+              category: { isActive: true },
+            },
+          },
+        },
+      ],
       ...(typeof requiresRx === "boolean" ? { requiresRx } : {}),
       ...(normalizedSearch
         ? {
@@ -39,6 +55,7 @@ class ProductRepository extends BaseRepository {
         ? {
             brand: {
               is: {
+                isActive: true,
                 OR: [
                   { slug: { equals: normalizedBrand, mode: "insensitive" } },
                   { name: { contains: normalizedBrand, mode: "insensitive" } },
@@ -52,22 +69,21 @@ class ProductRepository extends BaseRepository {
             categories: {
               some: {
                 category: {
-                  is: {
-                    OR: [
-                      {
-                        slug: {
-                          equals: normalizedCategory,
-                          mode: "insensitive",
-                        },
+                  isActive: true,
+                  OR: [
+                    {
+                      slug: {
+                        equals: normalizedCategory,
+                        mode: "insensitive",
                       },
-                      {
-                        name: {
-                          contains: normalizedCategory,
-                          mode: "insensitive",
-                        },
+                    },
+                    {
+                      name: {
+                        contains: normalizedCategory,
+                        mode: "insensitive",
                       },
-                    ],
-                  },
+                    },
+                  ],
                 },
               },
             },
@@ -206,7 +222,26 @@ class ProductRepository extends BaseRepository {
       { detail: { indications: { contains: keyword, mode: "insensitive" } } },
     ]);
     return this.model.findMany({
-      where: { requiresRx: false, isActive: true, OR: orConditions },
+      where: {
+        requiresRx: false,
+        isActive: true,
+        AND: [
+          {
+            OR: [
+              { brandId: null },
+              { brand: { isActive: true } },
+            ],
+          },
+          {
+            categories: {
+              some: {
+                category: { isActive: true },
+              },
+            },
+          },
+        ],
+        OR: orConditions,
+      },
       include: {
         productAIs: true,
         detail: true,
