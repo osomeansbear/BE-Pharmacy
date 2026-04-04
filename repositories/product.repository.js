@@ -83,6 +83,14 @@ class ProductRepository extends BaseRepository {
                         mode: "insensitive",
                       },
                     },
+                    {
+                      parent: {
+                        slug: {
+                          equals: normalizedCategory,
+                          mode: "insensitive",
+                        },
+                      },
+                    },
                   ],
                 },
               },

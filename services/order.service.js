@@ -155,6 +155,12 @@ class OrderService {
       throw err;
     }
 
+    if (!user.isActive) {
+      const err = new Error("Cannot create order for a deactivated user");
+      err.statusCode = 400;
+      throw err;
+    }
+
     const productIds = [...new Set(items.map((item) => item.productId))];
     const products = await ProductRepository.findActiveByIds(productIds, {
       id: true, name: true, stock: true, isActive: true,

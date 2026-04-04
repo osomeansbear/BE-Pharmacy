@@ -26,6 +26,7 @@ const createUserSchema = z.object({
     .string()
     .regex(/^[0-9]+$/, "Phone number must contain only digits")
     .min(10, "Phone number is too short")
+    .max(11, "Phone number is too long")
     .optional(),
 
   dob: z.coerce.date({ required_error: "Date of birth is required" }),
@@ -44,6 +45,7 @@ const updateUserSchema = z
       .string()
       .regex(/^[0-9]+$/, "Phone number must contain only digits")
       .min(10, "Phone number is too short")
+      .max(11, "Phone number is too long")
       .optional(),
     role: z
       .enum(["PATIENT", "PHARMACIST", "ADMIN", "INVENTORY_MANAGER"])
@@ -65,6 +67,7 @@ const updateMeSchema = z
       .string()
       .regex(/^[0-9]+$/, "Phone number must contain only digits")
       .min(10, "Phone number is too short")
+      .max(11, "Phone number is too long")
       .optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
