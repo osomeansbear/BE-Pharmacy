@@ -14,12 +14,27 @@ const {
 
 const router = express.Router();
 
-router.get(
-  "/",
+// ── Admin ────────────────────────────────────────────────────────────────────
+
+router.get("/", verifyUser, verifyRoles(["ADMIN"]), orderController.getAllOrders);
+
+router.post(
+  "/admin-create",
   verifyUser,
   verifyRoles(["ADMIN"]),
-  orderController.getAllOrders,
+  validateData({ body: adminCreateOrderSchema }),
+  orderController.adminCreateOrder,
 );
+
+router.patch(
+  "/:id/status",
+  verifyUser,
+  verifyRoles(["ADMIN"]),
+  validateData({ params: orderStatusParamsSchema, body: updateOrderStatusSchema }),
+  orderController.updateOrderStatus,
+);
+
+// ── Patient ──────────────────────────────────────────────────────────────────
 
 router.get("/me", verifyUser, orderController.getMyOrders);
 
@@ -30,21 +45,6 @@ router.get(
   orderController.getMyOrderById,
 );
 
-router.patch(
-  "/:id/cancel",
-  verifyUser,
-  validateData({ params: orderStatusParamsSchema }),
-  orderController.cancelOrder,
-);
-
-router.post(
-  "/admin-create",
-  verifyUser,
-  verifyRoles(["ADMIN"]),
-  validateData({ body: adminCreateOrderSchema }),
-  orderController.adminCreateOrder,
-);
-
 router.post(
   "/",
   verifyUser,
@@ -52,15 +52,19 @@ router.post(
   orderController.createOrder,
 );
 
-router.patch(
-  "/:id/status",
+// Simulate payment for ONLINE orders: PENDING → CONFIRMED
+router.post(
+  "/:id/pay",
   verifyUser,
-  verifyRoles(["ADMIN"]),
-  validateData({
-    params: orderStatusParamsSchema,
-    body: updateOrderStatusSchema,
-  }),
-  orderController.updateOrderStatus,
+  validateData({ params: orderStatusParamsSchema }),
+  orderController.payOrder,
+);
+
+router.patch(
+  "/:id/cancel",
+  verifyUser,
+  validateData({ params: orderStatusParamsSchema }),
+  orderController.cancelOrder,
 );
 
 module.exports = router;

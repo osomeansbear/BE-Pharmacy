@@ -21,10 +21,8 @@ enum Role {
 enum OrderStatus {
   PENDING
   CONFIRMED
-  PROCESSING
   DELIVERED
   CANCELLED
-  RETURNED
 }
 
 enum PaymentMethod {
@@ -190,14 +188,16 @@ model CartItem {
 model Order {
   id              Int           @id @default(autoincrement())
   userId          Int?
-  userEmail       String //snap
+  userEmail       String?       // snap — null for walk-in guests
+  guestName       String?       // walk-in customer name (no account)
+  guestPhone      String?       // walk-in customer phone (no account)
   shippingAddress Json
   status          OrderStatus   @default(PENDING)
   paymentMethod   PaymentMethod
   totalAmount     Decimal       @db.Decimal(14, 2)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt //only for change status
+  updatedAt DateTime @updatedAt
 
   items OrderItem[]
   user  User?       @relation(fields: [userId], references: [id], onDelete: NoAction)

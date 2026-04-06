@@ -13,7 +13,9 @@ const OrderItemOutput = z.object({
 const OrderOutput = z.object({
   id: z.number(),
   userId: z.number().nullable(),
-  userEmail: z.string(),
+  userEmail: z.string().nullable(),
+  guestName: z.string().nullable(),
+  guestPhone: z.string().nullable(),
   shippingAddress: z.object({
     province: z.string(),
     district: z.string(),

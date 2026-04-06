@@ -8,15 +8,7 @@ const orderStatusParamsSchema = z.object({
 });
 
 const updateOrderStatusSchema = z.object({
-  status: z.enum([
-    "DRAFT",
-    "PENDING",
-    "CONFIRMED",
-    "PROCESSING",
-    "FULFILLED",
-    "CANCELLED",
-    "RETURNED",
-  ]),
+  status: z.enum(["PENDING", "CONFIRMED", "DELIVERED", "CANCELLED"]),
 });
 
 module.exports = { orderStatusParamsSchema, updateOrderStatusSchema };

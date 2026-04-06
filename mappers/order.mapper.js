@@ -25,7 +25,9 @@ class OrderMapper {
     return OrderOutput.parse({
       id: order.id,
       userId: order.userId ?? null,
-      userEmail: order.userEmail,
+      userEmail: order.userEmail ?? null,
+      guestName: order.guestName ?? null,
+      guestPhone: order.guestPhone ?? null,
       shippingAddress: {
         province: order.shippingAddress.province,
         district: order.shippingAddress.district,
