@@ -28,6 +28,7 @@ const createAddressSchema = z.object({
 
 const updateAddressSchema = createAddressSchema
   .partial()
+  .extend({ isDefault: z.boolean().optional() })
   .refine((data) => Object.keys(data).length > 0, {
     message: "At least one field is required",
   });

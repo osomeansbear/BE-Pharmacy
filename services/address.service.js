@@ -69,6 +69,15 @@ const addressService = {
       throw err;
     }
 
+    // If setting this address as default, unset all others first
+    if (data.isDefault === true) {
+      await Promise.all(
+        addresses
+          .filter((a) => Number(a.id) !== Number(id) && a.isDefault)
+          .map((a) => AddressRepository.update(Number(a.id), { isDefault: false })),
+      );
+    }
+
     const updatedAddress = await AddressRepository.update(Number(id), data);
     return mapAddress(updatedAddress);
   },
