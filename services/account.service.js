@@ -17,11 +17,9 @@ const accountService = {
     const account = await AccountRepository.findByUserId(userId);
 
     if (!account || !account.password) {
-      //   console.log("Debug: Account missing for user", userId);
       return false;
     }
     const isMatch = await bcrypt.compare(password, account.password);
-    // console.log(isMatch);
 
     return isMatch;
   },

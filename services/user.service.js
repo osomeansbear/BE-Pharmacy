@@ -1,5 +1,7 @@
+const bcrypt = require("bcrypt");
 const UserRepository = require("../repositories/user.repository.js");
 const accountService = require("./account.service.js");
+const AccountRepository = require("../repositories/account.repository.js");
 const PatientProfileRepository = require("../repositories/patient-profile.repository.js");
 
 const { generateToken } = require("../utils/jwt.js");
@@ -188,9 +190,7 @@ const userService = {
       throw err;
     }
 
-    const bcrypt = require("bcrypt");
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    const AccountRepository = require("../repositories/account.repository.js");
     const account = await AccountRepository.findByUserId(userId);
     await AccountRepository.update(account.id, { password: hashedPassword });
 
