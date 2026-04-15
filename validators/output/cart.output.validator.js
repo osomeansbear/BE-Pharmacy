@@ -5,6 +5,7 @@ const CartItemOutputSchema = z.object({
   userId: z.number().int(),
   productId: z.number().int(),
   productName: z.string(),
+  productImage: z.string().nullable(),
   unitType: z.string(),
   quantity: z.string(),
   unitPrice: z.string(),

@@ -4,8 +4,6 @@ class CategoryController extends BaseController {
   createCategory = async (req, res) => {
     try {
       const result = await categoryService.createCategory(req.body);
-      // Data format: { Category: result }
-
       return this.success(res, result, "Created successfully", 201);
     } catch (err) {
       return this.error(res, err);
@@ -59,7 +57,6 @@ class CategoryController extends BaseController {
   deleteCategory = async (req, res) => {
     try {
       await categoryService.deleteCategory(req.params.id);
-      // HTTP 204 No Content thường không trả về body
       return res.status(204).send();
     } catch (err) {
       return this.error(res, err);
@@ -67,5 +64,4 @@ class CategoryController extends BaseController {
   };
 }
 
-// Export một instance của class
 module.exports = new CategoryController();

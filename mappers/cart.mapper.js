@@ -14,6 +14,7 @@ class CartMapper {
       userId: model.userId,
       productId: model.productId,
       productName: model.productName,
+      productImage: model.productImage ?? null,
       unitType: model.unitType,
       quantity,
       unitPrice,

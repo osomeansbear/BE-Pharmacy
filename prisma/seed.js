@@ -89,6 +89,15 @@ async function main() {
         },
       });
 
+      // --- PRODUCT CATEGORY LINK (upsert so re-seeding always re-links) ---
+      await prisma.productCategory.upsert({
+        where: {
+          productId_categoryId: { productId: product.id, categoryId: childCat.id },
+        },
+        update: {},
+        create: { productId: product.id, categoryId: childCat.id },
+      });
+
       // --- PRODUCT UNITS ---
       await prisma.productUnit.upsert({
         where: { productId_unitType: { productId: product.id, unitType: "BOX" } },

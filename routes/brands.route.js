@@ -11,7 +11,6 @@ const {
 const router = express.Router();
 const ADMIN = "ADMIN";
 
-// Create a new brand
 router.post(
   "/",
   verifyUser,

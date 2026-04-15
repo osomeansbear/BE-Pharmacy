@@ -11,7 +11,11 @@
       "stock": 71,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache the common cold backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -30,7 +34,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Croscarmellose sodium, D&C red #33, FD&C blue #1, FD&C red #40, gelatin, hydroxypropyl cellulose, hypromellose, iron oxide black, iron oxide red, iron oxide yellow, polyethylene glycol, povidone, pregelatinized starch, propylene glycol, shellac glaze, stearic acid, titanium dioxide"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache the common cold backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
@@ -54,7 +60,10 @@
       "stock": 45,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache muscular aches backache minor pain of arthritis the common cold toothache premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -73,7 +82,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Croscarmellose sodium, crospovidone, FD&C red #40 aluminum lake, FD&C yellow #6 aluminum lake, hypromellose, mica-based pearlescent pigment, polyethylene glycol, polysorbate 80, povidone, pregelatinized starch, stearic acid"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache muscular aches backache minor pain of arthritis the common cold toothache premenstrual and menstrual cramps temporarily reduces fever",
@@ -97,7 +108,10 @@
       "stock": 52,
       "isActive": true,
       "shortDesc": "Azithromycin is a macrolide antibacterial drug indicated for the treatment of patients with mild to moderate infections caused by susceptible strains of the designated microorganisms in the specific conditions listed below. Recommended dosages and durations of therapy in adult and pediatric patient populations vary in these indications.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -116,7 +130,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AZITHROMYCIN DIHYDRATE",
       "composition": {
-        "active": ["AZITHROMYCIN DIHYDRATE"],
+        "active": [
+          "AZITHROMYCIN DIHYDRATE"
+        ],
         "inactive": null
       },
       "indications": "Azithromycin is a macrolide antibacterial drug indicated for the treatment of patients with mild to moderate infections caused by susceptible strains of the designated microorganisms in the specific conditions listed below. Recommended dosages and durations of therapy in adult and pediatric patient populations vary in these indications. [see Dosage and Administration (2) ] Azithromycin is a macrolide antibacterial drug indicated for mild to moderate infections caused by designated, susceptible bacteria: Acute bacterial exacerbations of chronic bronchitis in adults ( 1.1 ) Acute bacterial sinusitis in adults ( 1.1 ) Uncomplicated skin and skin structure infections in adults ( 1.1 ) Urethritis and cervicitis in adults ( 1.1 ) Genital ulcer disease in men ( 1.1 ) Acute otitis media in pediatric patients (6 months of age and older) ( 1.2 ) Community-acquired pneumonia in adults and pediatric patients (6 months of age and older) ( 1.1 , 1.2 ) Pharyngitis/tonsillitis in adults and pediatric patients (2 years of age and older) ( 1.1 , 1.2 ) Limitation of Use: Azithromycin should not be used in patients with pneumonia who are judged to be inappropriate for oral therapy because of moderate to severe illness or risk factors. ( 1.3 ) To reduce the development of drug-resistant bacteria and maintain the effectiveness of azithromycin tablets and other antibacterial drugs, azithromycin tablets should be used only to treat infections that are proven or strongly suspected to be caused by susceptible bacteria. ( 1.4 ) 1.1 Adult Patients Acute bacterial exacerbations of chronic bronchitis due to Haemophilus influenzae , Moraxella catarrhalis, or Streptococcus pneumoniae . Acute bacterial sinusitis due to Haemophilus influenzae , Moraxella catarrhalis. or Streptococcus pneumoniae . Community-acquired pneumonia due to Chlamydophila pneumoniae , Haemophilus influenzae , Mycoplasma pneumoniae, or Streptococcus pneumoniae in patients appropriate for oral therapy. Pharyngitis/tonsillitis caused by Streptococcus pyogenes as an alternative to first-line therapy in individuals who cannot use first-line therapy. Uncomplicated skin and skin structure infections due to Staphylococcus aureus , Streptococcus pyogenes , or Streptococcus agalactiae . Urethritis and cervicitis due to Chlamydia trachomatis or Neisseria gonorrhoeae . Genital ulcer disease in men due to Haemophilus ducreyi (chancroid). Due to the small number of women included in clinical trials, the efficacy of azithromycin in the treatment of chancroid in women has not been established. 1.2 Pediatric Patients [see Use in Specific Populations (8.4) and Clinical Studies (14.2) ] Acute otitis media (>6 months of age) caused by Haemophilus influenzae, Moraxella catarrhalis , or Streptococcus pneumoniae. Community-acquired pneumonia (>6 months of age) due to Chlamydophila pneumoniae, Haemophilus influenzae, Mycoplasma pneumoniae , or Streptococcus pneumoniae in patients appropriate for oral therapy. Pharyngitis/tonsillitis (>2 years of age) caused by Streptococcus pyogenes as an alternative to first-line therapy in individuals who cannot use first-line therapy. 1.3 Limitations of Use Azithromycin should not be used in patients with pneumonia who are judged to be inappropriate for oral therapy because of moderate to severe illness or risk factors such as any of the following: patients with cystic fibrosis, patients with nosocomial infections, patients with known or suspected bacteremia, patients requiring hospitalization, elderly or debilitated patients, or patients with significant underlying health problems that may compromise their ability to respond to their illness (including immunodeficiency or functional asplenia). 1.4 Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of azithromycin tablets and other antibacterial drugs, azithromycin tablets should be used only to treat infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
@@ -140,7 +156,11 @@
       "stock": 54,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: minor pain of arthritis muscular aches backache premenstrual and menstrual cramp toothache the common cold headache toothache temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -159,7 +179,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Colloidal silicon dioxide, hydroxyethyl cellulose, hypromellose, magnesium stearate, microcrystalline cellulose, povidone, pregelatinized starch (maize), sodium starch glycolate, titanium dioxide, triacetin Questions or comments? call 1-888-287-1915 DISTRIBUTED BY: Walmart Inc., Bentonville, AR 72716 Made in India Code: TS/DRUGS/22/2009"
       },
       "indications": "Temporarily relieves minor aches and pains due to: minor pain of arthritis muscular aches backache premenstrual and menstrual cramp toothache the common cold headache toothache temporarily reduces fever",
@@ -183,7 +205,10 @@
       "stock": 80,
       "isActive": true,
       "shortDesc": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose itchy, watery eyes sneezing itching of the nose or throat",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -202,7 +227,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "LORATADINE",
       "composition": {
-        "active": ["LORATADINE"],
+        "active": [
+          "LORATADINE"
+        ],
         "inactive": "Lactose monohydrate, magnesium stearate, povidone, pregelatinized starch"
       },
       "indications": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose itchy, watery eyes sneezing itching of the nose or throat",
@@ -226,7 +253,10 @@
       "stock": 52,
       "isActive": true,
       "shortDesc": "Amlodipine besylate tablets are calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of:Hypertension ( 1.1 ), Amlodipine besylate tablets are indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -245,7 +275,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AMLODIPINE BESYLATE",
       "composition": {
-        "active": ["AMLODIPINE BESYLATE"],
+        "active": [
+          "AMLODIPINE BESYLATE"
+        ],
         "inactive": null
       },
       "indications": "Amlodipine besylate tablets are calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of: Hypertension ( 1.1 ), Amlodipine besylate tablets are indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. Coronary Artery Disease ( 1.2 ), Chronic Stable Angina, Vasospastic Angina (Prinzmetal's or Variant Angina), Angiographically Documented Coronary Artery Disease in patients without heart failure or an ejection fraction < 40% 1.1 Hypertension Amlodipine besylate tablets are indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes including amlodipine besylate. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the National High Blood Pressure Education Program's Joint National Committee on Prevention, Detection, Evaluation, and Treatment of High Blood Pressure (JNC). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. Some antihypertensive drugs have smaller blood pressure effects (as monotherapy) in black patients, and many antihypertensive drugs have additional approved indications and effects (e.g., on angina, heart failure, or diabetic kidney disease). These considerations may guide selection of therapy. Amlodipine besylate tablets may be used alone or in combination with other antihypertensive agents. 1.2 Coronary Artery Disease (CAD) Chronic Stable Angina Amlodipine besylate tablets are indicated for the symptomatic treatment of chronic stable angina. Amlodipine besylate tablets may be used alone or in combination with other antianginal agents. Vasospastic Angina (Prinzmetal's or Variant Angina) Amlodipine besylate tablets are indicated for the treatment of confirmed or suspected vasospastic angina. Amlodipine besylate tablets may be used as monotherapy or in combination with other antianginal agents. Angiographically Documented CAD In patients with recently documented CAD by angiography and without heart failure or an ejection fraction <40%, amlodipine besylate tablets are indicated to reduce the risk of hospitalization for angina and to reduce the risk of a coronary revascularization procedure.",
@@ -269,7 +301,11 @@
       "stock": 22,
       "isActive": true,
       "shortDesc": "Temporarily relieves these symptoms due to a cold minor aches and pains headache nasal and sinus congestion sore throat cough due to minor throat and bronchial irritation temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -316,7 +352,10 @@
       "stock": 54,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache muscular aches backache minor pain of arthritis the common cold toothache premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -335,7 +374,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Povidone, pregelatinized corn starch, sodium starch glycolate, stearic acid"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache muscular aches backache minor pain of arthritis the common cold toothache premenstrual and menstrual cramps temporarily reduces fever",
@@ -359,7 +400,10 @@
       "stock": 24,
       "isActive": true,
       "shortDesc": "Temporarily relieves cough due to minor throat and bronchial irritation as may occur with a cold helps loosen phlegm (mucus) and thin bronchial secretions to drain bronchial tubes.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -378,7 +422,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "DEXTROMETHORPHAN HYDROBROMIDE, GUAIFENESIN",
       "composition": {
-        "active": ["DEXTROMETHORPHAN HYDROBROMIDE", "GUAIFENESIN"],
+        "active": [
+          "DEXTROMETHORPHAN HYDROBROMIDE",
+          "GUAIFENESIN"
+        ],
         "inactive": "Citric acid, elderberry fruit extract, glycerin, honey, maltodextrin, methylparaben, flavor, potassium sorbate as a preservative, propylparaben, propylene glycol, purified water, sodium chloride, sucralose and zinc sulfate."
       },
       "indications": "Temporarily relieves cough due to minor throat and bronchial irritation as may occur with a cold helps loosen phlegm (mucus) and thin bronchial secretions to drain bronchial tubes.",
@@ -402,7 +449,11 @@
       "stock": 80,
       "isActive": true,
       "shortDesc": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose, itchy, watery eyes, sneezing, itching of the nose or throat",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -421,7 +472,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "LORATADINE",
       "composition": {
-        "active": ["LORATADINE"],
+        "active": [
+          "LORATADINE"
+        ],
         "inactive": "Croscarmellose sodium, crospovidone, hypromellose, magnesium stearate, mannitol, microcrystalline cellulose, natural and artificial mint flavor, sucralose"
       },
       "indications": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose itchy, watery eyes sneezing itching of the nose or throat",
@@ -445,7 +498,10 @@
       "stock": 97,
       "isActive": true,
       "shortDesc": "Use(s) treats frequent heartburn (occurs 2 or more days a week) not intended for immediate relief of heartburn; this drug may take 1 to 4 days for full effect",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -464,7 +520,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "OMEPRAZOLE",
       "composition": {
-        "active": ["OMEPRAZOLE"],
+        "active": [
+          "OMEPRAZOLE"
+        ],
         "inactive": "Ammonia solution, ammonium hydroxide, carnauba wax, hypromellose acetate succinate, hypromellose, iron oxide black, lactose monohydrate, monoethanolamine, n-butyl alcohol, polyethylene glycol, polyvinyl alcohol, povidone, propylene glycol, red iron oxide, sodium stearate, sodium starch glycolate, shellac glaze, sodium lauryl sulphate, sodium stearyl fumarate, talc, titanium dioxide, triethyl citrate, yellow iron oxide"
       },
       "indications": "Use(s) treats frequent heartburn (occurs 2 or more days a week) not intended for immediate relief of heartburn; this drug may take 1 to 4 days for full effect",
@@ -488,7 +546,10 @@
       "stock": 68,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: the common cold headache backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -507,7 +568,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Hypromellose, mineral oil, polyethylene glycol, polysorbate 80, povidone, pregelatinized starch, sodium starch glycolate, stearic acid, titanium dioxide"
       },
       "indications": "Temporarily relieves minor aches and pains due to: the common cold headache backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
@@ -531,7 +594,11 @@
       "stock": 77,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache toothache backache menstrual cramps the common cold muscular aches minor pain of arthritis temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -550,7 +617,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "Colloidal silicon dioxide, corn starch, hypromellose, lactose anhydrous, magnesium stearate, microcrystalline cellulose, polydextrose, polyethylene glycol, povidone, sodium starch glycolate, stearic acid, triacetin"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache toothache backache menstrual cramps the common cold muscular aches minor pain of arthritis temporarily reduces fever",
@@ -574,7 +643,10 @@
       "stock": 74,
       "isActive": true,
       "shortDesc": "Temporarily relieves these common cold and flu symptoms: cough nasal congestion minor aches and pains sore throat headache runny nose sneezing temporarily reduces fever controls cough to help your child get to sleep",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -621,7 +693,10 @@
       "stock": 38,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache, muscular aches, minor pain of arthritis, toothache, backache, the common cold, menstrual cramps, temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -640,7 +715,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "Colloidal silicon dioxide, corn starch, croscarmellose sodium, hypromellose, iron oxide red, iron oxide yellow, microcrystalline cellulose, polyethylene glycol, polysorbate 80, stearic acid, titanium dioxide"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache muscular aches minor pain of arthritis toothache backache the common cold menstrual cramps temporarily reduces fever",
@@ -664,7 +741,11 @@
       "stock": 58,
       "isActive": true,
       "shortDesc": "Carefully consider the potential benefits and risks of ibuprofen tablets and other treatment options before deciding to use ibuprofen. Use the lowest effective dose for the shortest duration consistent with individual patient treatment goals (see WARNINGS ). Ibuprofen tablets are indicated for relief of the signs and symptoms of rheumatoid arthritis and osteoarthritis. Ibuprofen tablets are indicated for relief of mild to moderate pain.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -683,7 +764,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": null
       },
       "indications": "Carefully consider the potential benefits and risks of ibuprofen tablets and other treatment options before deciding to use ibuprofen. Use the lowest effective dose for the shortest duration consistent with individual patient treatment goals (see WARNINGS ). Ibuprofen tablets are indicated for relief of the signs and symptoms of rheumatoid arthritis and osteoarthritis. Ibuprofen tablets are indicated for relief of mild to moderate pain. Ibuprofen tablets are also indicated for the treatment of primary dysmenorrhea. Controlled clinical trials to establish the safety and effectiveness of ibuprofen tablets in children have not been conducted.",
@@ -707,7 +790,10 @@
       "stock": 75,
       "isActive": true,
       "shortDesc": "ZITUVIMET is a combination of sitagliptin, a dipeptidyl peptidase-4 (DPP-4) inhibitor, and metformin hydrochloride (HCl), a biguanide, indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: ZITUVIMET is not recommended in patients with type 1 diabetes mellitus. ( 1 ) ZITUVIMET has not been studied in patients with a history of pancreatitis.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -726,7 +812,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "METFORMIN HYDROCHLORIDE, SITAGLIPTIN",
       "composition": {
-        "active": ["METFORMIN HYDROCHLORIDE", "SITAGLIPTIN"],
+        "active": [
+          "METFORMIN HYDROCHLORIDE",
+          "SITAGLIPTIN"
+        ],
         "inactive": null
       },
       "indications": "ZITUVIMET is a combination of sitagliptin, a dipeptidyl peptidase-4 (DPP-4) inhibitor, and metformin hydrochloride (HCl), a biguanide, indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. ( 1 ) Limitations of Use: ZITUVIMET is not recommended in patients with type 1 diabetes mellitus. ( 1 ) ZITUVIMET has not been studied in patients with a history of pancreatitis. ( 1 ) ZITUVIMET is indicated as an adjunct to diet and exercise to improve glycemic control in adults with type 2 diabetes mellitus. Limitations of Use ZITUVIMET is not recommended in patients with type 1 diabetes mellitus. ZITUVIMET has not been studied in patients with a history of pancreatitis. It is unknown whether patients with a history of pancreatitis are at increased risk for the development of pancreatitis while using ZITUVIMET. [see Warnings and Precautions ( 5.2 )].",
@@ -750,7 +839,10 @@
       "stock": 47,
       "isActive": true,
       "shortDesc": "Temporarily: relieves minor aches and pains due to the common cold, flu, sore throat, headache and toothache, reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -769,7 +861,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "Anhydrous citric acid, FD&C red #40, glycerin, high fructose corn syrup, hypromellose, natural and artificial bubblegum flavors, polysorbate 80, purified water, sodium benzoate, sorbitol solution, xanthan gum"
       },
       "indications": "Temporarily: relieves minor aches and pains due to the common cold, flu, sore throat, headache and toothache reduces fever",
@@ -793,7 +887,11 @@
       "stock": 53,
       "isActive": true,
       "shortDesc": "Amlodipine besylate tablets is a calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of: Hypertension ( 1.1 ) Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -812,7 +910,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AMLODIPINE BESYLATE",
       "composition": {
-        "active": ["AMLODIPINE BESYLATE"],
+        "active": [
+          "AMLODIPINE BESYLATE"
+        ],
         "inactive": null
       },
       "indications": "Amlodipine besylate tablets is a calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of: Hypertension ( 1.1 ) Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. Coronary Artery Disease ( 1.2 ) Chronic Stable Angina Vasospastic Angina (Prinzmetal’s or Variant Angina) Angiographically Documented Coronary Artery Disease in patients without heart failure or an ejection fraction < 40% 1.1 Hypertension Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes including Amlodipine besylate tablets. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the National High Blood Pressure Education Program’s Joint National Committee on Prevention, Detection, Evaluation, and Treatment of High Blood Pressure (JNC). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. Some antihypertensive drugs have smaller blood pressure effects (as monotherapy) in black patients, and many antihypertensive drugs have additional approved indications and effects (e.g., on angina, heart failure, or diabetic kidney disease). These considerations may guide selection of therapy. Amlodipine besylate tablets may be used alone or in combination with other antihypertensive agents. 1.2 Coronary Artery Disease (CAD) Chronic Stable Angina Amlodipine besylate tablets is indicated for the symptomatic treatment of chronic stable angina. Amlodipine besylate tablets may be used alone or in combination with other antianginal agents. Vasospastic Angina (Prinzmetal’s or Variant Angina) Amlodipine besylate tablets is indicated for the treatment of confirmed or suspected vasospastic angina. Amlodipine besylate tablets may be used as monotherapy or in combination with other antianginal agents. Angiographically Documented CAD In patients with recently documented CAD by angiography and without heart failure or an ejection fraction <40%, Amlodipine besylate tablets is indicated to reduce the risk of hospitalization for angina and to reduce the risk of a coronary revascularization procedure.",
@@ -836,7 +936,10 @@
       "stock": 75,
       "isActive": true,
       "shortDesc": "For the temporary relief of symptoms including: jet lag, body aches, nervousness, muscle cramps, fatigue. These statements are based upon homeopathic principles. They have not been reviewed by the Food and Drug Administration.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -897,7 +1000,10 @@
       "stock": 59,
       "isActive": true,
       "shortDesc": "Relieves: heartburn, sour stomach, acid indigestion, upset stomach associated with these symptoms",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -916,7 +1022,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "CALCIUM CARBONATE",
       "composition": {
-        "active": ["CALCIUM CARBONATE"],
+        "active": [
+          "CALCIUM CARBONATE"
+        ],
         "inactive": "Adipic acid, D&C Red No. 27, D&C Yellow No. 10, dextrose, FD&C Blue No. 1, FD&C Yellow No. 6, flavor, magnesium stearate, maltodextrin, starch, sucralose"
       },
       "indications": "Relieves: heartburn sour stomach acid indigestion upset stomach associated with these symptoms",
@@ -940,7 +1048,11 @@
       "stock": 84,
       "isActive": true,
       "shortDesc": "Atorvastatin calcium tablets are indicated: To reduce the risk of: Myocardial infarction (MI), stroke, revascularization procedures, and angina in adults with multiple risk factors for coronary heart disease (CHD) but without clinically evident CHD MI and stroke in adults with type 2 diabetes mellitus with multiple risk factors for CHD but without clinically evident CHD Non-fatal MI, fatal and non-fatal stroke, revascularization procedures.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -959,7 +1071,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ATORVASTATIN CALCIUM TRIHYDRATE",
       "composition": {
-        "active": ["ATORVASTATIN CALCIUM TRIHYDRATE"],
+        "active": [
+          "ATORVASTATIN CALCIUM TRIHYDRATE"
+        ],
         "inactive": null
       },
       "indications": "Atorvastatin calcium tablets are indicated: To reduce the risk of: Myocardial infarction (MI), stroke, revascularization procedures, and angina in adults with multiple risk factors for coronary heart disease (CHD) but without clinically evident CHD MI and stroke in adults with type 2 diabetes mellitus with multiple risk factors for CHD but without clinically evident CHD Non-fatal MI, fatal and non-fatal stroke, revascularization procedures, hospitalization for congestive heart failure, and angina in adults with clinically evident CHD As an adjunct to diet to reduce low-density lipoprotein cholesterol (LDL-C) in: Adults with primary hyperlipidemia. Adults and pediatric patients aged 10 years and older with heterozygous familial hypercholesterolemia (HeFH). As an adjunct to other LDL-C-lowering therapies, or alone if such treatments are unavailable, to reduce LDL-C in adults and pediatric patients aged 10 years and older with homozygous familial hypercholesterolemia (HoFH). As an adjunct to diet for the treatment of adults with: Primary dysbetalipoproteinemia Hypertriglyceridemia Atorvastatin calcium tablets are an HMG-CoA reductase inhibitor (statin) indicated ( 1 ): To reduce the risk of: Myocardial infarction (MI), stroke, revascularization procedures, and angina in adults with multiple risk factors for coronary heart disease (CHD) but without clinically evident CHD. MI and stroke in adults with type 2 diabetes mellitus with multiple risk factors for CHD but without clinically evident CHD. Non-fatal MI, fatal and non-fatal stroke, revascularization procedures, hospitalization for congestive heart failure, and angina in adults with clinically evident CHD. As an adjunct to diet to reduce low-density lipoprotein (LDL-C) in: Adults with primary hyperlipidemia. Adults and pediatric patients aged 10 years and older with heterozygous familial hypercholesterolemia (HeFH). As an adjunct to other LDL-C-lowering therapies to reduce LDL-C in adults and pediatric patients aged 10 years and older with homozygous familial hypercholesterolemia. As an adjunct to diet for the treatment of adults with: Primary dysbetaliproteinemia. Hypertriglyceridemia.",
@@ -983,7 +1097,10 @@
       "stock": 19,
       "isActive": true,
       "shortDesc": "Acetaminophen and codeine phosphate tablets are indicated for the management of mild to moderate pain, where treatment with an opioid is appropriate and for which alternative treatments are inadequate.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -1002,7 +1119,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN, CODEINE PHOSPHATE",
       "composition": {
-        "active": ["ACETAMINOPHEN", "CODEINE PHOSPHATE"],
+        "active": [
+          "ACETAMINOPHEN",
+          "CODEINE PHOSPHATE"
+        ],
         "inactive": null
       },
       "indications": "Acetaminophen and codeine phosphate tablets are indicated for the management of mild to moderate pain, where treatment with an opioid is appropriate and for which alternative treatments are inadequate. Limitations of Use Because of the risks of addiction, abuse, and misuse, with opioids, even at recommended doses (see WARNINGS ), reserve acetaminophen and codeine phosphate tablets for use in patients for whom alternative treatment options (e.g., non-opioid analgesics) · Have not provided adequate analgesia, or are not expected to provide adequate analgesia, · Have not been tolerated, or are not expected to be tolerated.",
@@ -1026,7 +1146,10 @@
       "stock": 35,
       "isActive": true,
       "shortDesc": "USE(S) temporarily: reduces fever relieves minor aches and pains due to the common cold, flu, sore throat, headaches and toothaches",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1045,7 +1168,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "Anhydrous citric acid, flavors, glycerin, polysorbate 80, pregelatinized starch, purified water, sodium benzoate, sorbitol, sucrose, xanthan gum"
       },
       "indications": "USE(S) temporarily: reduces fever relieves minor aches and pains due to the common cold, flu, sore throat, headaches and toothaches",
@@ -1069,7 +1194,11 @@
       "stock": 56,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache toothache the common cold muscular aches backache minor pain of arthritis premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1088,7 +1217,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Corn starch, D&C red #27 aluminum lake, D&C yellow #10 aluminum lake, FD&C blue #1 aluminum lake, polyethylene glycol, polyvinyl alcohol, povidone, sodium starch glycolate*, stearic acid, sucralose, talc, titanium dioxide *may contain this ingredient"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache toothache the common cold muscular aches backache minor pain of arthritis premenstrual and menstrual cramps temporarily reduces fever",
@@ -1112,7 +1243,10 @@
       "stock": 57,
       "isActive": true,
       "shortDesc": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1131,7 +1265,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "GUAIFENESIN",
       "composition": {
-        "active": ["GUAIFENESIN"],
+        "active": [
+          "GUAIFENESIN"
+        ],
         "inactive": "Carbomer homopolymer type B, hypromellose, magnesium stearate, microcrystalline cellulose, sodium starch glycolate"
       },
       "indications": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive",
@@ -1155,7 +1291,10 @@
       "stock": 66,
       "isActive": true,
       "shortDesc": "Amoxicillin and Clavulanate Potassium is indicated for the treatment of infections in adults and pediatric patients, due to susceptible isolates of the designated bacteria in the conditions listed below: Lower Respiratory Tract Infections - caused by beta-lactamase-producing isolates of Haemophilus influenzae and Moraxella catarrhalis . Acute Bacterial Otitis Media - caused by beta-lactamase-producing isolates of H. influenzae and M. catarrhalis .",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -1174,7 +1313,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AMOXICILLIN, CLAVULANATE POTASSIUM",
       "composition": {
-        "active": ["AMOXICILLIN", "CLAVULANATE POTASSIUM"],
+        "active": [
+          "AMOXICILLIN",
+          "CLAVULANATE POTASSIUM"
+        ],
         "inactive": null
       },
       "indications": "Amoxicillin and Clavulanate Potassium is indicated for the treatment of infections in adults and pediatric patients, due to susceptible isolates of the designated bacteria in the conditions listed below: Lower Respiratory Tract Infections - caused by beta-lactamase-producing isolates of Haemophilus influenzae and Moraxella catarrhalis . Acute Bacterial Otitis Media - caused by beta-lactamase-producing isolates of H. influenzae and M. catarrhalis . Sinusitis - caused by beta-lactamase-producing isolates of H. influenzae and M. catarrhalis . Skin and Skin Structure Infections - caused by beta-lactamase-producing isolates of Staphylococcus aureus , Escherichia coli , and Klebsiella species. Urinary Tract Infections - caused by beta-lactamase-producing isolates of E. coli , Klebsiella species, and Enterobacter species. Amoxicillin and Clavulanate Potassium is a combination of amoxicillin, a penicillin-class antibacterial and clavulanate potassium, a beta-lactamase inhibitor indicated for treatment of the following infections in adults and pediatric patients: ( 1 ) Lower respiratory tract infections Acute bacterial otitis media Sinusitis Skin and skin structure infections Urinary tract infections Limitations of Use When susceptibility test results show susceptibility to amoxicillin, indicating no beta-lactamase production, Amoxicillin and Clavulanate Potassium should not be used. ( 1 ) Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of Amoxicillin and Clavulanate Potassium and other antibacterial drugs, Amoxicillin and Clavulanate Potassium should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1 ) Limitations of Use When susceptibility test results show susceptibility to amoxicillin, indicating no beta-lactamase production, Amoxicillin and Clavulanate Potassium should not be used. Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of Amoxicillin and Clavulanate Potassium and other antibacterial drugs, Amoxicillin and Clavulanate Potassium should be used only to treat or prevent infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
@@ -1198,7 +1340,11 @@
       "stock": 43,
       "isActive": true,
       "shortDesc": "Temporarily: reduces fever relieves minor aches and pains due to the common cold, flu, sore throat, headaches and toothaches",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1217,7 +1363,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "Anhydrous citric acid, FD&C red #40, glycerin, hypromellose, natural and artificial berry flavor, polysorbate 80, purified water, sodium benzoate, sorbitol solution, sucrose, xanthan gum"
       },
       "indications": "Temporarily: reduces fever relieves minor aches and pains due to the common cold, flu, sore throat, headaches and toothaches",
@@ -1241,7 +1389,10 @@
       "stock": 82,
       "isActive": true,
       "shortDesc": "For Arthritis Pain label temporarily relieves minor aches and pains due to: minor pain of arthritis muscular aches backache premenstrual and menstrual cramps the common cold headache toothache temporarily reduces fever For Muscle Aches & Pain label temporarily relieves minor aches and pains due to: muscular aches, backache, minor pain of arthritis, toothache, premenstrual and menstrual cramps.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1260,7 +1411,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Hydroxyethyl cellulose, hypromellose, magnesium stearate, microcrystalline cellulose, polyethylene glycol, povidone, pregelatinized starch, sodium starch glycolate, stearic acid"
       },
       "indications": "For Arthritis Pain label temporarily relieves minor aches and pains due to: minor pain of arthritis muscular aches backache premenstrual and menstrual cramps the common cold headache toothache temporarily reduces fever For Muscle Aches & Pain label temporarily relieves minor aches and pains due to: muscular aches backache minor pain of arthritis toothache premenstrual and menstrual cramps headache the common cold temporarily reduces fever",
@@ -1284,7 +1437,10 @@
       "stock": 53,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: the common cold flu headache sore throat toothache temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1303,7 +1459,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Citric acid anhydrous, colloidal silicon dioxide, copovidone, crospovidone, D&C red No.27 lake, D&C red 30 aluminum lake, dextrose monohydrate, ethylcellulose, FD &C Blue No.1 lake, flavor, magnesium stearate, mannitol, sodium starch glycolate, stearic acid, sucralose. Questions or comments? Call 1-855-274-4122 * This product is not manufactured or distributed by McNeil Consumer Healthcare, owner of the registered trademark Children's Tylenol ® Chewables. DO NOT USE WITH OTHER MEDICINES CONTAINING ACETAMINOPHEN Distributed by: AUROHEALTH LLC 2572 Brunswick Pike Lawrenceville, NJ 08648"
       },
       "indications": "Temporarily relieves minor aches and pains due to: the common cold flu headache sore throat toothache temporarily reduces fever",
@@ -1327,7 +1485,11 @@
       "stock": 35,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache muscular aches",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1346,7 +1508,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN, CAFFEINE",
       "composition": {
-        "active": ["ACETAMINOPHEN", "CAFFEINE"],
+        "active": [
+          "ACETAMINOPHEN",
+          "CAFFEINE"
+        ],
         "inactive": "Carnauba wax, colloidal silicon dioxide, D&C red #27 aluminum lake, FD&C blue #2 aluminum lake, FD&C yellow #6 aluminum lake, hypromellose, microcrystalline cellulose, polyethylene glycol (PEG) 400, povidone, pregelatinized starch, sodium starch glycolate, stearic acid, talc, titanium dioxide"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache muscular aches",
@@ -1370,7 +1535,10 @@
       "stock": 98,
       "isActive": true,
       "shortDesc": "For the treatment and management of acne Penetrates pores to eliminate most acne and blemishes Helps prevent development of new acne blemishes and blackheads",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1389,7 +1557,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "BENZOYL PEROXIDE",
       "composition": {
-        "active": ["BENZOYL PEROXIDE"],
+        "active": [
+          "BENZOYL PEROXIDE"
+        ],
         "inactive": "Aloe Barbadensis Leaf Extract, Bakuchiol, Camellia Sinensis (Green Tea) Leaf Polyphenols, Carbomer, Cucumis Sativus (Cucumber) Fruit Extract, Disodium EDTA, Fragrance, Genistein, Glycerin, Maltodextrin, Phenoxyethanol, Punica Granatum Sterols, Purified Water, Resveratrol, Sodium Benzoate, Sodium C14-16 Olefin Sulfonate, Stearic Acid USP, Tocopheryl Acetate."
       },
       "indications": "For the treatment and management of acne Penetrates pores to eliminate most acne and blemishes Helps prevent development of new acne blemishes and blackheads",
@@ -1413,7 +1583,10 @@
       "stock": 44,
       "isActive": true,
       "shortDesc": "Adults and Pediatric Patients Upper Respiratory Tract Infections of the Ear, Nose, and Throat: Amoxicillin tablets are indicated in the treatment of infections due to susceptible (ONLY β-lactamase-negative) isolates of Streptococcus species. (α- and β-hemolytic isolates only), Streptococcus pneumoniae , Staphylococcus spp., or Haemophilus influenzae .",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -1432,7 +1605,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AMOXICILLIN",
       "composition": {
-        "active": ["AMOXICILLIN"],
+        "active": [
+          "AMOXICILLIN"
+        ],
         "inactive": null
       },
       "indications": "Adults and Pediatric Patients Upper Respiratory Tract Infections of the Ear, Nose, and Throat: Amoxicillin tablets are indicated in the treatment of infections due to susceptible (ONLY β-lactamase-negative) isolates of Streptococcus species. (α- and β-hemolytic isolates only), Streptococcus pneumoniae , Staphylococcus spp., or Haemophilus influenzae . Infections of the Genitourinary Tract: Amoxicillin tablets are indicated in the treatment of infections due to susceptible (ONLY β-lactamase-negative) isolates of Escherichia coli, Proteus mirabilis , or Enterococcus faecalis . Infections of the Skin and Skin Structure: Amoxicillin tablets are indicated in the treatment of infections due to susceptible (ONLY β-lactamase-negative) isolates of Streptococcus spp. (α- and β-hemolytic isolates only), Staphylococcus spp., or E. coli . Infections of the Lower Respiratory Tract: Amoxicillin tablets are indicated in the treatment of infections due to susceptible (ONLY β-lactamase-negative) isolates of Streptococcus spp. (α- and β-hemolytic isolates only), S. pneumoniae, Staphylococcus spp., or H. influenzae . Adult Patients only Helicobacter pylori Infection and Duodenal Ulcer Disease: Triple therapy for Helicobacter pylori (H. pylori) with clarithromycin and lansoprazole: Amoxicillin tablets, in combination with clarithromycin plus lansoprazole as triple therapy, are indicated for the treatment of patients with H. pylori infection and duodenal ulcer disease (active or 1-year history of a duodenal ulcer) to eradicate H. pylori . Eradication of H. pylori has been shown to reduce the risk of duodenal ulcer recurrence. Dual therapy for H. pylori with lansoprazole : Amoxicillin tablets, in combination with lansoprazole delayed-release capsules as dual therapy, are indicated for the treatment of patients with H. pylori infection and duodenal ulcer disease (active or 1-year history of a duodenal ulcer) who are either allergic or intolerant to clarithromycin or in whom resistance to clarithromycin is known or suspected . (See the clarithromycin package insert, MICROBIOLOGY.) Eradication of H. pylori has been shown to reduce the risk of duodenal ulcer recurrence. Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of amoxicillin tablets and other antibacterial drugs, amoxicillin tablets should be used only to treat infections that are proven or strongly suspected to be caused by bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy. Amoxicillin tablets are a penicillin-class antibacterial indicated for treatment of infections due to susceptible strains of designated microorganisms. ( 1 ) Adults and Pediatric Patients ( 1 ) Upper Respiratory Tract Infections of the Ear, Nose, and Throat Infections of the Genitourinary Tract Infections of the Skin and Skin Structure Infections of the Lower Respiratory Tract Adult Patients only ( 1 ) Helicobacter pylori Infection and Duodenal Ulcer Disease Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of amoxicillin tablets and other antibacterial drugs, amoxicillin tablets should be used only to treat or prevent infections that are proven or strongly suspected to be caused by bacteria. ( 1 )",
@@ -1456,7 +1631,11 @@
       "stock": 53,
       "isActive": true,
       "shortDesc": "Temporarily relieves common cold/flu symptoms: nasal congestion sinus congestion and pressure cough due to minor throat and bronchial irritation minor aches and pains headache fever sore throat reduces swelling of nasal passages temporarily restores freer breathing through the nose promotes nasal and/or sinus drainage helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1504,7 +1683,10 @@
       "stock": 56,
       "isActive": true,
       "shortDesc": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive temporarily relieves nasal congestion due to: common cold hay fever upper respiratory allergies temporarily restores freer breathing through the nose promotes nasal and/or sinus drainage temporarily relieves sinus congestion and pressure",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1523,7 +1705,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "GUAIFENESIN, PSEUDOEPHEDRINE HYDROCHLORIDE",
       "composition": {
-        "active": ["GUAIFENESIN", "PSEUDOEPHEDRINE HYDROCHLORIDE"],
+        "active": [
+          "GUAIFENESIN",
+          "PSEUDOEPHEDRINE HYDROCHLORIDE"
+        ],
         "inactive": "FD & C yellow #6, hypromellose, lactose monohydrate, magnesium stearate, microcrystalline cellulose, povidone, silicon dioxide."
       },
       "indications": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive temporarily relieves nasal congestion due to: common cold hay fever upper respiratory allergies temporarily restores freer breathing through the nose promotes nasal and/or sinus drainage temporarily relieves sinus congestion and pressure",
@@ -1547,7 +1732,10 @@
       "stock": 43,
       "isActive": true,
       "shortDesc": "Relieves acid indigestion heartburn sour stomach upset stomach associated with these symptoms",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1566,7 +1754,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "CALCIUM CARBONATE",
       "composition": {
-        "active": ["CALCIUM CARBONATE"],
+        "active": [
+          "CALCIUM CARBONATE"
+        ],
         "inactive": "Croscarmellose sodium, magnesium stearate, maltodextrin, microcrystalline cellulose, stearic acid"
       },
       "indications": "Relieves acid indigestion heartburn sour stomach upset stomach associated with these symptoms",
@@ -1590,7 +1780,11 @@
       "stock": 92,
       "isActive": true,
       "shortDesc": "Temporary relief of occasional headaches and minor aches and pains with accompanying sleeplessness",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1609,7 +1803,10 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN, DIPHENHYDRAMINE HYDROCHLORIDE",
       "composition": {
-        "active": ["ACETAMINOPHEN", "DIPHENHYDRAMINE HYDROCHLORIDE"],
+        "active": [
+          "ACETAMINOPHEN",
+          "DIPHENHYDRAMINE HYDROCHLORIDE"
+        ],
         "inactive": "Carnauba wax, colloidal silicon dioxide, FD&C blue#1 aluminum lake, microcrystalline cellulose, polyethylene glycol, polyvinyl alcohol, povidone, pregelatinized starch, sodium starch glycolate**, stearic acid, talc, titanium dioxide **may contain this ingredient"
       },
       "indications": "Temporary relief of occasional headaches and minor aches and pains with accompanying sleeplessness",
@@ -1633,7 +1830,10 @@
       "stock": 64,
       "isActive": true,
       "shortDesc": "Amlodipine besylate tablets is a calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of: Hypertension ( 1.1 ) Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -1652,7 +1852,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AMLODIPINE BESYLATE",
       "composition": {
-        "active": ["AMLODIPINE BESYLATE"],
+        "active": [
+          "AMLODIPINE BESYLATE"
+        ],
         "inactive": null
       },
       "indications": "Amlodipine besylate tablets is a calcium channel blocker and may be used alone or in combination with other antihypertensive and antianginal agents for the treatment of: Hypertension ( 1.1 ) Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. Coronary Artery Disease ( 1.2 ) Chronic Stable Angina Vasospastic Angina (Prinzmetal’s or Variant Angina) Angiographically Documented Coronary Artery Disease in patients without heart failure or an ejection fraction < 40% 1.1 Hypertension Amlodipine besylate tablets is indicated for the treatment of hypertension, to lower blood pressure. Lowering blood pressure reduces the risk of fatal and nonfatal cardiovascular events, primarily strokes and myocardial infarctions. These benefits have been seen in controlled trials of antihypertensive drugs from a wide variety of pharmacologic classes including Amlodipine besylate tablets. Control of high blood pressure should be part of comprehensive cardiovascular risk management, including, as appropriate, lipid control, diabetes management, antithrombotic therapy, smoking cessation, exercise, and limited sodium intake. Many patients will require more than one drug to achieve blood pressure goals. For specific advice on goals and management, see published guidelines, such as those of the National High Blood Pressure Education Program’s Joint National Committee on Prevention, Detection, Evaluation, and Treatment of High Blood Pressure (JNC). Numerous antihypertensive drugs, from a variety of pharmacologic classes and with different mechanisms of action, have been shown in randomized controlled trials to reduce cardiovascular morbidity and mortality, and it can be concluded that it is blood pressure reduction, and not some other pharmacologic property of the drugs, that is largely responsible for those benefits. The largest and most consistent cardiovascular outcome benefit has been a reduction in the risk of stroke, but reductions in myocardial infarction and cardiovascular mortality also have been seen regularly. Elevated systolic or diastolic pressure causes increased cardiovascular risk, and the absolute risk increase per mmHg is greater at higher blood pressures, so that even modest reductions of severe hypertension can provide substantial benefit. Relative risk reduction from blood pressure reduction is similar across populations with varying absolute risk, so the absolute benefit is greater in patients who are at higher risk independent of their hypertension (for example, patients with diabetes or hyperlipidemia), and such patients would be expected to benefit from more aggressive treatment to a lower blood pressure goal. Some antihypertensive drugs have smaller blood pressure effects (as monotherapy) in black patients, and many antihypertensive drugs have additional approved indications and effects (e.g., on angina, heart failure, or diabetic kidney disease). These considerations may guide selection of therapy. Amlodipine besylate tablets may be used alone or in combination with other antihypertensive agents. 1.2 Coronary Artery Disease (CAD) Chronic Stable Angina Amlodipine besylate tablets is indicated for the symptomatic treatment of chronic stable angina. Amlodipine besylate tablets may be used alone or in combination with other antianginal agents. Vasospastic Angina (Prinzmetal’s or Variant Angina) Amlodipine besylate tablets is indicated for the treatment of confirmed or suspected vasospastic angina. Amlodipine besylate tablets may be used as monotherapy or in combination with other antianginal agents. Angiographically Documented CAD In patients with recently documented CAD by angiography and without heart failure or an ejection fraction <40%, Amlodipine besylate tablets is indicated to reduce the risk of hospitalization for angina and to reduce the risk of a coronary revascularization procedure.",
@@ -1676,7 +1878,10 @@
       "stock": 21,
       "isActive": true,
       "shortDesc": "Metformin hydrochloride tablets are indicated as an adjunct to diet and exercise to improve glycemic control in adults and pediatric patients 10 years of age and older with type 2 diabetes mellitus. Metformin hydrochloride tablets are biguanide indicated as an adjunct to diet and exercise to improve glycemic control in adults and pediatric patients 10 years of age and older with type 2 diabetes mellitus. ( 1 )",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -1695,7 +1900,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "METFORMIN HYDROCHLORIDE",
       "composition": {
-        "active": ["METFORMIN HYDROCHLORIDE"],
+        "active": [
+          "METFORMIN HYDROCHLORIDE"
+        ],
         "inactive": null
       },
       "indications": "Metformin hydrochloride tablets are indicated as an adjunct to diet and exercise to improve glycemic control in adults and pediatric patients 10 years of age and older with type 2 diabetes mellitus. Metformin hydrochloride tablets are biguanide indicated as an adjunct to diet and exercise to improve glycemic control in adults and pediatric patients 10 years of age and older with type 2 diabetes mellitus. ( 1 )",
@@ -1719,7 +1926,11 @@
       "stock": 60,
       "isActive": true,
       "shortDesc": "Temporarily relieves common cold/flu symptoms: nasal congestion cough due to minor throat and bronchial irritation sore throat headache minor aches and pains fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1766,7 +1977,10 @@
       "stock": 13,
       "isActive": true,
       "shortDesc": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1785,7 +1999,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "GUAIFENESIN",
       "composition": {
-        "active": ["GUAIFENESIN"],
+        "active": [
+          "GUAIFENESIN"
+        ],
         "inactive": "Carbomer homopolymer type B; FD&C blue #1 aluminum lake; hypromellose, USP; magnesium stearate, NF; microcrystalline cellulose, NF; sodium starch glycolate, NF"
       },
       "indications": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive",
@@ -1809,7 +2025,10 @@
       "stock": 92,
       "isActive": true,
       "shortDesc": "Helps loosen phlegm (mucus) and thin bronchial secretions to rid the bronchial passageways of bothersome mucus and make coughs more productive temporarily relieves: cough due to minor throat and bronchial irritation as may occur with the common cold or inhaled irritants the intensity of coughing the impulse to cough to help you get to sleep nasal congestion due to a cold",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1856,7 +2075,11 @@
       "stock": 74,
       "isActive": true,
       "shortDesc": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose sneezing itchy, watery eyes itching of the nose or throat",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1875,7 +2098,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "CETIRIZINE HYDROCHLORIDE",
       "composition": {
-        "active": ["CETIRIZINE HYDROCHLORIDE"],
+        "active": [
+          "CETIRIZINE HYDROCHLORIDE"
+        ],
         "inactive": "Betadex, corn starch, flavor, lactose monohydrate, magnesium stearate, mannitol, silicified microcrystalline cellulose, sucralose"
       },
       "indications": "Temporarily relieves these symptoms due to hay fever or other upper respiratory allergies: runny nose sneezing itchy, watery eyes itching of the nose or throat",
@@ -1899,7 +2124,10 @@
       "stock": 41,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: the common cold headache backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1918,7 +2146,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ACETAMINOPHEN",
       "composition": {
-        "active": ["ACETAMINOPHEN"],
+        "active": [
+          "ACETAMINOPHEN"
+        ],
         "inactive": "Carnauba wax, FD&C red no. 40 aluminum lake, FD&C yellow no. 6 aluminum lake, hypromellose, iron oxide, magnesium stearate, modified starch may contain , polyethylene glycol, polysorbate 80, powdered cellulose, pregelatinized starch, purified water, sodium starch glycolate, sucralose, titanium dioxide"
       },
       "indications": "Temporarily relieves minor aches and pains due to: the common cold headache backache minor pain of arthritis toothache muscular aches premenstrual and menstrual cramps temporarily reduces fever",
@@ -1942,7 +2172,10 @@
       "stock": 57,
       "isActive": true,
       "shortDesc": "Treats frequent heartburn (occurs 2 or more days a week) not intended for immediate relief of heartburn; this drug may take 1 to 4 days for full effect",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -1961,7 +2194,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "OMEPRAZOLE",
       "composition": {
-        "active": ["OMEPRAZOLE"],
+        "active": [
+          "OMEPRAZOLE"
+        ],
         "inactive": "Carnauba wax, ferric oxide red, ferric oxide yellow, hypromellose, hypromellose acetate succinate, lactose monohydrate, monoethanolamine, propylene glycol, sodium lauryl sulfate, sodium starch glycolate, sodium stearate, sodium stearyl fumarate, talc, titanium dioxide, triethyl citrate"
       },
       "indications": "Treats frequent heartburn (occurs 2 or more days a week) not intended for immediate relief of heartburn; this drug may take 1 to 4 days for full effect",
@@ -1985,7 +2220,11 @@
       "stock": 81,
       "isActive": true,
       "shortDesc": "Temporarily relieves these common cold/flu symptoms: minor aches and pains headache sore throat fever runny nose and sneezing cough due to minor throat and bronchial irritation",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -2032,7 +2271,10 @@
       "stock": 27,
       "isActive": true,
       "shortDesc": "Temporarily relieves minor aches and pains due to: headache muscular aches minor pain of arthritis toothache backache the common cold menstrual cramps temporarily reduces fever",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -2051,7 +2293,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "IBUPROFEN",
       "composition": {
-        "active": ["IBUPROFEN"],
+        "active": [
+          "IBUPROFEN"
+        ],
         "inactive": "FD&C green #3, gelatin, medium-chain triglycerides, polyethylene glycol, potassium hydroxide, purified water, sorbitan solution, sorbitol, white ink"
       },
       "indications": "Temporarily relieves minor aches and pains due to: headache muscular aches minor pain of arthritis toothache backache the common cold menstrual cramps temporarily reduces fever",
@@ -2075,7 +2319,10 @@
       "stock": 58,
       "isActive": true,
       "shortDesc": "Azithromycin tablets are a macrolide antibacterial drug indicated for mild to moderate infections caused by designated, susceptible bacteria: Acute bacterial exacerbations of chronic bronchitis in adults ( 1.1 ) Acute bacterial sinusitis in adults ( 1.1 ) Uncomplicated skin and skin structure infections in adults ( 1.1 ) Urethritis and cervicitis in adults ( 1.1 ) Genital ulcer disease in men ( 1.1 ) Acute otitis media in pediatric patients (6 months of age and older).",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -2094,7 +2341,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "AZITHROMYCIN DIHYDRATE",
       "composition": {
-        "active": ["AZITHROMYCIN DIHYDRATE"],
+        "active": [
+          "AZITHROMYCIN DIHYDRATE"
+        ],
         "inactive": null
       },
       "indications": "Azithromycin tablets are a macrolide antibacterial drug indicated for mild to moderate infections caused by designated, susceptible bacteria: Acute bacterial exacerbations of chronic bronchitis in adults ( 1.1 ) Acute bacterial sinusitis in adults ( 1.1 ) Uncomplicated skin and skin structure infections in adults ( 1.1 ) Urethritis and cervicitis in adults ( 1.1 ) Genital ulcer disease in men ( 1.1 ) Acute otitis media in pediatric patients (6 months of age and older) ( 1.2 ) Community-acquired pneumonia in adults and pediatric patients (6 months of age and older) ( 1.1 , 1.2 ) Pharyngitis/tonsillitis in adults and pediatric patients (2 years of age and older) ( 1.1 , 1.2 ) Limitation of Use: Azithromycin should not be used in patients with pneumonia who are judged to be inappropriate for oral therapy because of moderate to severe illness or risk factors. ( 1.3 ) To reduce the development of drug-resistant bacteria and maintain the effectiveness of azithromycin tablets and other antibacterial drugs, azithromycin tablets should be used only to treat infections that are proven or strongly suspected to be caused by susceptible bacteria. ( 1.4 ) Azithromycin tablets are a macrolide antibacterial drug indicated for the treatment of patients with mild to moderate infections caused by susceptible strains of the designated microorganisms in the specific conditions listed below. Recommended dosages and durations of therapy in adult and pediatric patient populations vary in these indications. [see DOSAGE AND ADMINISTRATION ( 2 )] 1.1 Adult Patients Acute bacterial exacerbations of chronic bronchitis due to Haemophilus influenzae , Moraxella catarrhalis, or Streptococcus pneumoniae . Acute bacterial sinusitis due to Haemophilus influenzae , Moraxella catarrhalis or Streptococcus pneumoniae . Community-acquired pneumonia due to Chlamydophila pneumoniae , Haemophilus influenzae , Mycoplasma pneumoniae, or Streptococcus pneumoniae in patients appropriate for oral therapy. Pharyngitis/tonsillitis caused by Streptococcus pyogenes as an alternative to first-line therapy in individuals who cannot use first-line therapy. Uncomplicated skin and skin structure infections due to Staphylococcus aureus , Streptococcus pyogenes , or Streptococcus agalactiae . Urethritis and cervicitis due to Chlamydia trachomatis or Neisseria gonorrhoeae . Genital ulcer disease in men due to Haemophilus ducreyi (chancroid). Due to the small number of women included in clinical trials, the efficacy of azithromycin in the treatment of chancroid in women has not been established. 1.2 Pediatric Patients [see USE IN SPECIFIC POPULATIONS ( 8.4 ) and CLINICAL STUDIES ( 14.2 )] Acute otitis media ( >6 months of age) caused by Haemophilus influenzae , Moraxella catarrhalis, or Streptococcus pneumoniae. Community-acquired pneumonia ( >6 months of age) due to Chlamydophila pneumoniae , Haemophilus influenzae , Mycoplasma pneumoniae , or Streptococcus pneumoniae in patients appropriate for oral therapy. Pharyngitis/tonsillitis (>2 years of age) caused by Streptococcus pyogenes as an alternative to first-line therapy in individuals who cannot use first-line therapy. 1.3 Limitations of Use Azithromycin should not be used in patients with pneumonia who are judged to be inappropriate for oral therapy because of moderate to severe illness or risk factors such as any of the following: patients with cystic fibrosis, patients with nosocomial infections, patients with known or suspected bacteremia, patients requiring hospitalization, elderly or debilitated patients, or patients with significant underlying health problems that may compromise their ability to respond to their illness (including immunodeficiency or functional asplenia). 1.4 Usage To reduce the development of drug-resistant bacteria and maintain the effectiveness of azithromycin and other antibacterial drugs, azithromycin should be used only to treat infections that are proven or strongly suspected to be caused by susceptible bacteria. When culture and susceptibility information are available, they should be considered in selecting or modifying antibacterial therapy. In the absence of such data, local epidemiology and susceptibility patterns may contribute to the empiric selection of therapy.",
@@ -2118,7 +2367,11 @@
       "stock": 22,
       "isActive": true,
       "shortDesc": "Helps loosen phlegm (mucus) and thin bronchial secretions to drain bronchial tubes Temporarily relieves these symptoms occurring with a cold: nasal congestion cough due to minor throat and bronchial irritation.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "OTC Medicines",
@@ -2165,7 +2418,10 @@
       "stock": 20,
       "isActive": true,
       "shortDesc": "Therapy with lipid-altering agents should be only one component of multiple risk factor intervention in individuals at significantly increased risk for atherosclerotic vascular disease due to hypercholesterolemia. Drug therapy is recommended as an adjunct to diet when the response to a diet restricted in saturated fat and cholesterol and other nonpharmacologic measures alone has been inadequate.",
-      "image": ["https://via.placeholder.com/400"]
+      "image": [
+        "https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&fit=crop&auto=format"
+      ]
     },
     "category_structure": {
       "parent": "Prescription Drugs",
@@ -2184,7 +2440,9 @@
       "packaging": "Standard Packaging",
       "activeIngredients": "ATORVASTATIN CALCIUM TRIHYDRATE",
       "composition": {
-        "active": ["ATORVASTATIN CALCIUM TRIHYDRATE"],
+        "active": [
+          "ATORVASTATIN CALCIUM TRIHYDRATE"
+        ],
         "inactive": null
       },
       "indications": "Therapy with lipid-altering agents should be only one component of multiple risk factor intervention in individuals at significantly increased risk for atherosclerotic vascular disease due to hypercholesterolemia. Drug therapy is recommended as an adjunct to diet when the response to a diet restricted in saturated fat and cholesterol and other nonpharmacologic measures alone has been inadequate. In patients with CHD or multiple risk factors for CHD, atorvastatin calcium tablets can be started simultaneously with diet. Atorvastatin calcium tablets are an HMG-CoA reductase inhibitor indicated as an adjunct therapy to diet to: Reduce the risk of MI, stroke, revascularization procedures, and angina in adult patients without CHD, but with multiple risk factors ( 1.1 ). Reduce the risk of MI and stroke in adult patients with type 2 diabetes without CHD, but with multiple risk factors ( 1.1 ). Reduce the risk of non-fatal MI, fatal and non-fatal stroke, revascularization procedures, hospitalization for CHF, and angina in adult patients with CHD ( 1.1 ). Reduce elevated total-C, LDL-C, apo B, and TG levels and increase HDL-C in adult patients with primary hyperlipidemia (heterozygous familial and nonfamilial) and mixed dyslipidemia ( 1.2 ). Reduce elevated TG in adult patients with hypertriglyceridemia and primary dysbetalipoproteinemia ( 1.2 ). Reduce total-C and LDL-C in patients with homozygous familial hypercholesterolemia (HoFH) ( 1.2 ). Reduce elevated total-C, LDL-C, and apo B levels in pediatric patients, 10 years to 17 years of age, with heterozygous familial hypercholesterolemia (HeFH) after failing an adequate trial of diet therapy ( 1.2 ). Limitations of Use: Atorvastatin calcium tablets have not been studied in Fredrickson Types I and V dyslipidemias ( 1.3 ). 1.1 Prevention of Cardiovascular Disease in Adults In adult patients without clinically evident coronary heart disease, but with multiple risk factors for coronary heart disease such as age, smoking, hypertension, low HDL-C, or a family history of early coronary heart disease, atorvastatin calcium tablets are indicated to: Reduce the risk of myocardial infarction Reduce the risk of stroke Reduce the risk for revascularization procedures and angina In adult patients with type 2 diabetes, and without clinically evident coronary heart disease, but with multiple risk factors for coronary heart disease such as retinopathy, albuminuria, smoking, or hypertension, atorvastatin calcium tablets are indicated to: Reduce the risk of myocardial infarction Reduce the risk of stroke In adult patients with clinically evident coronary heart disease, atorvastatin calcium tablets are indicated to: Reduce the risk of non-fatal myocardial infarction Reduce the risk of fatal and non-fatal stroke Reduce the risk for revascularization procedures Reduce the risk of hospitalization for CHF Reduce the risk of angina 1.2 Hyperlipidemia Atorvastatin calcium tablets are indicated: As an adjunct to diet to reduce elevated total-C, LDL-C, apo B, and TG levels and to increase HDL-C in adult patients with primary hypercholesterolemia (heterozygous familial and nonfamilial) and mixed dyslipidemia ( Fredrickson Types IIa and IIb); As an adjunct to diet for the treatment of adult patients with elevated serum TG levels ( Fredrickson Type IV); For the treatment of adult patients with primary dysbetalipoproteinemia ( Fredrickson Type III) who do not respond adequately to diet; To reduce total-C and LDL-C in patients with homozygous familial hypercholesterolemia (HoFH) as an adjunct to other lipid-lowering treatments (e.g., LDL apheresis) or if such treatments are unavailable; As an adjunct to diet to reduce total-C, LDL-C, and apo B levels in pediatric patients,10 years to 17 years of age, with heterozygous familial hypercholesterolemia (HeFH) if after an adequate trial of diet therapy the following findings are present: LDL-C remains ≥ 190 mg/dL or LDL-C remains ≥ 160 mg/dL and: there is a positive family history of premature cardiovascular disease or two or more other CVD risk factors are present in the pediatric patient 1.3 Limitations of Use Atorvastatin calcium tablets have not been studied in conditions where the major lipoprotein abnormality is elevation of chylomicrons ( Fredrickson Types I and V).",

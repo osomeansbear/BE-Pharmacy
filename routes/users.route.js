@@ -23,8 +23,6 @@ const {
 const router = express.Router();
 const ADMIN = "ADMIN";
 
-// Register user
-
 router.delete(
   "/delete/:id",
   verifyUser,

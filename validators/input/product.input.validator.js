@@ -1,18 +1,6 @@
 const { z } = require("zod");
 
-const unitTypeEnum = z.enum([
-  "TABLET",
-  "CAPSULE",
-  "BLISTER",
-  "STRIP",
-  "BOTTLE",
-  "ML",
-  "GRAM",
-  "BOX",
-  "VIAL",
-  "AMPOULE",
-]);
-const unitGroupEnum = z.enum(["PACKAGING", "DOSAGE", "VOLUME", "WEIGHT"]);
+const unitTypeEnum = z.enum(["TABLET", "BOX"]);
 
 const decimalStringSchema = (fieldName, scale = 2) =>
   z
@@ -110,7 +98,6 @@ const updateProductDetailSchema = productDetailBodySchema;
 
 const createProductUnitSchema = z.object({
   unitType: unitTypeEnum,
-  unitGroup: z.array(unitGroupEnum).min(1, "unitGroup must not be empty"),
   price: decimalStringSchema("price", 2),
   conversionFactor: decimalStringSchema("conversionFactor", 4),
   isDefault: z.boolean().optional(),
@@ -131,10 +118,6 @@ const updateProductUnitSchema = z
   .object({
     price: decimalStringSchema("price", 2).optional(),
     conversionFactor: decimalStringSchema("conversionFactor", 4).optional(),
-    unitGroup: z
-      .array(unitGroupEnum)
-      .min(1, "unitGroup must not be empty")
-      .optional(),
     isDefault: z.boolean().optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {

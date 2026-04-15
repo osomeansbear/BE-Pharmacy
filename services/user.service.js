@@ -10,13 +10,11 @@ const userService = {
   async register(data) {
     const { fullName, email, password, phone, dob } = data;
 
-    // Check if email already exists
     const existingUser = await UserRepository.findByEmail(email);
     if (existingUser) {
       throw new Error("Email already registered");
     }
 
-    // Create new user
     const newUser = await UserRepository.create({
       fullName,
       email,

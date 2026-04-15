@@ -2,7 +2,6 @@ const productService = require("../services/product.service.js");
 const BaseController = require("./base.controller.js");
 
 class ProductController extends BaseController {
-  // Đổi sang arrow function ở đây
   createProduct = async (req, res) => {
     try {
       const result = await productService.createProduct(req.body);

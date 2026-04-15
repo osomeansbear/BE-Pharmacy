@@ -1,41 +1,6 @@
 const PatientProfileRepository = require("../repositories/patient-profile.repository.js");
 const ProductRepository = require("../repositories/product.repository.js");
-const { generateChatReply } = require("./llm.service.js");
-
-const SYMPTOM_KEYWORDS = {
-  headache: [
-    "paracetamol",
-    "ibuprofen",
-    "aspirin",
-    "analgesic",
-    "pain relief",
-    "headache",
-  ],
-  cold: ["vitamin c", "decongestant", "antihistamine", "cold", "flu", "nasal"],
-  fever: ["paracetamol", "ibuprofen", "antipyretic", "fever"],
-  cough: ["cough", "dextromethorphan", "antitussive", "expectorant", "syrup"],
-  sore_throat: ["lozenge", "throat", "antiseptic", "gargle", "sore throat"],
-  stomach: [
-    "antacid",
-    "digestive",
-    "stomach",
-    "bismuth",
-    "indigestion",
-    "heartburn",
-  ],
-  diarrhea: [
-    "loperamide",
-    "electrolyte",
-    "oral rehydration",
-    "probiotic",
-    "diarrhea",
-  ],
-  allergy: ["antihistamine", "cetirizine", "loratadine", "allergy", "allergic"],
-  insomnia: ["melatonin", "sleep", "valerian", "insomnia"],
-  muscle_pain: ["ibuprofen", "topical", "muscle", "pain relief", "diclofenac"],
-  skin_rash: ["hydrocortisone", "calamine", "skin", "rash", "itch"],
-  eye: ["eye drops", "eye", "artificial tears", "ophthalmic"],
-};
+const { extractKeywords, generateChatReply } = require("./llm.service.js");
 
 const GREETING_PATTERNS = [
   "hello",
@@ -47,53 +12,54 @@ const GREETING_PATTERNS = [
   "help",
 ];
 
+// Fast regex to detect health/symptom language — used to avoid LLM calls on pure greetings
+const SYMPTOM_HINT =
+  /pain|ache|sick|hurt|sore|cough|fever|nausea|vomit|rash|itch|sneez|runny|dizzy|headache|migraine|allerg|stomach|cold|flu|sleep|bleed|burn|swollen|tired|cramp/i;
+
+const GREETING_REPLY =
+  "Hello! I'm MediGenius, your pharmacy assistant. I can help you find non-prescription medications for common symptoms like headaches, colds, allergies, stomach issues, and more. What symptoms are you experiencing?";
+
 class ChatService {
   async processMessage(userId, message, history) {
     const lower = message.toLowerCase().trim();
 
-    // Check for greetings
+    // 1. Pure greeting — no symptom hint, skip LLM entirely
     if (
       GREETING_PATTERNS.some((g) => lower.includes(g)) &&
-      !this.#containsSymptoms(lower)
+      !SYMPTOM_HINT.test(lower)
     ) {
-      return {
-        reply:
-          "Hello! I'm MediGenius, your pharmacy assistant. I can help you find non-prescription medications for common symptoms like headaches, colds, allergies, stomach issues, and more. What symptoms are you experiencing?",
-        products: [],
-      };
+      return { reply: GREETING_REPLY, products: [] };
     }
 
-    // Get patient profile if logged in
     let profile = null;
     if (userId) {
       profile = await PatientProfileRepository.findByUserId(userId);
     }
 
-    // Check if user is providing allergy info in response to our question
-    const askedAboutAllergies = history.some(
+    // 3. Check if user is responding to our earlier allergy question
+    const firstAllergyAskIdx = history.findIndex(
       (h) => h.role === "assistant" && h.content.includes("allergies"),
     );
-    if (askedAboutAllergies && !this.#containsSymptoms(lower)) {
-      // User might be responding with allergy info
-      if (
-        lower.includes("no") ||
-        lower.includes("none") ||
-        lower.includes("don't have")
-      ) {
-        // No allergies — find last symptom from history and suggest
-        const lastSymptomMessage = [...history]
-          .reverse()
-          .find(
-            (h) =>
-              h.role === "user" &&
-              this.#containsSymptoms(h.content.toLowerCase()),
-          );
-        if (lastSymptomMessage) {
-          return this.#generateSuggestion(
-            lastSymptomMessage.content.toLowerCase(),
-            null,
-            userId,
-          );
+    const askedAboutAllergies = firstAllergyAskIdx !== -1;
+
+    // "no allergies" contains "allerg" which matches SYMPTOM_HINT, so we need a
+    // dedicated negative-response check that takes priority over the regex.
+    const isNegativeResponse =
+      /^(no\b|none\b|don'?t have)/i.test(lower) ||
+      /\bno\s+(known\s+)?allerg/i.test(lower);
+
+    if (askedAboutAllergies && (!SYMPTOM_HINT.test(lower) || isNegativeResponse)) {
+      // Find the original symptom message sent BEFORE the allergy question was asked
+      // (searching the full history can accidentally pick up "no allergies" which
+      //  also matches SYMPTOM_HINT via "allerg")
+      const lastSymptomMsg = history
+        .slice(0, firstAllergyAskIdx)
+        .reverse()
+        .find((h) => h.role === "user" && SYMPTOM_HINT.test(h.content));
+
+      if (isNegativeResponse) {
+        if (lastSymptomMsg) {
+          return this.#suggest(lastSymptomMsg.content, null);
         }
         return {
           reply:
@@ -101,150 +67,99 @@ class ChatService {
           products: [],
         };
       }
-      // User provided allergy info — remember it and look back for symptoms
-      const allergyText = message.trim();
-      const lastSymptomMessage = [...history]
-        .reverse()
-        .find(
-          (h) =>
-            h.role === "user" &&
-            this.#containsSymptoms(h.content.toLowerCase()),
-        );
-      if (lastSymptomMessage) {
-        return this.#generateSuggestion(
-          lastSymptomMessage.content.toLowerCase(),
-          { allergies: allergyText },
-          userId,
-        );
+
+      if (lastSymptomMsg) {
+        return this.#suggest(lastSymptomMsg.content, {
+          allergies: message.trim(),
+        });
       }
       return {
-        reply: `Thank you for letting me know about your allergies (${allergyText}). I'll keep that in mind. What symptoms are you experiencing?`,
+        reply: `Thank you for letting me know about your allergies (${message.trim()}). What symptoms are you experiencing?`,
         products: [],
       };
     }
 
-    // Detect symptoms
-    const detectedSymptoms = this.#detectSymptoms(lower);
-    if (detectedSymptoms.length === 0) {
+    // If the user already replied to the allergy question (any user message after it),
+    // don't ask again — proceed straight to suggestion.
+    const alreadyAnsweredAllergies =
+      askedAboutAllergies &&
+      history.slice(firstAllergyAskIdx + 1).some((h) => h.role === "user");
+
+    // 4. Ask about allergies if no profile yet (before running keyword extraction)
+    if (!userId && !alreadyAnsweredAllergies) {
+      return {
+        reply: `Before I suggest medications, do you have any known drug allergies? This helps me avoid recommending something that could cause a reaction.\n\nIf you have no allergies, just say "none".`,
+        products: [],
+      };
+    }
+
+    if (userId && !profile && !alreadyAnsweredAllergies) {
+      return {
+        reply: `Before I recommend any medication, do you have any known allergies or chronic diseases? You can also set up your health profile in your account settings for personalized recommendations.\n\nIf you have no allergies, just say "no allergies".`,
+        products: [],
+      };
+    }
+
+    // 5. Logged-in user with profile — extract keywords and suggest
+    return this.#suggest(message, profile);
+  }
+
+  async #suggest(message, profile, preExtractedKeywords = null) {
+    const keywords =
+      preExtractedKeywords ?? (await extractKeywords(message));
+
+    if (!keywords.length) {
       return {
         reply:
-          "I can help you find non-prescription medications for common symptoms. Could you describe what you're experiencing? For example: headache, cold, cough, stomach pain, allergies, skin rash, etc.",
+          "I can help you find non-prescription medications for common symptoms. Could you describe what you're experiencing? For example: headache, cold, stomach pain, allergies, skin rash, etc.",
         products: [],
       };
     }
 
-    // If logged in but no profile, ask about allergies first
-    if (userId && !profile) {
-      return {
-        reply: `I see you're experiencing ${detectedSymptoms.join(", ")}. Before I recommend any medication, do you have any known allergies or chronic diseases? You can also set up your health profile in your account settings for personalized recommendations.\n\nIf you have no allergies, just say "no allergies".`,
-        products: [],
-      };
-    }
+    const rawProducts = await ProductRepository.findByChatKeywords(keywords);
 
-    // If guest (no userId), ask about allergies
-    if (!userId) {
-      return {
-        reply: `I see you're experiencing ${detectedSymptoms.join(", ")}. Before I suggest medications, do you have any known drug allergies? This helps me avoid recommending something that could cause a reaction.\n\nIf you have no allergies, just say "none".`,
-        products: [],
-      };
-    }
-
-    // Logged in with profile — generate personalized suggestion
-    return this.#generateSuggestion(lower, profile, userId);
-  }
-
-  async #generateSuggestion(messageLower, profile, userId) {
-    const detectedSymptoms = this.#detectSymptoms(messageLower);
-    const keywords = detectedSymptoms.flatMap((s) => SYMPTOM_KEYWORDS[s] || []);
-
-    // Find matching products
-    const products = await this.#findMatchingProducts(keywords);
-
-    // Build response — allergy filtering is handled by the LLM
-    return await this.#buildResponse(
-      detectedSymptoms,
-      products,
-      profile,
-      messageLower,
-    );
-  }
-
-  #detectSymptoms(message) {
-    return Object.keys(SYMPTOM_KEYWORDS).filter((symptom) => {
-      const variants = [symptom, symptom.replace("_", " ")];
-      return variants.some((v) => message.includes(v));
-    });
-  }
-
-  #containsSymptoms(message) {
-    return this.#detectSymptoms(message).length > 0;
-  }
-
-  async #findMatchingProducts(keywords) {
-    if (!keywords.length) return [];
-    return ProductRepository.findByChatKeywords(keywords);
-  }
-
-  async #buildResponse(symptoms, products, profile, userMessage = "") {
-    const productList = products.map((p) => {
-      const price = p.unit?.[0]
-        ? `${Number(p.unit[0].price).toLocaleString()} (${p.unit[0].unitType})`
-        : "";
-      return {
-        id: p.id,
-        name: p.name,
-        slug: p.slug,
-        shortDesc: p.shortDesc || "",
-        price,
-      };
-    });
-
-    if (products.length === 0) {
-      return {
-        reply: this.#buildTemplateReply(symptoms, [], profile),
-        products: [],
-      };
-    }
+    const productList = rawProducts.map((p) => ({
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      shortDesc: p.shortDesc || "",
+    }));
 
     const llmReply = await generateChatReply({
-      userMessage,
-      symptoms,
-      products,
+      userMessage: message,
+      products: rawProducts,
       profile,
     });
 
     return {
-      reply:
-        llmReply ?? this.#buildTemplateReply(symptoms, productList, profile),
-      products: productList.map(({ id, name, slug, shortDesc }) => ({
-        id,
-        name,
-        slug,
-        shortDesc,
-      })),
+      reply: llmReply ?? this.#fallbackReply(rawProducts, profile),
+      products: productList,
     };
   }
 
-  #buildTemplateReply(symptoms, productList, profile) {
-    if (productList.length === 0) {
-      let reply = `I couldn't find non-prescription medications matching your symptoms (${symptoms.join(", ")}).`;
+  #fallbackReply(products, profile) {
+    if (!products.length) {
+      let reply =
+        "I couldn't find non-prescription medications matching your symptoms.";
       if (profile?.allergies) {
-        reply += ` This may be due to filtering based on your allergies (${profile.allergies}).`;
+        reply += ` This may be due to filtering based on your allergy profile (${profile.allergies}).`;
       }
       reply += " Please consult a pharmacist for personalized advice.";
       return reply;
     }
 
-    let reply = `Based on your symptoms (${symptoms.join(", ")}), here are some non-prescription suggestions:\n\n`;
-
-    productList.forEach((p, i) => {
-      reply += `${i + 1}. **${p.name}**${p.price ? ` - ${p.price}` : ""}\n   ${p.shortDesc}\n\n`;
+    let reply =
+      "Based on your symptoms, here are some non-prescription suggestions:\n\n";
+    products.forEach((p, i) => {
+      const price = p.unit?.[0]
+        ? `${Number(p.unit[0].price).toLocaleString()} (${p.unit[0].unitType})`
+        : "";
+      reply += `${i + 1}. **${p.name}**${price ? ` - ${price}` : ""}\n   ${p.shortDesc || ""}\n\n`;
     });
 
     if (profile?.allergies) {
       reply += `_Note: Results filtered based on your allergy profile (${profile.allergies})._\n\n`;
     }
-
     if (profile?.chronicDiseases) {
       reply += `_Please be mindful of your conditions (${profile.chronicDiseases}) when taking any medication._\n\n`;
     }

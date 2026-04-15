@@ -7,7 +7,6 @@ const {
 } = require("../validators/input/user.input.validator.js");
 const router = express.Router();
 
-// Register user
 router.post(
   "/login",
   validateData({ body: loginUserSchema }),

@@ -14,6 +14,7 @@ class OrderMapper {
       id: item.id,
       productId: item.productId,
       productName: item.productName,
+      productImage: item.productImage ?? null,
       unitType: item.unitType,
       quantity: this.#toStringOrNull(item.quantity),
       baseQty: this.#toStringOrNull(item.baseQty),

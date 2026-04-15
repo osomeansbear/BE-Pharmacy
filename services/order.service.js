@@ -15,7 +15,8 @@ const TRANSITIONS = {
 class OrderService {
   async getAllOrders() {
     const orders = await OrderRepository.findAllWithItems();
-    return orders.map((order) => OrderMapper.mapOrder(order));
+    const decorated = await this.#addImagesToOrders(orders);
+    return decorated.map((order) => OrderMapper.mapOrder(order));
   }
 
   async getMyOrders(userId) {
@@ -26,7 +27,8 @@ class OrderService {
     }
 
     const orders = await OrderRepository.findByUserIdWithItems(Number(userId));
-    return orders.map((order) => OrderMapper.mapOrder(order));
+    const decorated = await this.#addImagesToOrders(orders);
+    return decorated.map((order) => OrderMapper.mapOrder(order));
   }
 
   async getMyOrderById(userId, orderId) {
@@ -43,7 +45,8 @@ class OrderService {
       throw err;
     }
 
-    return OrderMapper.mapOrder(order);
+    const [decorated] = await this.#addImagesToOrders([order]);
+    return OrderMapper.mapOrder(decorated);
   }
 
   async createOrder(userId, data) {
@@ -165,7 +168,8 @@ class OrderService {
     }
 
     const updatedOrder = await OrderRepository.updateStatus(id, "CONFIRMED");
-    return OrderMapper.mapOrder(updatedOrder);
+    const [decorated] = await this.#addImagesToOrders([updatedOrder]);
+    return OrderMapper.mapOrder(decorated);
   }
 
   async updateOrderStatus(orderId, nextStatus, actor = null) {
@@ -220,10 +224,27 @@ class OrderService {
     }
 
     const updatedOrder = await OrderRepository.updateStatus(id, nextStatus);
-    return OrderMapper.mapOrder(updatedOrder);
+    const [decorated] = await this.#addImagesToOrders([updatedOrder]);
+    return OrderMapper.mapOrder(decorated);
   }
 
   // ── private helpers ──────────────────────────────────────────────────────
+
+  async #addImagesToOrders(orders) {
+    const productIds = [...new Set(orders.flatMap((o) => o.items.map((i) => i.productId)))];
+    if (!productIds.length) return orders;
+
+    const products = await ProductRepository.findManyByIds(productIds, { id: true, image: true });
+    const imageMap = new Map(products.map((p) => [p.id, p.image?.[0] ?? null]));
+
+    return orders.map((order) => ({
+      ...order,
+      items: order.items.map((item) => ({
+        ...item,
+        productImage: imageMap.get(item.productId) ?? null,
+      })),
+    }));
+  }
 
   async #buildOrderItems(items) {
     const productIds = [...new Set(items.map((item) => item.productId))];

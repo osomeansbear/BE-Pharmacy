@@ -1,12 +1,9 @@
-// controllers/user.controller.js
 const BaseController = require("./base.controller");
 const userService = require("../services/user.service");
 
 class UserController extends BaseController {
-  // Dùng arrow function để bind 'this' tự động, tránh lỗi mất context
   register = async (req, res) => {
     try {
-      // Giả sử userService.register đã trả về { User: ... } qua Mapper
       const result = await userService.register(req.body);
 
       this.success(res, result, "Register successful", 201);
@@ -18,7 +15,6 @@ class UserController extends BaseController {
   deleteUser = async (req, res) => {
     try {
       const result = await userService.deleteUser(req.params.id);
-      // result có thể là { userId: 123 }
       this.success(res, result, result.message || "User deleted successfully");
     } catch (err) {
       this.error(res, err);
@@ -57,7 +53,6 @@ class UserController extends BaseController {
       const result = await userService.getUserById(req.params.id);
       this.success(res, { user: result.user }, result.message);
     } catch (err) {
-      // BaseController sẽ tự xử lý status code
       this.error(res, err);
     }
   };

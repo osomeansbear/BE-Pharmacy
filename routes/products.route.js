@@ -20,7 +20,6 @@ const {
 const router = express.Router();
 const ADMIN = "ADMIN";
 
-// Create a new product
 router.post(
   "/",
   verifyUser,

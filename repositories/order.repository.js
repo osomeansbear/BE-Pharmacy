@@ -7,16 +7,20 @@ class OrderRepository extends BaseRepository {
   }
 
   async createWithItems(orderData, itemsData) {
-    return this.model.create({
-      data: {
-        ...orderData,
-        items: {
-          create: itemsData,
+    return prisma.$transaction(async (tx) => {
+      for (const item of itemsData) {
+        await tx.product.update({
+          where: { id: item.productId },
+          data: { stock: { decrement: Number(item.baseQty) } },
+        });
+      }
+      return tx.order.create({
+        data: {
+          ...orderData,
+          items: { create: itemsData },
         },
-      },
-      include: {
-        items: true,
-      },
+        include: { items: true },
+      });
     });
   }
 
@@ -50,6 +54,25 @@ class OrderRepository extends BaseRepository {
   }
 
   async updateStatus(id, status) {
+    if (status === "CANCELLED") {
+      return prisma.$transaction(async (tx) => {
+        const order = await tx.order.findUnique({
+          where: { id },
+          include: { items: true },
+        });
+        for (const item of order.items) {
+          await tx.product.update({
+            where: { id: item.productId },
+            data: { stock: { increment: Number(item.baseQty) } },
+          });
+        }
+        return tx.order.update({
+          where: { id },
+          data: { status },
+          include: { items: true },
+        });
+      });
+    }
     return this.model.update({
       where: { id },
       data: { status },

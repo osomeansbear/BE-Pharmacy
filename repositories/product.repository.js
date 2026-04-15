@@ -12,9 +12,11 @@ class ProductRepository extends BaseRepository {
       brand,
       search,
       requiresRx,
-      page = 1,
-      limit = 50,
+      page: rawPage = 1,
+      limit: rawLimit = 50,
     } = filters;
+    const page = parseInt(rawPage, 10) || 1;
+    const limit = parseInt(rawLimit, 10) || 50;
 
     const normalizedCategory = category?.trim();
     const normalizedBrand = brand?.trim();
@@ -142,7 +144,6 @@ class ProductRepository extends BaseRepository {
         data: {
           productId: Number(productId),
           unitType: data.unitType,
-          unitGroup: data.unitGroup,
           price: data.price,
           conversionFactor: data.conversionFactor,
           isDefault,

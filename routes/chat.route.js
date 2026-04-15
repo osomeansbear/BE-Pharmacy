@@ -8,7 +8,6 @@ const {
 
 const router = express.Router();
 
-// POST /api/v1/chat — works for both guests and authenticated users
 router.post(
   "/",
   optionalAuth,

@@ -33,6 +33,9 @@ class ProductMapper {
       units: Array.isArray(model.unit)
         ? model.unit.map((u) => this.mapUnit(u))
         : [],
+      categoryIds: Array.isArray(model.categories)
+        ? model.categories.map((pc) => pc.categoryId)
+        : [],
     });
   }
 

@@ -25,6 +25,7 @@ const BaseProductSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
   units: z.array(ProductUnitSchema).default([]),
+  categoryIds: z.array(z.number().int()).default([]),
 });
 
 const ProductListSchema = z.array(BaseProductSchema);

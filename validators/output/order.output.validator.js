@@ -4,6 +4,7 @@ const OrderItemOutput = z.object({
   id: z.number(),
   productId: z.number(),
   productName: z.string(),
+  productImage: z.string().nullable(),
   unitType: z.string(),
   quantity: z.string(),
   baseQty: z.string(),

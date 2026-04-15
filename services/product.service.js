@@ -37,9 +37,7 @@ class productService {
       image: image || [],
     });
 
-    return {
-      newProduct: ProductMapper.mapToItem(newProduct),
-    };
+    return ProductMapper.mapToItem(newProduct);
   }
 
   async getProductBySlug(slug) {

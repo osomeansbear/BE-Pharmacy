@@ -105,7 +105,7 @@ class CartService {
     if (!items.length) return [];
 
     const productIds = [...new Set(items.map((i) => i.productId))];
-    const products = await ProductRepository.findManyByIds(productIds, { id: true, name: true });
+    const products = await ProductRepository.findManyByIds(productIds, { id: true, name: true, image: true });
     const productMap = new Map(products.map((p) => [p.id, p]));
 
     const units = await ProductRepository.findUnitsByConditions(
@@ -122,6 +122,7 @@ class CartService {
       return {
         ...item,
         productName: product ? product.name : "Unknown product",
+        productImage: product?.image?.[0] ?? null,
         unitPrice: unit ? unit.price : 0,
         conversionFactor: unit ? unit.conversionFactor : 0,
       };
