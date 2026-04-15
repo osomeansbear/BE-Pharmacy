@@ -9,7 +9,6 @@ class ProductMapper {
     return {
       id: unit.id,
       unitType: unit.unitType,
-      unitGroup: Array.isArray(unit.unitGroup) ? unit.unitGroup : [],
       price: unit.price.toString(),
       conversionFactor: unit.conversionFactor.toString(),
       isDefault: Boolean(unit.isDefault),
