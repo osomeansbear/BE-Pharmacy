@@ -1,12 +1,12 @@
 # BE-Pharmacy
 
-Express.js 5 REST API backend for the Smart Pharmacy Application. Provides product catalogue management, order processing, user authentication, and the MediGenius OTC consultation engine.
+Express.js 5 REST API backend for the Smart Pharmacy Application. Provides product catalogue management, order processing, user authentication, and the MediBot OTC consultation engine.
 
 ## Prerequisites
 
 - Node.js 20 or higher
 - PostgreSQL 14 or higher (running locally or via a connection string)
-- Ollama (required for MediGenius LLM responses; see LLM Setup below)
+- Ollama (required for MediBot LLM responses; see LLM Setup below)
 - pnpm (recommended) or npm
 
 ## Project Structure
@@ -46,7 +46,7 @@ PORT=5000
 # Optional: JWT expiry (default "7d")
 EXPIRED_JWT="7d"
 
-# LLM configuration for MediGenius
+# LLM configuration for MediBot
 # Option A: Ollama (local, no cost)
 LLM_BASE_URL=http://localhost:11434/v1
 LLM_API_KEY=ollama
@@ -60,7 +60,7 @@ LLM_MODEL=llama3.2:3b
 
 ## LLM Setup
 
-MediGenius calls an OpenAI-compatible API for keyword extraction and response generation. The default is a local Ollama instance.
+MediBot calls an OpenAI-compatible API for keyword extraction and response generation. The default is a local Ollama instance.
 
 **Ollama (local):**
 
@@ -86,7 +86,7 @@ npx prisma migrate dev
 # 3. Seed base data (admin user, product categories, brands, demo products)
 pnpm seed
 
-# 4. Seed demo data (patient account, orders, ProductAI context strings for MediGenius)
+# 4. Seed demo data (patient account, orders, ProductAI context strings for MediBot)
 pnpm seed:demo
 
 # 5. Start the development server with hot reload
@@ -99,26 +99,26 @@ The API will be available at `http://localhost:5000/api/v1`.
 
 After seeding, the following accounts are ready to use:
 
-| Role | Email | Password |
-| ---- | ----- | -------- |
-| Admin | admin@demo.local | Admin@123 |
+| Role    | Email              | Password    |
+| ------- | ------------------ | ----------- |
+| Admin   | admin@demo.local   | Admin@123   |
 | Patient | patient@demo.local | Patient@123 |
 
 ## API Routes
 
 All routes are prefixed with `/api/v1`.
 
-| Prefix | Description |
-| ------ | ----------- |
-| `/auth` | Register, login |
-| `/users` | Patient profile, addresses, health profile |
-| `/products` | Product catalogue (public read, admin write) |
-| `/brands` | Brand listing and management |
-| `/categories` | Category listing and management |
-| `/cart` | Cart operations (authenticated patients) |
-| `/orders` | Order placement and history |
-| `/chat` | MediGenius consultation endpoint |
-| `/admin` | Admin-only dashboard operations |
+| Prefix        | Description                                  |
+| ------------- | -------------------------------------------- |
+| `/auth`       | Register, login                              |
+| `/users`      | Patient profile, addresses, health profile   |
+| `/products`   | Product catalogue (public read, admin write) |
+| `/brands`     | Brand listing and management                 |
+| `/categories` | Category listing and management              |
+| `/cart`       | Cart operations (authenticated patients)     |
+| `/orders`     | Order placement and history                  |
+| `/chat`       | MediBot consultation endpoint                |
+| `/admin`      | Admin-only dashboard operations              |
 
 ## Database Management
 
