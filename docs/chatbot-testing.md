@@ -1,8 +1,8 @@
-# MediGenius Chatbot — Testing Guide & Flow Documentation
+# MediBot Chatbot — Testing Guide & Flow Documentation
 
 ## Overview
 
-MediGenius is a simulated AI pharmacy assistant that helps users find non-prescription (OTC) medications based on their symptoms. It is **not** a real AI model — it uses keyword matching against a symptom dictionary and queries the product catalog.
+MediBot is a simulated AI pharmacy assistant that helps users find non-prescription (OTC) medications based on their symptoms. It is **not** a real AI model — it uses keyword matching against a symptom dictionary and queries the product catalog.
 
 ---
 
@@ -58,20 +58,20 @@ Frontend renders AssistantMessage with optional ProductCard list
 
 ## Symptom Categories (Keyword Triggers)
 
-| Symptom | Message must contain |
-|---------|---------------------|
-| headache | "headache" |
-| cold | "cold" |
-| fever | "fever" |
-| cough | "cough" |
+| Symptom     | Message must contain           |
+| ----------- | ------------------------------ |
+| headache    | "headache"                     |
+| cold        | "cold"                         |
+| fever       | "fever"                        |
+| cough       | "cough"                        |
 | sore_throat | "sore throat" or "sore_throat" |
-| stomach | "stomach" |
-| diarrhea | "diarrhea" |
-| allergy | "allergy" |
-| insomnia | "insomnia" |
+| stomach     | "stomach"                      |
+| diarrhea    | "diarrhea"                     |
+| allergy     | "allergy"                      |
+| insomnia    | "insomnia"                     |
 | muscle_pain | "muscle pain" or "muscle_pain" |
-| skin_rash | "skin rash" or "skin_rash" |
-| eye | "eye" |
+| skin_rash   | "skin rash" or "skin_rash"     |
+| eye         | "eye"                          |
 
 ---
 
@@ -80,6 +80,7 @@ Frontend renders AssistantMessage with optional ProductCard list
 ### Setup
 
 Start both servers:
+
 - **Frontend:** `pnpm dev` in `FE-Pharmacy/` → http://localhost:3000
 - **Backend:** `npm run dev` in `BE-Pharmacy/` → http://localhost:5000
 
@@ -88,21 +89,25 @@ Navigate to http://localhost:3000/ai-assistant
 ---
 
 ### Test 1 — Page Load (No Auto-Scroll)
+
 **Steps:** Open `/ai-assistant` on a fresh page load
 **Expected:** The page does NOT automatically scroll down to the chat area. The chat container is visible at its natural position without forced scrolling.
 
 ---
 
 ### Test 2 — Guest: Greeting
+
 **Precondition:** Not logged in
 **Steps:** Type `Hello`
-**Expected:** Bot introduces itself as MediGenius and asks about symptoms. No product cards shown.
+**Expected:** Bot introduces itself as MediBot and asks about symptoms. No product cards shown.
 
 ---
 
 ### Test 3 — Guest: Symptom → Allergy Question → No Allergies → Products
+
 **Precondition:** Not logged in
 **Steps:**
+
 1. Type: `I have a headache`
 2. Expected: Bot asks about drug allergies
 3. Type: `none`
@@ -111,8 +116,10 @@ Navigate to http://localhost:3000/ai-assistant
 ---
 
 ### Test 4 — Guest: Symptom → Has Allergies → Filtered Products
+
 **Precondition:** Not logged in
 **Steps:**
+
 1. Type: `I have a headache`
 2. Expected: Bot asks about allergies
 3. Type: `aspirin, ibuprofen`
@@ -121,8 +128,10 @@ Navigate to http://localhost:3000/ai-assistant
 ---
 
 ### Test 5 — Authenticated: No Health Profile
+
 **Precondition:** Logged in as PATIENT, health profile NOT set up
 **Steps:**
+
 1. Type: `I have a cold`
 2. Expected: Bot acknowledges symptoms AND asks about allergies. Mentions setting up health profile in account settings.
 3. Type: `no allergies`
@@ -131,11 +140,14 @@ Navigate to http://localhost:3000/ai-assistant
 ---
 
 ### Test 6 — Authenticated: With Health Profile (Allergies & Conditions)
+
 **Precondition:** Logged in as PATIENT, health profile set up with:
+
 - Allergies: `ibuprofen`
 - Chronic diseases: `diabetes`
 
 **Steps:**
+
 1. Type: `I have a fever`
 2. Expected:
    - Products shown do NOT include ibuprofen-based products
@@ -147,44 +159,49 @@ Navigate to http://localhost:3000/ai-assistant
 ---
 
 ### Test 7 — Multiple Symptoms
+
 **Steps:** Type `I have a headache and stomach pain`
 **Expected:** Bot detects both "headache" and "stomach" symptoms. Returns products relevant to both categories.
 
 ---
 
 ### Test 8 — No Symptoms Detected
+
 **Steps:** Type `How is the weather today?`
 **Expected:** Bot says it can help with symptoms and lists example categories (headache, cold, cough, etc.). No product cards.
 
 ---
 
 ### Test 9 — Greeting with Symptom (Bypass Greeting)
+
 **Steps:** Type `Hi, I have a cough`
 **Expected:** Bot processes the cough symptom (NOT just return a greeting), asks about allergies or suggests products depending on auth state.
 
 ---
 
 ### Test 10 — All 12 Symptom Categories
+
 Test each keyword one by one. Each should trigger the allergy question or product suggestion flow:
 
-| Message | Symptom triggered |
-|---------|------------------|
-| `I have a headache` | headache |
-| `I have a cold` | cold |
-| `I have a fever` | fever |
-| `I have a cough` | cough |
-| `I have a sore throat` | sore_throat |
-| `I have stomach pain` | stomach |
-| `I have diarrhea` | diarrhea |
-| `I have an allergy` | allergy |
-| `I have insomnia` | insomnia |
-| `I have muscle pain` | muscle_pain |
-| `I have a skin rash` | skin_rash |
-| `My eye hurts` | eye |
+| Message                | Symptom triggered |
+| ---------------------- | ----------------- |
+| `I have a headache`    | headache          |
+| `I have a cold`        | cold              |
+| `I have a fever`       | fever             |
+| `I have a cough`       | cough             |
+| `I have a sore throat` | sore_throat       |
+| `I have stomach pain`  | stomach           |
+| `I have diarrhea`      | diarrhea          |
+| `I have an allergy`    | allergy           |
+| `I have insomnia`      | insomnia          |
+| `I have muscle pain`   | muscle_pain       |
+| `I have a skin rash`   | skin_rash         |
+| `My eye hurts`         | eye               |
 
 ---
 
 ### Test 11 — Allergy Filtering Removes All Products
+
 **Precondition:** Logged in, health profile with very broad allergies matching all available OTC products
 **Steps:** Type a symptom
 **Expected:** Bot responds that it couldn't find matching medications, mentions allergy filtering, recommends consulting a pharmacist.
@@ -192,6 +209,7 @@ Test each keyword one by one. Each should trigger the allergy question or produc
 ---
 
 ### Test 12 — Product Card Navigation
+
 **Precondition:** Get a response with product cards
 **Steps:** Click on any product card
 **Expected:** Navigates to `/products/{slug}` for that product. Product detail page loads correctly.
@@ -199,7 +217,9 @@ Test each keyword one by one. Each should trigger the allergy question or produc
 ---
 
 ### Test 13 — Send Button / Enter Key
+
 **Steps:**
+
 1. Type a message and press **Enter** → message sends
 2. Type a message and click the **Send** button → message sends
 3. While bot is loading → both Enter and Send button are disabled
@@ -208,6 +228,7 @@ Test each keyword one by one. Each should trigger the allergy question or produc
 ---
 
 ### Test 14 — Health Profile Link (Authenticated Only)
+
 **Precondition:** Logged in
 **Steps:** Look at the chatbot header
 **Expected:** "Manage health profile →" link is visible. Clicking it navigates to `/users/profile/health`.
@@ -216,7 +237,9 @@ Test each keyword one by one. Each should trigger the allergy question or produc
 ---
 
 ### Test 15 — Auto-Scroll After Sending Messages
+
 **Steps:**
+
 1. Have a long enough conversation to fill the chat area
 2. Send a new message
 3. Expected: Chat scrolls to the latest message automatically
@@ -227,12 +250,12 @@ Test each keyword one by one. Each should trigger the allergy question or produc
 
 ## Common Issues & Tips
 
-| Issue | Check |
-|-------|-------|
-| No products returned | Ensure the database has active (`isActive: true`), non-prescription (`requiresRx: false`) products seeded. Run `node prisma/seed.js` and `node prisma/demoFlow.seed.js`. |
-| Chatbot always asks about allergies | This is correct behavior for guests and for authenticated users without a health profile. Set up a health profile at `/users/profile/health`. |
-| Product cards not clickable | Ensure product slugs are set in the database. |
-| "Sorry, I'm having trouble connecting" error | Ensure the backend is running on port 5000 and `NEXT_PUBLIC_API_URL` is set correctly in `.env`. |
+| Issue                                        | Check                                                                                                                                                                    |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No products returned                         | Ensure the database has active (`isActive: true`), non-prescription (`requiresRx: false`) products seeded. Run `node prisma/seed.js` and `node prisma/demoFlow.seed.js`. |
+| Chatbot always asks about allergies          | This is correct behavior for guests and for authenticated users without a health profile. Set up a health profile at `/users/profile/health`.                            |
+| Product cards not clickable                  | Ensure product slugs are set in the database.                                                                                                                            |
+| "Sorry, I'm having trouble connecting" error | Ensure the backend is running on port 5000 and `NEXT_PUBLIC_API_URL` is set correctly in `.env`.                                                                         |
 
 ---
 

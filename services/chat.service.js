@@ -17,7 +17,7 @@ const SYMPTOM_HINT =
   /pain|ache|sick|hurt|sore|cough|fever|nausea|vomit|rash|itch|sneez|runny|dizzy|headache|migraine|allerg|stomach|cold|flu|sleep|bleed|burn|swollen|tired|cramp/i;
 
 const GREETING_REPLY =
-  "Hello! I'm MediGenius, your pharmacy assistant. I can help you find non-prescription medications for common symptoms like headaches, colds, allergies, stomach issues, and more. What symptoms are you experiencing?";
+  "Hello! I'm MediBot, your pharmacy assistant. I can help you find non-prescription medications for common symptoms like headaches, colds, allergies, stomach issues, and more. What symptoms are you experiencing?";
 
 class ChatService {
   async processMessage(userId, message, history) {
@@ -48,7 +48,10 @@ class ChatService {
       /^(no\b|none\b|don'?t have)/i.test(lower) ||
       /\bno\s+(known\s+)?allerg/i.test(lower);
 
-    if (askedAboutAllergies && (!SYMPTOM_HINT.test(lower) || isNegativeResponse)) {
+    if (
+      askedAboutAllergies &&
+      (!SYMPTOM_HINT.test(lower) || isNegativeResponse)
+    ) {
       // Find the original symptom message sent BEFORE the allergy question was asked
       // (searching the full history can accidentally pick up "no allergies" which
       //  also matches SYMPTOM_HINT via "allerg")
@@ -105,8 +108,7 @@ class ChatService {
   }
 
   async #suggest(message, profile, preExtractedKeywords = null) {
-    const keywords =
-      preExtractedKeywords ?? (await extractKeywords(message));
+    const keywords = preExtractedKeywords ?? (await extractKeywords(message));
 
     if (!keywords.length) {
       return {
@@ -117,24 +119,75 @@ class ChatService {
     }
 
     const rawProducts = await ProductRepository.findByChatKeywords(keywords);
+    const safeProducts = this.#filterByAllergies(
+      rawProducts,
+      profile?.allergies,
+    );
 
-    const productList = rawProducts.map((p) => ({
+    const productList = safeProducts.map((p) => ({
       id: p.id,
       name: p.name,
       slug: p.slug,
       shortDesc: p.shortDesc || "",
     }));
 
+    const llmProducts = safeProducts.slice(0, 3).map((p) => ({
+      name: p.name,
+      shortDesc: p.shortDesc || "",
+      unit: p.unit,
+    }));
     const llmReply = await generateChatReply({
       userMessage: message,
-      products: rawProducts,
+      products: llmProducts,
       profile,
     });
 
     return {
-      reply: llmReply ?? this.#fallbackReply(rawProducts, profile),
+      reply: llmReply ?? this.#fallbackReply(safeProducts, profile),
       products: productList,
     };
+  }
+
+  // Common drug synonyms — catches acetaminophen/paracetamol mismatches etc.
+  static #SYNONYMS = new Map([
+    ["acetaminophen", ["acetaminophen", "paracetamol"]],
+    ["paracetamol", ["paracetamol", "acetaminophen"]],
+    ["ibuprofen", ["ibuprofen", "brufen", "advil", "nurofen"]],
+    ["aspirin", ["aspirin", "acetylsalicylic acid"]],
+    ["penicillin", ["penicillin", "amoxicillin", "ampicillin"]],
+    ["amoxicillin", ["amoxicillin", "penicillin", "ampicillin"]],
+  ]);
+
+  #filterByAllergies(products, allergies) {
+    if (!allergies?.trim()) return products;
+
+    const rawTerms = allergies
+      .toLowerCase()
+      .split(/[,;/\n]+/)
+      .map((t) => t.trim())
+      .filter((t) => t.length > 2);
+
+    if (!rawTerms.length) return products;
+
+    // Expand each term with known synonyms
+    const terms = [
+      ...new Set(rawTerms.flatMap((t) => ChatService.#SYNONYMS.get(t) ?? [t])),
+    ];
+
+    return products.filter((p) => {
+      const searchText = [
+        p.name,
+        p.shortDesc,
+        p.detail?.activeIngredients,
+        p.detail?.indications,
+        ...(p.productAIs?.map((ai) => ai.context) ?? []),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return !terms.some((term) => searchText.includes(term));
+    });
   }
 
   #fallbackReply(products, profile) {

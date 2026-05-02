@@ -1,21 +1,8 @@
-// LLM service — OpenAI-compatible API
-// Works with Ollama (local) and Groq (cloud) via env vars:
-//
-//   Ollama (default):
-//     LLM_BASE_URL=http://localhost:11434/v1
-//     LLM_API_KEY=ollama          (any non-empty string)
-//     LLM_MODEL=llama3.2:3b
-//
-//   Groq (cloud, free tier):
-//     LLM_BASE_URL=https://api.groq.com/openai/v1
-//     LLM_API_KEY=gsk_...         (your Groq API key)
-//     LLM_MODEL=llama-3.3-70b-versatile
-
 const LLM_BASE_URL = process.env.LLM_BASE_URL || "http://localhost:11434/v1";
 const LLM_API_KEY = process.env.LLM_API_KEY || "ollama";
 const LLM_MODEL = process.env.LLM_MODEL || "llama3.2:3b";
 
-async function callLLM(messages, options = {}) {
+async function callLLM(messages, options = {}, timeoutMs = 30000) {
   const res = await fetch(`${LLM_BASE_URL}/chat/completions`, {
     method: "POST",
     headers: {
@@ -28,7 +15,7 @@ async function callLLM(messages, options = {}) {
       stream: false,
       ...options,
     }),
-    signal: AbortSignal.timeout(30000),
+    signal: AbortSignal.timeout(timeoutMs),
   });
 
   if (!res.ok) {
@@ -53,10 +40,9 @@ Examples:
 Message: "${message.replace(/"/g, '\\"')}"`;
 
   try {
-    const raw = await callLLM(
-      [{ role: "user", content: prompt }],
-      { temperature: 0 },
-    );
+    const raw = await callLLM([{ role: "user", content: prompt }], {
+      temperature: 0,
+    });
     const match = raw?.match(/\[[\s\S]*?\]/);
     if (!match) return [];
     const parsed = JSON.parse(match[0]);
@@ -67,7 +53,7 @@ Message: "${message.replace(/"/g, '\\"')}"`;
   }
 }
 
-const REPLY_SYSTEM = `You are MediGenius, a pharmacy assistant for an online pharmacy.
+const REPLY_SYSTEM = `You are MediBot, a pharmacy assistant for an online pharmacy.
 You ONLY discuss non-prescription (OTC) medications and general health topics.
 You NEVER recommend prescription drugs, diagnose medical conditions, or suggest treatments outside the product list provided.
 You will receive a list of OTC products and may receive the patient's allergy and health information.
@@ -93,7 +79,9 @@ async function generateChatReply({ userMessage, products, profile }) {
     patientContext.push(`Patient allergies: ${profile.allergies}.`);
   }
   if (profile?.chronicDiseases) {
-    patientContext.push(`Patient chronic conditions: ${profile.chronicDiseases}.`);
+    patientContext.push(
+      `Patient chronic conditions: ${profile.chronicDiseases}.`,
+    );
   }
 
   const productLines = products
@@ -133,7 +121,8 @@ async function generateChatReply({ userMessage, products, profile }) {
         { role: "system", content: REPLY_SYSTEM },
         { role: "user", content: userTurn },
       ],
-      { temperature: 0.4 },
+      { temperature: 0.4, max_tokens: 300 },
+      120000,
     );
   } catch (err) {
     console.warn("[LLM] generateChatReply failed:", err.message);
